@@ -101,7 +101,7 @@ angular.module('hoursApp')
   				return jsonService.Post(HOURSSERVICE_BASE_URI, entryUrl, entry);
   			},
   			Edit: function(entry){
-  				return jsonService.Put(HOURSSERVICE_BASE_URI, entryUrl, entry);
+  				return jsonService.Put(HOURSSERVICE_BASE_URI, entryUrl + entry.id + "/", entry);
   			},
   			Get: function(id){
   				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});

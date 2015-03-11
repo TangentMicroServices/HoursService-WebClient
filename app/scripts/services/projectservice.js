@@ -8,7 +8,7 @@
  * Service in the hoursApp.
  */
 angular.module('hoursApp')
-  .service('projectService', function (jsonService, $q, PROJECTSERVICE_BASE_URI, notificationService) {
+  .service('projectService', function ($rootScope, jsonService, $q, PROJECTSERVICE_BASE_URI, notificationService) {
 
   		var projects = [];
   		var tasks = [];
@@ -45,7 +45,10 @@ angular.module('hoursApp')
 
   				return deferred.promise;
   			},
-  			GetTasks: function(){
+  			GetTask: function(id){
+  				return _.where(tasks, { id: id})[0];
+  			},
+  			MyTasks: function(){
   				var deferred = $q.defer();
   				
   				if(tasksLoaded){
@@ -53,7 +56,7 @@ angular.module('hoursApp')
   					return deferred.promise;
   				}
 
-  				var promise = jsonService.Get(PROJECTSERVICE_BASE_URI, '/tasks/', {})
+  				var promise = jsonService.Get(PROJECTSERVICE_BASE_URI, "/tasks/?user=" + $rootScope.CurrentUser.id, {})
 										.success(function(response){
 					  						tasksLoaded = true;
 					  						setTasks(response);

@@ -30,7 +30,7 @@ angular
         controller: 'AboutCtrl'
       })
       .when('/editEntry', {
-        templateUrl: 'views/editentry.html',
+        templateUrl: 'views/addentry.html',
         controller: 'EditentryCtrl'
       })
       .when('/addEntry', {

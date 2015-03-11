@@ -1,10 +1,12 @@
- <!-- task.id as task.title in Tasks track by task.id -->
 <div class="row">
 	<form role="form" ng-submit="Submit()" class="form-horizontal">
+	  <div ng-show="ErrorOccured">
+	  	<div class="alert alert-danger">{{ ErrorMessage }}</div>
+	  </div>
 	  <div class="form-group">
 	    <label for="task" class="col-sm-2 control-label">Task</label>
 	    <div class="col-sm-10">
-	    <select id="task" class="form-control" ng-model="Entry.project_task_id" ng-options="task in Tasks" required></select>
+	    <select id="task" class="form-control" ng-model="Entry.project_task_id" ng-options="task.id as task.title for task in Tasks" required></select>
 	    </div>
 	  </div>
 	    <div class="form-group">
@@ -17,23 +19,39 @@
               </span>
             </p>
 	    </div>
+	     <!-- can consider making this on directive -->
+	    	<div class="text-danger" ng-show="ErrorMessage.day">
+	    		<span ng-repeat="value in ErrorMessage.day">{{ value }}</span> 
+	    	</div>
 	  </div>
 	  <div class="form-group">
 	    <label for="" class="col-sm-2 control-label">Start Time</label>
 	    <div class="col-sm-10">
-	    	 <timepicker ng-model="Entry.start_time" hour-step="1" minute-step="1" ></timepicker>
+	    	<input class="form-control" type="text" ng-model="Entry.start_time"></input>
 	    </div>
+	    <!-- can consider making this on directive -->
+	    <div class="text-danger" ng-show="ErrorMessage.start_time">
+	    	<span ng-repeat="value in ErrorMessage.start_time">{{ value }}</span> 
+	    	</div>
 	  </div>
 	  <div class="form-group">
 	    <label for="" class="col-sm-2 control-label">End Time</label>
 	    <div class="col-sm-10">
-	    	 <timepicker ng-model="Entry.end_time" hour-step="1" minute-step="1" ></timepicker>
+	    	<input class="form-control" type="text" ng-model="Entry.end_time"></input>
+	    	<!-- can consider making this on directive -->
+	    	<div class="text-danger" ng-show="ErrorMessage.end_time">
+	    		<span ng-repeat="value in ErrorMessage.end_time">{{ value }}</span> 
+	    	</div>
 	    </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="comment" class="col-sm-2 control-label">Comment</label>
 	    <div class="col-sm-10">
-	    	<textarea class="form-control" ng-model="Entry.comment" id="comment" cols="3" rows="3"></textarea>
+	    	<textarea class="form-control" ng-model="Entry.comments" id="comment" cols="3" rows="3"></textarea>
+	    	<!-- can consider making this on directive -->
+	    	<div class="text-danger" ng-show="ErrorMessage.comments">
+	    		<span ng-repeat="value in ErrorMessage.comments">{{ value }}</span> 
+	    	</div>
 	    </div>
 	  </div>
 	  <div class="form-group">

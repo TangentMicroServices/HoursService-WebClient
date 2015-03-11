@@ -23,6 +23,10 @@ angular.module('hoursApp')
   			$location.path('/editEntry');
   		};
 
+      $scope.GetTask = function(entry){
+         return projectService.GetTask(entry.project_task_id);
+      }
+
   		var entryDeleted = function(response){
   			notificationService.success("Your entry has succesfully been deleted.");
         loadEntries();
@@ -53,7 +57,7 @@ angular.module('hoursApp')
   		};
 
   		var loadTasks = function(){
-  			projectService.GetTasks().then(function(response){
+  			projectService.MyTasks().then(function(response){
   				$scope.Tasks = response;
   			});
   		};
