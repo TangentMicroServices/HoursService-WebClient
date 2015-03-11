@@ -49,6 +49,10 @@ angular
         templateUrl: 'views/viewentry.html',
         controller: 'ViewentryCtrl'
       })
+      .when('/topnavigation', {
+        templateUrl: 'views/topnavigation.html',
+        controller: 'TopnavigationCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

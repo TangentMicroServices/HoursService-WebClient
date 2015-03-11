@@ -26,8 +26,11 @@ angular.module('hoursApp')
      	}
 
      	var currentUserLoaded = function(response){
+        $rootScope.$broadcast('UserLoggedIn', {});
+
         notificationService.success('You are currently logged in as ' + response.username);
-        $location.path('/viewEntries');;
+
+        $location.path('/viewEntries');
      	};
 
      	var currentUserLoadFailed = function(response){
