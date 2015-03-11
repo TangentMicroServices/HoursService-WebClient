@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'jlareau.pnotify'
+    'jlareau.pnotify',
+    'ui.bootstrap'
   ])
   .config(function ($routeProvider, $provide, $httpProvider) {
     $routeProvider
@@ -43,6 +44,10 @@ angular
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
+      })
+      .when('/viewentry', {
+        templateUrl: 'views/viewentry.html',
+        controller: 'ViewentryCtrl'
       })
       .otherwise({
         redirectTo: '/'

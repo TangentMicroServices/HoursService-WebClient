@@ -25,24 +25,25 @@ angular.module('hoursApp')
 
   		var entryDeleted = function(response){
   			notificationService.success("Your entry has succesfully been deleted.");
+        loadEntries();
   		};
 
   		var entryDeletionFailed = function(response){
   			notificationService.error("Failed to delete your entry.");
   		};
 
-  		var onUsersLoaded = function(data){
+  		var onEntriesLoaded = function(data){
   			$scope.Entries = data;
   		}
 
-  		var onUsersLoadFailed = function(data){
-  			console.log('failed to load users. ')
+  		var onEntriesLoadFailed = function(data){
+        notificationService.error('failed to load entries. ');
   		}
 
   		var loadEntries = function(){
   			entryService.GetEntriesForUser()
-  				.success(onUsersLoaded)
-  				.error(onUsersLoadFailed);
+  				.success(onEntriesLoaded)
+  				.error(onEntriesLoadFailed);
   		}
 
   		var loadProjects = function(){

@@ -8,7 +8,7 @@
  * Service in the hoursApp.
  */
 angular.module('hoursApp')
-  .service('projectService', function (jsonService, $q, PROJECTSERVICE_BASE_URI) {
+  .service('projectService', function (jsonService, $q, PROJECTSERVICE_BASE_URI, notificationService) {
 
   		var projects = [];
   		var tasks = [];
@@ -39,6 +39,7 @@ angular.module('hoursApp')
   						deferred.resolve(response);
   					})
   					.error(function(response){
+  						notificationService.error('An error occured while trying to load projects.');
   						deferred.reject(response);
   					});
 
@@ -46,7 +47,7 @@ angular.module('hoursApp')
   			},
   			GetTasks: function(){
   				var deferred = $q.defer();
-
+  				
   				if(tasksLoaded){
   					deferred.resolve(tasks);
   					return deferred.promise;
@@ -59,6 +60,7 @@ angular.module('hoursApp')
 					  						deferred.resolve(response);
 					  					})
 					  					.error(function(response){
+					  						notificationService.error('An error occured while trying to load tasks.');
 					  						deferred.reject(response);
 					  					});
 

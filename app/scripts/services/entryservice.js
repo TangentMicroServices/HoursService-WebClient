@@ -86,7 +86,7 @@ angular.module('hoursApp')
    })
   .service('entryService', function(jsonService, HOURSSERVICE_BASE_URI){
 
-  		var entryUrl = '/entry/'
+  		var entryUrl = '/entry/';
 
   		var selectedEntry = {};
 
@@ -107,7 +107,7 @@ angular.module('hoursApp')
   				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
   			},
   			Delete: function(id){
-  				return jsonService.Delete(HOURSSERVICE_BASE_URI, entryUrl + id, {})
+  				return jsonService.Delete(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {})
   			},
   			GetAll: function(){
   				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});

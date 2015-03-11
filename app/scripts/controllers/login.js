@@ -8,7 +8,7 @@
  * Controller of the hoursApp
  */
 angular.module('hoursApp')
-  .controller('LoginCtrl', function ($scope, $location, $rootScope, userService) {
+  .controller('LoginCtrl', function ($scope, notificationService, $location, $rootScope, userService) {
      	
   		$scope.ErrorOccured = false;
   		$scope.ErrorMessages = [];
@@ -17,7 +17,6 @@ angular.module('hoursApp')
      	$scope.password = '';
 
      	var userLoggedIn = function(response){
-			$location.path('/viewEntries');
 			userService.GetCurrentUser().then(currentUserLoaded, currentUserLoadFailed);
      	}
 
@@ -27,11 +26,14 @@ angular.module('hoursApp')
      	}
 
      	var currentUserLoaded = function(response){
-
+        notificationService.success('You are currently logged in as ' + response.username);
+        $location.path('/viewEntries');;
      	};
 
      	var currentUserLoadFailed = function(response){
-     		//add pnotify.... 
+        notificationService.error('Failed to retrieve you details.');
+     		$scope.ErrorOccured = true;
+        $scope.ErrorMessages = ['Failed to log you in. ']; 
      	};
 
   		$scope.Login = function(){
