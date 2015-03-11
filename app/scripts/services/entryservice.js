@@ -13,9 +13,9 @@ angular.module('hoursApp')
 		
 		var ajax = function(apiUrl, httpMethod, url, requestData){
 			return $http({
-			method: httpMethod,
-			url: apiUrl + url,
-			data: requestData
+				method: httpMethod,
+				url: apiUrl + url,
+				data: requestData
 			});
 		};
 
@@ -34,25 +34,78 @@ angular.module('hoursApp')
 			}
 		};
 	}])
-  .service('entryservice', function(jsonService, HOURSSERVICE_BASE_URI){
+   .service('userService', function(jsonService, $rootScope, $q, SERVICE_BASE_URI){
 
-  		var entryUrl = HOURSSERVICE_BASE_URI + '/entry/'
+   		$rootScope.CurrentUser = {};
+   		$rootScope.AccessToken = '';
+
+   		var setAccessToken = function(response){
+   			if(response.token){
+			     $rootScope.AccessToken = response.token;
+			}
+   		}
+
+   		var setCurrentUser = function(response){
+   			$rootScope.CurrentUser = response;
+   		}
+   		//TODO needs cleaning....
+   		return {
+   			GetCurrentUser: function(){
+   				var deferred = $q.defer();
+
+   				var promise = jsonService.Get(SERVICE_BASE_URI, '/users/me/', {})
+   					.success(function(response, status, headers, config){
+   						setCurrentUser(response);
+   						deferred.resolve(response, status, headers, config);
+   					})
+   					.error(function(response, status, headers, config){
+   						deferred.reject(response, status, headers, config);
+   					});
+
+   				return deferred.promise;
+   			},
+   			Login: function(username, password){
+   				var deffered = $q.defer();
+
+   				var request = {
+   					username: username,
+   					password: password
+   				};
+
+   				var promise = jsonService.Post(SERVICE_BASE_URI, '/api-token-auth/', request)
+   										  .success(function(response, status, headers, config){
+   										  	setAccessToken(response);
+   										  	deffered.resolve(response, status, headers, config);
+   										  })
+   										  .error(function(response, status, headers, config){
+   										  	deffered.reject(response, status, headers, config);
+   										  });
+   				return deffered.promise;
+   			}
+   		}
+   })
+  .service('entryService', function(jsonService, HOURSSERVICE_BASE_URI){
+
+  		var entryUrl = '/entry/'
 
   		return {
   			Add: function(entry){
-  				return jsonService.Post(entryUrl, entry);
+  				return jsonService.Post(HOURSSERVICE_BASE_URI, entryUrl, entry);
   			},
   			Edit: function(entry){
-  				return jsonService.Put(entryUrl, entry);
+  				return jsonService.Put(HOURSSERVICE_BASE_URI, entryUrl, entry);
   			},
   			Get: function(id){
-  				return jsonService.Get(entryUrl + id, {});
+  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
   			},
   			Delete: function(id){
-  				return jsonService.Delete(entryUrl + id, {})
+  				return jsonService.Delete(HOURSSERVICE_BASE_URI + id, entryUrl, {})
   			},
   			GetAll: function(){
-  				return jsonService.Get(entryUrl, {});
+  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
+  			},
+  			GetEntriesForUser: function(user){
+  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
   			}
   		}
   });

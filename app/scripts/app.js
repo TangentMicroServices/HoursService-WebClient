@@ -39,29 +39,29 @@ angular
         templateUrl: 'views/viewentries.html',
         controller: 'ViewentriesCtrl'
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
 
-       $provide.factory('myHttpInterceptor', function($q) {
+       $provide.factory('myHttpInterceptor', function($q, $rootScope) {
         return {
           'request': function(config) {
+            if($rootScope.AccessToken){
+               config.headers.Authorization = 'Token ' + $rootScope.AccessToken;
+            }
             return config;
           },
          'requestError': function(rejection) {
-            if (canRecover(rejection)) {
-              return responseOrNewPromise
-            }
             return $q.reject(rejection);
           },
           'response': function(response) {
             return response;
           },
          'responseError': function(rejection) {
-            // do something on error
-            if (canRecover(rejection)) {
-              return responseOrNewPromise
-            }
             return $q.reject(rejection);
           }
         };

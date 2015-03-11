@@ -1,0 +1,19 @@
+<form role="form" name="loginForm" ng-submit="Login()">
+  <!-- write something general for this  -->
+  <div class="alert alert-danger" ng-show="ErrorOccured">
+    <i class="fa fa-frown-o"></i>	
+    <hr />
+    <ul>
+    	<li ng-repeat="errorMessage in ErrorMessages">{{ errorMessage }}</li>
+    <ul>
+  </div>
+  <div class="form-group" ng-class="{'has-error': loginForm.username.$dirty && loginForm.username.$invalid }">
+    <label for="username">Username</label>
+    <input type="text" ng-model="username" class="form-control" id="username" placeholder="Enter username...">
+  </div>
+  <div class="form-group" ng-class="{'has-error': loginForm.password.$dirty && loginForm.password.$invalid }">
+    <label for="password">Password</label>
+    <input type="password" ng-model="password" class="form-control" id="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
