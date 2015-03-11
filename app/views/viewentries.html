@@ -14,16 +14,16 @@
   				</tr>
   			</thead>
   			<body>
-  				<tr>
-  					<td></td>
-  					<td></td>
-  					<td></td>
-  					<td></td>
-  					<td></td>
-  					<td><a ><i class="">  </a></td>
+  				<tr ng-repeat="entry in Entries">
+  					<td>{{ entry.comment}}</td>
+  					<td>{{ entry.comment}}</td>
+  					<td>{{ entry.hours }}</td>
+  					<td>{{ entry.start_time | date:'medium' }}</td>
+  					<td>{{ entry.end_time | date:'medium'  }}</td>
+  					<td><a ng-click="Edit(entry)"class="btn btn-warning"><i class="fa fa-edit">Edit</a></td>
+  					<td><a ng-click="Delete(entry)"class="btn btn-danger"><i class="fa fa-trash">Delete</a></td>
   				</tr>
   			</tbody>
   		</table>
 	</div>
-	
 </div>

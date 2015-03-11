@@ -88,7 +88,15 @@ angular.module('hoursApp')
 
   		var entryUrl = '/entry/'
 
+  		var selectedEntry = {};
+
   		return {
+  			EntrySelected: function(entry){
+  				selectedEntry = entry;
+  			},
+  			GetSelectedEntry: function(){
+  				return selectedEntry;
+  			},
   			Add: function(entry){
   				return jsonService.Post(HOURSSERVICE_BASE_URI, entryUrl, entry);
   			},
@@ -99,7 +107,7 @@ angular.module('hoursApp')
   				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
   			},
   			Delete: function(id){
-  				return jsonService.Delete(HOURSSERVICE_BASE_URI + id, entryUrl, {})
+  				return jsonService.Delete(HOURSSERVICE_BASE_URI, entryUrl + id, {})
   			},
   			GetAll: function(){
   				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});

@@ -17,14 +17,22 @@ angular.module('hoursApp')
      	$scope.password = '';
 
      	var userLoggedIn = function(response){
-     		console.log('logged in');
-			$location.path('/home');
+			$location.path('/viewEntries');
+			userService.GetCurrentUser().then(currentUserLoaded, currentUserLoadFailed);
      	}
 
      	var userLoginFailed = function(data){
      		$scope.ErrorOccured = true;
      		$scope.ErrorMessages = data.non_field_errors;
      	}
+
+     	var currentUserLoaded = function(response){
+
+     	};
+
+     	var currentUserLoadFailed = function(response){
+     		//add pnotify.... 
+     	};
 
   		$scope.Login = function(){
   			userService.Login($scope.username, $scope.password)
