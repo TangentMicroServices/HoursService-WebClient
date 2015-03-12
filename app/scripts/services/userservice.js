@@ -2,14 +2,13 @@
 
 /**
  * @ngdoc service
- * @name hoursApp.entryservice
+ * @name hoursApp.userService
  * @description
- * # entryservice
+ * # userService
  * Service in the hoursApp.
  */
-
 angular.module('hoursApp')
-   .service('userService', function(jsonService, $rootScope, $q, SERVICE_BASE_URI){
+  .service('userService', function(jsonService, $rootScope, $q, SERVICE_BASE_URI){
 
    		$rootScope.CurrentUser = {};
    		$rootScope.AccessToken = '';
@@ -58,37 +57,4 @@ angular.module('hoursApp')
    				return deffered.promise;
    			}
    		}
-   })
-  .service('entryService', function(jsonService, HOURSSERVICE_BASE_URI){
-
-  		var entryUrl = '/entry/';
-
-  		var selectedEntry = {};
-
-  		return {
-  			EntrySelected: function(entry){
-  				selectedEntry = entry;
-  			},
-  			GetSelectedEntry: function(){
-  				return selectedEntry;
-  			},
-  			Add: function(entry){
-  				return jsonService.Post(HOURSSERVICE_BASE_URI, entryUrl, entry);
-  			},
-  			Edit: function(entry){
-  				return jsonService.Put(HOURSSERVICE_BASE_URI, entryUrl + entry.id + "/", entry);
-  			},
-  			Get: function(id){
-  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
-  			},
-  			Delete: function(id){
-  				return jsonService.Delete(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {})
-  			},
-  			GetAll: function(){
-  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
-  			},
-  			GetEntriesForUser: function(user){
-  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
-  			}
-  		}
-  });
+   });

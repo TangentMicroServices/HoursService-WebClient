@@ -12,6 +12,7 @@ angular.module('hoursApp')
       $scope.ErrorOccured = false;
       $scope.ErrorMessage = {};
       $scope.saveButtonText = "Save";
+      $scope.Tasks = [];
 
       $scope.Entry = {
         id: null,
@@ -26,8 +27,6 @@ angular.module('hoursApp')
         overtime: 0,
         tags: ''
       };
-
-      $scope.Tasks = [];
 
     	$scope.Submit = function(){
         $scope.Entry.day = new moment($scope.Entry.data).format("YYYY-MM-DD");
@@ -64,7 +63,6 @@ angular.module('hoursApp')
         $event.stopPropagation();
         $scope.opened = true;
       };
-
        // 
 
       var init = function(){
