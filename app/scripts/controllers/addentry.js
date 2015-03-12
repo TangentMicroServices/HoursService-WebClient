@@ -21,7 +21,7 @@ angular.module('hoursApp')
         day: Date.now(),
         start_time: '08:00:00',
         end_time: '17:00:00',
-        hours: 0,
+        hours: 8,
         overtime: 0,
         tags: ''
       };

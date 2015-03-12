@@ -1,63 +1,93 @@
 <div class="row">
-	<form role="form" ng-submit="Submit()" class="form-horizontal">
-	  <div ng-show="ErrorOccured">
-	  	<div class="alert alert-danger">{{ ErrorMessage }}</div>
-	  </div>
-	  <div class="form-group">
-	    <label for="task" class="col-sm-2 control-label">Task</label>
-	    <div class="col-sm-10">
-	    <select id="task" class="form-control" ng-model="Entry.project_task_id" ng-options="task.id as task.title for task in Tasks" required></select>
-	    </div>
-	  </div>
-	    <div class="form-group">
-	    <label for="" class="col-sm-2 control-label">Day</label>
-	    <div class="col-sm-10">
-	    	<p class="input-group">
-              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="Entry.day" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+    <form role="form" ng-submit="Submit()" class="form-horizontal">
+        <div ng-show="ErrorOccured">
+            <div class="alert alert-danger">{{ ErrorMessage }}</div>
+        </div>
+        <div class="form-group">
+            <label for="task" class="col-sm-2 control-label">Task</label>
+
+            <div class="col-sm-10">
+                <select id="task" class="form-control" ng-model="Entry.project_task_id"
+                        ng-options="task.id as task.title for task in Tasks" required></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">Day</label>
+
+            <div class="col-sm-10">
+                <p class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="Entry.day"
+                           is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions"
+                           date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
               <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                <button type="button" class="btn btn-default" ng-click="open($event)">
+                    <i class="glyphicon glyphicon-calendar"></i></button>
               </span>
-            </p>
-	    </div>
-	     <!-- can consider making this on directive -->
-	    	<div class="text-danger" ng-show="ErrorMessage.day">
-	    		<span ng-repeat="value in ErrorMessage.day">{{ value }}</span> 
-	    	</div>
-	  </div>
-	  <div class="form-group">
-	    <label for="" class="col-sm-2 control-label">Start Time</label>
-	    <div class="col-sm-10">
-	    	<input class="form-control" type="text" ng-model="Entry.start_time"></input>
-	    </div>
-	    <!-- can consider making this on directive -->
-	    <div class="text-danger" ng-show="ErrorMessage.start_time">
-	    	<span ng-repeat="value in ErrorMessage.start_time">{{ value }}</span> 
-	    	</div>
-	  </div>
-	  <div class="form-group">
-	    <label for="" class="col-sm-2 control-label">End Time</label>
-	    <div class="col-sm-10">
-	    	<input class="form-control" type="text" ng-model="Entry.end_time"></input>
-	    	<!-- can consider making this on directive -->
-	    	<div class="text-danger" ng-show="ErrorMessage.end_time">
-	    		<span ng-repeat="value in ErrorMessage.end_time">{{ value }}</span> 
-	    	</div>
-	    </div>
-	  </div>
-	  <div class="form-group">
-	    <label for="comment" class="col-sm-2 control-label">Comment</label>
-	    <div class="col-sm-10">
-	    	<textarea class="form-control" ng-model="Entry.comments" id="comment" cols="3" rows="3"></textarea>
-	    	<!-- can consider making this on directive -->
-	    	<div class="text-danger" ng-show="ErrorMessage.comments">
-	    		<span ng-repeat="value in ErrorMessage.comments">{{ value }}</span> 
-	    	</div>
-	    </div>
-	  </div>
-	  <div class="form-group">
-	    <div class="col-sm-offset-2 col-sm-10">
-	      <button type="submit" class="btn btn-default">Save</button>
-	    </div>
-	  </div>
-	</form>
+                </p>
+            </div>
+            <!-- can consider making this on directive -->
+            <div class="text-danger" ng-show="ErrorMessage.day">
+                <span ng-repeat="value in ErrorMessage.day">{{ value }}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">Start Time</label>
+
+            <div class="col-sm-10">
+                <input class="form-control" type="text" ng-model="Entry.start_time"/>
+            </div>
+            <!-- can consider making this on directive -->
+            <div class="text-danger" ng-show="ErrorMessage.start_time">
+                <span ng-repeat="value in ErrorMessage.start_time">{{ value }}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">End Time</label>
+
+            <div class="col-sm-10">
+                <input class="form-control" type="text" ng-model="Entry.end_time"/>
+                <!-- can consider making this on directive -->
+                <div class="text-danger" ng-show="ErrorMessage.end_time">
+                    <span ng-repeat="value in ErrorMessage.end_time">{{ value }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">Hours</label>
+
+            <div class="col-sm-10">
+                <input class="form-control" type="text" ng-model="Entry.hours"/>
+                <!-- can consider making this on directive -->
+                <div class="text-danger" ng-show="ErrorMessage.hours">
+                    <span ng-repeat="value in ErrorMessage.hours">{{ value }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="comment" class="col-sm-2 control-label">Comments</label>
+
+            <div class="col-sm-10">
+                <textarea class="form-control" ng-model="Entry.comments" id="comment" cols="3" rows="3"></textarea>
+                <!-- can consider making this on directive -->
+                <div class="text-danger" ng-show="ErrorMessage.comments">
+                    <span ng-repeat="value in ErrorMessage.comments">{{ value }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="Entry.overtime"> Overtime
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">{{ saveButtonText }}</button>
+            </div>
+        </div>
+    </form>
 </div>
