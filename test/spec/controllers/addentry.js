@@ -8,6 +8,11 @@ describe('Controller: AddentryCtrl', function () {
 
   beforeEach(inject(function ($controller, $rootScope, _$q_) {
     scope = $rootScope.$new();
+
+    $rootScope.CurrentUser = {
+      id : 1
+    }
+
     $q = _$q_;
     AddentryCtrl = $controller('AddentryCtrl', {
       $scope: scope
@@ -17,7 +22,7 @@ describe('Controller: AddentryCtrl', function () {
   var fakeCall = function(){
       var deferred = $q.defer();
 
-      deferred.resolve({ "Message": "entry added succesfully." });
+      deferred.resolve();
 
       return deferred.promise;
   }
@@ -59,6 +64,41 @@ describe('Controller: AddentryCtrl', function () {
     expect(scope.entry).toEqual(expectedEntry);
 
     expect(entryService.Add).toHaveBeenCalledWith(expectedEntry);
+  }));
+
+  it('After adding an entry you will be navigated to the view entries page', inject(function($httpBackend, entryService, $location, projectService){
+  
+    var deferred = $q.defer();
+    
+    spyOn(entryService, 'Add').and.returnValue(deferred.promise);
+
+    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=undefined').respond(200, []);
+    spyOn($location, 'path');
+    
+    scope.Submit();
+    $httpBackend.flush();
+    deferred.resolve();
+    scope.$digest();
+
+    expect($location.path).toHaveBeenCalledWith('/viewEntries');
+
+  }));
+
+  it('When adding an antry you get a notification that the entry has been added.', inject(function(entryService, notificationService, $httpBackend, projectService){
+    
+    var deferred = $q.defer();
+
+    spyOn(entryService, 'Add').and.returnValue(deferred.promise);
+
+    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=undefined').respond(200, []);
+    spyOn(notificationService, 'success');
+
+    scope.Submit();
+    $httpBackend.flush();
+    deferred.resolve();
+    scope.$digest();
+
+    expect(notificationService.success).toHaveBeenCalledWith('Entry added successfully.');
   }));
 
   it('Will validate that add entries is called.', inject(function(entryService){

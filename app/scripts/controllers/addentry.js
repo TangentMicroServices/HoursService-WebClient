@@ -29,8 +29,6 @@ angular.module('hoursApp')
       };
 
     	$scope.Submit = function(){
-        var day = $scope.entry.day;
-        
         $scope.entry.day = new moment($scope.entry.day).format("YYYY-MM-DD");
 
     		entryService.Add($scope.entry)
@@ -38,7 +36,7 @@ angular.module('hoursApp')
     	};
 
       var entryAdded = function(response){
-        notificationService.success('Entry added succesfully.');
+        notificationService.success('Entry added successfully.');
         $location.path('/viewEntries');
       };
 
@@ -48,7 +46,7 @@ angular.module('hoursApp')
       };
 
       var loadCurrentTasks = function(){
-        $scope.tasks = projectService.MyTasks().then(function(response){
+        projectService.MyTasks().then(function(response){
           $scope.tasks = response;
         }, function(response){
           notificationService.error(reponse);
