@@ -43,6 +43,7 @@ angular.module('hoursApp')
       var entryDidNotAdd = function(response){
         notificationService.error('Failed to add your entry.');
         $scope.errorMessage = response;
+        $scope.errorOccured = true;
       };
 
       var loadCurrentTasks = function(){
