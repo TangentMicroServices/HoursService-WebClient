@@ -18,7 +18,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
+      'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-cookies/angular-cookies.js',
@@ -26,6 +28,17 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
+      'bower_components/pnotify/pnotify.core.js',
+      'bower_components/pnotify/pnotify.buttons.js',
+      'bower_components/pnotify/pnotify.callbacks.js',
+      'bower_components/pnotify/pnotify.confirm.js',
+      'bower_components/pnotify/pnotify.desktop.js',
+      'bower_components/pnotify/pnotify.history.js',
+      'bower_components/pnotify/pnotify.nonblock.js',
+      'bower_components/angular-pnotify/src/angular-pnotify.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components/moment/moment.js',
+      'bower_components/underscore/underscore.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
@@ -45,14 +58,20 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: [
-      'PhantomJS'
-    ],
+    browsers: ['Chrome'],
+
+    customLaunchers: {
+      Chrome_without_security: {
+        base: 'Chrome',
+        flags: ['--disable-web-security']
+      }
+    },
 
     // Which plugins to enable
     plugins: [
       'karma-phantomjs-launcher',
-      'karma-jasmine'
+      'karma-jasmine',
+      'karma-chrome-launcher'
     ],
 
     // Continuous Integration mode

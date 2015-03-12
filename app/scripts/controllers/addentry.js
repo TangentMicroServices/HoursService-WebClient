@@ -9,12 +9,12 @@
  */
 angular.module('hoursApp')
   .controller('AddentryCtrl', function ($scope, $location, $rootScope, notificationService, entryService, userService, projectService) {
-      $scope.ErrorOccured = false;
-      $scope.ErrorMessage = {};
+      $scope.errorOccured = false;
+      $scope.errorMessage = {};
       $scope.saveButtonText = "Save";
-      $scope.Tasks = [];
+      $scope.tasks = [];
 
-      $scope.Entry = {
+      $scope.entry = {
         id: null,
         user: $rootScope.CurrentUser.id,
         project_id: 0,
@@ -29,22 +29,22 @@ angular.module('hoursApp')
       };
 
     	$scope.Submit = function(){
-        $scope.Entry.day = new moment($scope.Entry.data).format("YYYY-MM-DD");
+        $scope.entry.day = new moment($scope.entry.data).format("YYYY-MM-DD");
 
-    		entryService.Add($scope.Entry)
+    		entryService.Add($scope.entry)
     			.success(function(response){
     				notificationService.success('Entry added succesfully.');
             $location.path('/viewEntries');
     			})
     			.error(function(response){
             notificationService.error('Failed to add your entry.');
-             $scope.ErrorMessage = response;
+             $scope.errorMessage = response;
     			})
     	};
 
       var loadCurrentTasks = function(){
-        $scope.Tasks = projectService.MyTasks().then(function(response){
-          $scope.Tasks = response;
+        $scope.tasks = projectService.MyTasks().then(function(response){
+          $scope.tasks = response;
         }, function(response){
           notificationService.error(reponse);
         });

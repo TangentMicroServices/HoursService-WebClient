@@ -70,5 +70,4 @@ angular.module('hoursApp')
   				return deferred.promise;
   			}
   		}
-
   });
