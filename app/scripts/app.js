@@ -57,7 +57,8 @@ angular
         return {
           'request': function(config) {
             var accessToken = window.localStorage.getItem('AccessToken');
-            if(accessToken){
+
+            if(accessToken && accessToken !== '' && accessToken !== null){
                config.headers.Authorization = 'Token ' + accessToken
             }
             return config;
@@ -86,6 +87,7 @@ angular
           $rootScope.$broadcast('UserLoggedIn', {});
         }, function(){
           notificationService.error('Could not retrieve your details. Please login again.');
+          window.localStorage.setItem("AccessToken", "");
           $location.path('/login');
         });
       }
