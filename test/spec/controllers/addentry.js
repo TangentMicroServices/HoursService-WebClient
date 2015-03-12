@@ -17,7 +17,7 @@ describe('Controller: AddentryCtrl', function () {
   }));
 
   it('Will change the day to date format supported by hoursservice.', inject(function () {
-
+    
 
   }));
 });
