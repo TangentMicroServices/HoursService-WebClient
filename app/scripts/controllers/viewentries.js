@@ -8,7 +8,7 @@
  * Controller of the hoursApp
  */
 angular.module('hoursApp')
-  .controller('ViewentriesCtrl', function ($scope, $location, notificationService, entryService, projectService) {
+  .controller('ViewentriesCtrl', function ($scope, $rootScope, $location, notificationService, entryService, projectService) {
     	
   		$scope.entries = [];
   		
@@ -43,7 +43,7 @@ angular.module('hoursApp')
   		}
 
   		var loadEntries = function(){
-  			entryService.GetEntriesForUser()
+  			entryService.GetEntriesForUser($rootScope.CurrentUser.id)
   				.success(onEntriesLoaded)
   				.error(onEntriesLoadFailed);
   		}

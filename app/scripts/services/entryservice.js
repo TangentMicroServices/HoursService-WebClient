@@ -37,8 +37,8 @@ angular.module('hoursApp')
   			GetAll: function(){
   				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
   			},
-  			GetEntriesForUser: function(user){
-  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
+  			GetEntriesForUser: function(userId){
+  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + "?user:" +userId + "/", {});
   			}
   		}
   });
