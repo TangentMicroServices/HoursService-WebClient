@@ -11,6 +11,10 @@ describe('Controller: EditentryCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
+    $rootScope.CurrentUser = {
+      id : 1
+    }
+
     EditentryCtrl = $controller('EditentryCtrl', {
       $scope: scope
     });

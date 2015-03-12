@@ -6,13 +6,13 @@ describe('Service: entryservice', function () {
   beforeEach(module('hoursApp'));
 
   // instantiate service
-  var entryservice;
-  beforeEach(inject(function (_entryservice_) {
-    entryservice = _entryservice_;
+  var entryService;
+  beforeEach(inject(function (_entryService_) {
+    entryService = _entryService_;
   }));
 
   it('should do something', function () {
-    expect(!!entryservice).toBe(true);
+    expect(!!entryService).toBe(true);
   });
 
 });
