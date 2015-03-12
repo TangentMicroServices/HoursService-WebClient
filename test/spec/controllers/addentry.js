@@ -82,7 +82,7 @@ describe('Controller: AddentryCtrl', function () {
   
     spyOn(entryService, 'Add').and.callFake(fakeCall);
 
-    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=undefined').respond(200, []);
+    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=1').respond(200, []);
     spyOn($location, 'path');
     
     scope.Submit();
@@ -96,7 +96,7 @@ describe('Controller: AddentryCtrl', function () {
 
     spyOn(entryService, 'Add').and.callFake(fakeCall);
 
-    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=undefined').respond(200, []);
+    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=1').respond(200, []);
     spyOn(notificationService, 'success');
 
     scope.Submit();
@@ -110,7 +110,7 @@ describe('Controller: AddentryCtrl', function () {
 
     spyOn(entryService, 'Add').and.callFake(fakeBadEntryAddCall);
 
-    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=undefined').respond(200, []);
+    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=1').respond(200, []);
     spyOn(notificationService, 'error');
 
     scope.Submit();
@@ -124,7 +124,7 @@ describe('Controller: AddentryCtrl', function () {
 
     spyOn(entryService, 'Add').and.callFake(fakeBadEntryAddCall);
 
-    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=undefined').respond(200, []);
+    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=1').respond(200, []);
     spyOn(notificationService, 'error');
 
     scope.Submit();
