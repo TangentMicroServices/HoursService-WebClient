@@ -56,8 +56,9 @@ angular
        $provide.factory('myHttpInterceptor', function($q, $rootScope) {
         return {
           'request': function(config) {
-            if($rootScope.AccessToken){
-               config.headers.Authorization = 'Token ' + $rootScope.AccessToken;
+            var accessToken = window.localStorage.getItem('AccessToken');
+            if(accessToken){
+               config.headers.Authorization = 'Token ' + accessToken
             }
             return config;
           },
@@ -74,6 +75,20 @@ angular
       });
 
     $httpProvider.interceptors.push('myHttpInterceptor');
+  })
+  .run(function ($location, $window, $rootScope, userService, notificationService) {
+      var accessToken = window.localStorage.getItem('AccessToken');
+
+      if(accessToken && accessToken != '' && accessToken != null){
+        userService.GetCurrentUser().then(function(){
+          notificationService.success('Logging you in...');
+          $location.path('/viewEntries');
+          $rootScope.$broadcast('UserLoggedIn', {});
+        }, function(){
+          notificationService.error('Could not retrieve your details. Please login again.');
+          $location.path('/login');
+        });
+      }
   });
 
 angular.module('hoursApp')

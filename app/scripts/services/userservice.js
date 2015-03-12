@@ -16,8 +16,9 @@ angular.module('hoursApp')
    		var setAccessToken = function(response){
    			if(response.token){
 			     $rootScope.AccessToken = response.token;
-			}
-   		}
+              window.localStorage.setItem('AccessToken', response.token);
+   		   }
+         }  
 
    		var setCurrentUser = function(response){
    			$rootScope.CurrentUser = response;
