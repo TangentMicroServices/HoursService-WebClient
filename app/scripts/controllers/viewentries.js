@@ -11,6 +11,7 @@ angular.module('hoursApp')
   .controller('ViewentriesCtrl', function ($scope, $rootScope, $location, notificationService, entryService, projectService) {
     	
   		$scope.entries = [];
+      $scope.tasks = [];
   		
   		$scope.Delete = function(entry){
   			entryService.Delete(entry.id).then(entryDeleted, entryDeletionFailed);
@@ -42,6 +43,18 @@ angular.module('hoursApp')
         notificationService.error('failed to load entries. ');
   		}
 
+      var loadTasks = function(){
+        projectService.MyTasks().then(tasksLoaded, taskLoadFailed);
+      }
+
+      var tasksLoaded = function(response){
+        $scope.tasks = response;
+      }
+
+      var taskLoadFailed = function(response){
+
+      }
+
   		var loadEntries = function(){
   			entryService.GetEntriesForUser($rootScope.CurrentUser.id)
   				.success(onEntriesLoaded)
@@ -50,6 +63,7 @@ angular.module('hoursApp')
 
   		var init = function(){
   			loadEntries();
+        loadTasks();
   		};
 
   		init();

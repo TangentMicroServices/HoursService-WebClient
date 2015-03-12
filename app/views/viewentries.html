@@ -14,7 +14,7 @@
   			</thead>
   			<tbody>
   				<tr ng-repeat="entry in entries">
-            <td>{{ entry.day | date:'dd MMM yyyy'}}</td>
+            <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
   					<td>{{ GetTask(entry).title }}</td>
   					<td>{{ entry.hours }}</td>
   					<td>{{ entry.start_time | date:'medium' }}</td>
@@ -22,7 +22,17 @@
   					<td><a ng-click="Edit(entry)"class="btn btn-warning"><i class="fa fa-edit"></a></td>
   					<td><a ng-click="Delete(entry)"class="btn btn-danger"><i class="fa fa-trash"></a></td>
   				</tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>{{ entries | sum:'hours' }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
   			</tbody>
   		</table>
 	</div>
+  <hr />
+
 </div>
