@@ -3,7 +3,7 @@
 		<table class="table table-striped">
   			<thead>
   				<tr>
-                    <th>Date</th>
+            <th>Date</th>
   					<th>Task</th>
   					<th>Hours</th>
   					<th>Start Time</th>
@@ -13,8 +13,8 @@
   				</tr>
   			</thead>
   			<tbody>
-  				<tr ng-repeat="entry in Entries">
-                    <td>{{ entry.day | date:'dd MMM yyyy'}}</td>
+  				<tr ng-repeat="entry in entries">
+            <td>{{ entry.day | date:'dd MMM yyyy'}}</td>
   					<td>{{ GetTask(entry).title }}</td>
   					<td>{{ entry.hours }}</td>
   					<td>{{ entry.start_time | date:'medium' }}</td>

@@ -29,18 +29,23 @@ angular.module('hoursApp')
       };
 
     	$scope.Submit = function(){
-        $scope.entry.day = new moment($scope.entry.data).format("YYYY-MM-DD");
+        var day = $scope.entry.day;
+        
+        $scope.entry.day = new moment($scope.entry.day).format("YYYY-MM-DD");
 
     		entryService.Add($scope.entry)
-    			.success(function(response){
-    				notificationService.success('Entry added succesfully.');
-            $location.path('/viewEntries');
-    			})
-    			.error(function(response){
-            notificationService.error('Failed to add your entry.');
-             $scope.errorMessage = response;
-    			})
+    			.then(entryAdded, entryDidNotAdd);
     	};
+
+      var entryAdded = function(response){
+        notificationService.success('Entry added succesfully.');
+        $location.path('/viewEntries');
+      };
+
+      var entryDidNotAdd = function(response){
+        notificationService.error('Failed to add your entry.');
+        $scope.errorMessage = response;
+      };
 
       var loadCurrentTasks = function(){
         $scope.tasks = projectService.MyTasks().then(function(response){

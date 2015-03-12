@@ -29,7 +29,7 @@ angular.module('hoursApp')
   				return jsonService.Put(HOURSSERVICE_BASE_URI, entryUrl + entry.id + "/", entry);
   			},
   			Get: function(id){
-  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
+  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {});
   			},
   			Delete: function(id){
   				return jsonService.Delete(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {})
