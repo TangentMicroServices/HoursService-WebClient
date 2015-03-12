@@ -9,11 +9,11 @@
  */
 angular.module('hoursApp')
     .controller('EditentryCtrl', function ($scope, $location, projectService, entryService, notificationService) {
-        $scope.ErrorOccured = false;
-        $scope.ErrorMessage = {};
-        $scope.Entry = entryService.GetSelectedEntry();
-        $scope.Tasks = [];
-        $scope.saveButtonText = "Save";
+      $scope.ErrorOccured = false;
+      $scope.ErrorMessage = {};
+      $scope.Entry = entryService.GetSelectedEntry();
+      $scope.Tasks = [];
+      $scope.saveButtonText = "Save";
 
   		$scope.Submit = function(){
             $scope.saveButtonText = "Saving";

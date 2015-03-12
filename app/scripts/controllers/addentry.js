@@ -11,6 +11,7 @@ angular.module('hoursApp')
   .controller('AddentryCtrl', function ($scope, $location, $rootScope, notificationService, entryService, userService, projectService) {
       $scope.ErrorOccured = false;
       $scope.ErrorMessage = {};
+      $scope.saveButtonText = "Save";
 
       $scope.Entry = {
         id: null,
