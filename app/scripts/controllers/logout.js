@@ -11,7 +11,6 @@ angular.module('hoursApp')
   .controller('LogoutCtrl', function ($scope, userService) {
 
   	var init = function(){
-  		debugger;
   		userService.Logout();
   	};
 
