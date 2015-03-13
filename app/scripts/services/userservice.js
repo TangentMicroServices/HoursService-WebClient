@@ -25,6 +25,11 @@ angular.module('hoursApp')
    		}
    		//TODO needs cleaning....
    		return {
+            Logout: function(){
+               window.localStorage.setItem('AccessToken', "");
+               setCurrentUser({});
+               $rootScope.$broadcast('UserLoggedOut', {});
+            },
    			GetCurrentUser: function(){
    				var deferred = $q.defer();
 

@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: LoginCtrl', function () {
+describe('Controller: LogoutCtrl', function () {
 
   // load the controller's module
   beforeEach(module('hoursApp'));
 
-  var LoginCtrl,
+  var LogoutCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    LoginCtrl = $controller('LoginCtrl', {
+    LogoutCtrl = $controller('LogoutCtrl', {
       $scope: scope
     });
   }));

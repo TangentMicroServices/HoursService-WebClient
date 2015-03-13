@@ -16,7 +16,24 @@ describe('Controller: TopnavigationCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
+  it('When user logged out it should display the correct navigation.', function () {
     
+    var loggedOutMenu = [
+      { url: '#login', title: 'Login' }
+    ];
+
+    expect(scope.loggedOut).toEqual(loggedOutMenu);
   });
+
+  it('When useer logges in it should display the correct navigation.', function(){
+
+    var loggedInMenu = [
+      { url: '#viewEntries', title: 'View Entries'},
+      { url: '#addEntry', title: 'Add Entry' },
+      { url: '#logout', title: 'Logout' }
+    ];
+
+    expect(scope.loggedIn).toEqual(loggedInMenu);
+  });
+  
 });

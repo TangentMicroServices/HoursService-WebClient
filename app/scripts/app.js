@@ -49,6 +49,10 @@ angular
         templateUrl: 'views/topnavigation.html',
         controller: 'TopnavigationCtrl'
       })
+      .when('/logout', {
+        templateUrl: 'views/logout.html',
+        controller: 'LogoutCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

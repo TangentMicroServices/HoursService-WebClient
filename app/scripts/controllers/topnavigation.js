@@ -16,7 +16,8 @@ angular.module('hoursApp')
 
   	$scope.loggedIn = [
   		{ url: '#viewEntries', title: 'View Entries'},
-  		{ url: '#addEntry', title: 'Add Entry' }
+  		{ url: '#addEntry', title: 'Add Entry' },
+      { url: '#logout', title: 'Logout' }
   	]
 
   	$scope.navigationItems = $scope.loggedOut;
@@ -24,4 +25,9 @@ angular.module('hoursApp')
   	$scope.$on('UserLoggedIn', function(event, data){
   		$scope.navigationItems = $scope.loggedIn;
   	});
+
+    $scope.$on('UserLoggedOut', function(event, data){
+      $scope.navigationItems = $scope.loggedOut;
+    });
+
   });
