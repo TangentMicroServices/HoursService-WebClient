@@ -57,10 +57,10 @@ angular
         redirectTo: '/'
       });
 
-       $provide.factory('myHttpInterceptor', function($q, $rootScope) {
+       $provide.factory('myHttpInterceptor', function($q, $rootScope, $window) {
         return {
           'request': function(config) {
-            var accessToken = window.localStorage.getItem('AccessToken');
+            var accessToken = $window.localStorage.getItem('AccessToken');
 
             if(accessToken && accessToken !== '' && accessToken !== null){
                config.headers.Authorization = 'Token ' + accessToken
@@ -82,7 +82,7 @@ angular
     $httpProvider.interceptors.push('myHttpInterceptor');
   })
   .run(function ($location, $window, $rootScope, userService, notificationService) {
-      var accessToken = window.localStorage.getItem('AccessToken');
+      var accessToken = $window.localStorage.getItem('AccessToken');
 
       if(accessToken && accessToken != '' && accessToken != null){
         userService.GetCurrentUser().then(function(){

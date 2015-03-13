@@ -8,7 +8,7 @@
  * Service in the hoursApp.
  */
 angular.module('hoursApp')
-  .service('userService', function(jsonService, $rootScope, $q, SERVICE_BASE_URI){
+  .service('userService', function(jsonService, $rootScope, $window, $q, SERVICE_BASE_URI){
 
    		$rootScope.CurrentUser = {};
    		$rootScope.AccessToken = '';
@@ -16,7 +16,7 @@ angular.module('hoursApp')
    		var setAccessToken = function(response){
    			if(response.token){
 			     $rootScope.AccessToken = response.token;
-              window.localStorage.setItem('AccessToken', response.token);
+              $window.localStorage.setItem('AccessToken', response.token);
    		   }
          }  
 
@@ -26,7 +26,7 @@ angular.module('hoursApp')
    		//TODO needs cleaning....
    		return {
             Logout: function(){
-               window.localStorage.setItem('AccessToken', "");
+               $window.localStorage.setItem('AccessToken', "");
                setCurrentUser({});
                $rootScope.$broadcast('UserLoggedOut', {});
             },
