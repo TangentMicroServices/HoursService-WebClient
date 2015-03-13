@@ -1,28 +1,22 @@
 'use strict';
 
-describe('Controller: EditentryCtrl', function () {
+describe('Controller: LoginCtrl', function () {
 
   // load the controller's module
   beforeEach(module('hoursApp'));
 
-  var EditentryCtrl,
+  var LoginCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    $rootScope.CurrentUser = {
-      id : 1
-    }
-
-    EditentryCtrl = $controller('EditentryCtrl', {
+    LoginCtrl = $controller('LoginCtrl', {
       $scope: scope
     });
   }));
 
-  it('Should call hoursservice to edit', function () {
-      
+  it('should attach a list of awesomeThings to the scope', function () {
+    
   });
-
-  
 });

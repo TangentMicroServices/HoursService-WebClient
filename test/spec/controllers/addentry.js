@@ -78,25 +78,23 @@ describe('Controller: AddentryCtrl', function () {
     expect(entryService.Add).toHaveBeenCalledWith(expectedEntry);
   }));
 
-  it('After adding an entry you will be navigated to the view entries page', inject(function($httpBackend, entryService, $location, projectService){
-  
+  it('After adding an entry you will be navigated to the view entries page', inject(function(PROJECTSERVICE_BASE_URI, $httpBackend, entryService, $location, projectService){
     spyOn(entryService, 'Add').and.callFake(fakeCall);
 
-    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=1').respond(200, []);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/tasks/?user=1').respond(200, []);
     spyOn($location, 'path');
     
     scope.Submit();
-   $httpBackend.flush();
+    $httpBackend.flush();
     scope.$digest();
 
     expect($location.path).toHaveBeenCalledWith('/viewEntries');
   }));
 
-  it('When adding an antry you get a notification that the entry has been added.', inject(function(entryService, notificationService, $httpBackend, projectService){
-
+  it('When adding an antry you get a notification that the entry has been added.', inject(function(PROJECTSERVICE_BASE_URI, entryService, notificationService, $httpBackend, projectService){
     spyOn(entryService, 'Add').and.callFake(fakeCall);
 
-    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=1').respond(200, []);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI +'/tasks/?user=1').respond(200, []);
     spyOn(notificationService, 'success');
 
     scope.Submit();
@@ -106,11 +104,10 @@ describe('Controller: AddentryCtrl', function () {
     expect(notificationService.success).toHaveBeenCalledWith('Entry added successfully.');
   }));
 
-  it('When adding the entry fails, check that user receives an error notification', inject(function($httpBackend, entryService, notificationService){
-
+  it('When adding the entry fails, check that user receives an error notification', inject(function(PROJECTSERVICE_BASE_URI, $httpBackend, entryService, notificationService){
     spyOn(entryService, 'Add').and.callFake(fakeBadEntryAddCall);
 
-    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=1').respond(200, []);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/tasks/?user=1').respond(200, []);
     spyOn(notificationService, 'error');
 
     scope.Submit();
@@ -120,11 +117,11 @@ describe('Controller: AddentryCtrl', function () {
     expect(notificationService.error).toHaveBeenCalledWith('Failed to add your entry.');
   }));
 
-  it('When adding the entry fails, check that the error message on fields gets populated.', inject(function($httpBackend, entryService, notificationService){
+  it('When adding the entry fails, check that the error message on fields gets populated.', inject(function(PROJECTSERVICE_BASE_URI, $httpBackend, entryService, notificationService){
 
     spyOn(entryService, 'Add').and.callFake(fakeBadEntryAddCall);
 
-    $httpBackend.expectGET('http://staging.projectservice.tangentme.com/api/v1/tasks/?user=1').respond(200, []);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/tasks/?user=1').respond(200, []);
     spyOn(notificationService, 'error');
 
     scope.Submit();

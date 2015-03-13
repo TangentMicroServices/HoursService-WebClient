@@ -17,7 +17,7 @@ angular.module('hoursApp')
      	$scope.password = '';
 
      	var userLoggedIn = function(response){
-			userService.GetCurrentUser().then(currentUserLoaded, currentUserLoadFailed);
+			  userService.GetCurrentUser().then(currentUserLoaded, currentUserLoadFailed);
      	}
 
      	var userLoginFailed = function(data){

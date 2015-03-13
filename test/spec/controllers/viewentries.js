@@ -5,21 +5,111 @@ describe('Controller: ViewentriesCtrl', function () {
   // load the controller's module
   beforeEach(module('hoursApp'));
 
-  var ViewentriesCtrl,
-    scope;
+  var ViewentriesCtrl, scope, $q;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, _$q_, $rootScope) {
     scope = $rootScope.$new();
+    $q = _$q_;
     $rootScope.CurrentUser = {
       id : 1
     }
+
     ViewentriesCtrl = $controller('ViewentriesCtrl', {
       $scope: scope
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-   
-  });
+  var fakeSuccessPromise = function(){
+      var deferred = $q.defer();
+
+      deferred.resolve();
+
+      return deferred.promise;
+  };
+
+  var fakeFailedPromise = function(){
+    var deferred = $q.defer();
+
+    deferred.reject();
+
+    return deferred.promise;
+  };
+
+  //Maybe it would be better to fetch the edtry again in the edit entry controller....
+  it('When edit entry is clicked, make sure the entry is set in cache so when navigating to the edit entry page, the entry can be retrieved again.', inject(function(entryService){
+    spyOn(entryService, 'EntrySelected');
+
+    var entry = {
+      id: 1
+    };
+
+    scope.Edit(entry);
+
+    expect(entryService.EntrySelected).toHaveBeenCalledWith(entry);
+  }));
+
+  it('When edit entry is clicked. user is navigated to the edit entry page.', inject(function(entryService, $location) {
+    spyOn(entryService, 'EntrySelected');
+    spyOn($location,'path');
+
+    var entry = {
+      id: 2
+    };
+
+    scope.Edit(entry);
+
+    expect($location.path).toHaveBeenCalledWith('/editEntry');
+  }));
+
+  it('When deleting an entry, make sure the entry delete entry is called.', inject(function(entryService){
+    spyOn(entryService, 'Delete').and.callFake(fakeSuccessPromise);
+
+    var entry = {
+      id: 2
+    };
+
+    scope.Delete(entry);
+
+    expect(entryService.Delete).toHaveBeenCalledWith(2);
+  }));
+
+  it('When deleting an entry, make sure that user gets a notification', inject(function($httpBackend, PROJECTSERVICE_BASE_URI, HOURSSERVICE_BASE_URI, entryService, notificationService){
+    spyOn(entryService, 'Delete').and.callFake(fakeSuccessPromise);
+    spyOn(notificationService, 'success');
+
+    var entry = {
+      id: 2
+    };
+
+    $httpBackend.expectGET(HOURSSERVICE_BASE_URI +'/entry/?user:1/').respond(200, []);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI +'/tasks/?user=1').respond(200, []);
+    //Reload entries after deleted....
+    $httpBackend.expectGET(HOURSSERVICE_BASE_URI +'/entry/?user:1/').respond(200, []);
+
+    scope.Delete(entry);
+    $httpBackend.flush();
+    scope.$digest();
+    //
+    expect(notificationService.success).toHaveBeenCalledWith('Your entry has succesfully been deleted.');
+  }));
+
+  it('When deleting and entry and the entry fails to delete, make sure user gets a notification.', inject(function($httpBackend, entryService, PROJECTSERVICE_BASE_URI, HOURSSERVICE_BASE_URI,  notificationService){
+    spyOn(entryService, 'Delete').and.callFake(fakeFailedPromise);
+    spyOn(notificationService, 'error');
+
+    var entry = {
+      id: 2
+    };
+
+    $httpBackend.expectGET(HOURSSERVICE_BASE_URI +'/entry/?user:1/').respond(200, []);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI +'/tasks/?user=1').respond(200, []);
+
+    scope.Delete(entry);
+
+    $httpBackend.flush();
+    scope.$digest();
+
+    expect(notificationService.error).toHaveBeenCalledWith("Failed to delete your entry.");
+  }));
 });
