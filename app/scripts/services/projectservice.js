@@ -24,6 +24,9 @@ angular.module('hoursApp')
   		}
 
   		return {
+        AreTasksLoaded: function(){
+          return tasksLoaded;
+        },
   			GetProjects: function(){
   				var deferred = $q.defer();
   				//simplyfy

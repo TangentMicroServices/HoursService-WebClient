@@ -11,8 +11,33 @@ describe('Service: projectService', function () {
     projectService = _projectService_;
   }));
 
-  it('should do something', function () {
-    expect(!!projectService).toBe(true);
-  });
+  var fakeTasks = [{ id: 1}, {id: 2}];
 
+  it('When fetching tasks for a specific user, make sure the url matches.', inject(function(PROJECTSERVICE_BASE_URI, $httpBackend, $rootScope){
+    $rootScope.CurrentUser = {
+      id: 1
+    };
+
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/tasks/?user=' + $rootScope.CurrentUser.id).respond(200, fakeTasks);
+
+    projectService.MyTasks();
+
+    $httpBackend.verifyNoOutstandingExpectation();
+  }));
+
+  it('When fetching tasks for a specific user, make sure that the tasks get stored in the project service.', inject(function($httpBackend, PROJECTSERVICE_BASE_URI, $rootScope){
+    $rootScope.CurrentUser = {
+      id: 1
+    };
+
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/tasks/?user=' + $rootScope.CurrentUser.id).respond(200, fakeTasks);
+
+    projectService.MyTasks();
+
+    $httpBackend.flush();
+
+    var areTasksLoaded = projectService.AreTasksLoaded();
+
+    expect(areTasksLoaded).toBe(true);
+  }));
 });
