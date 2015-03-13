@@ -1,11 +1,11 @@
 <form role="form" name="loginForm" ng-submit="Login()">
   <!-- write something general for this  -->
-  <div class="alert alert-danger" ng-show="ErrorOccured">
-    <i class="fa fa-frown-o"></i>	
+  <div class="alert alert-danger" ng-show="errorOccured">
+    <i class="fa fa-frown-o fa-2x"></i>	<b>An error occured whilst trying to log you in.</b>
     <hr />
-    <ul>
-    	<li ng-repeat="errorMessage in ErrorMessages">{{ errorMessage }}</li>
-    <ul>
+    <div ng-repeat="(key, values) in errorMessages">
+      <p ng-repeat="value in values">{{value}}</p> 
+    </div>
   </div>
   <div class="form-group" ng-class="{'has-error': loginForm.username.$dirty && loginForm.username.$invalid }">
     <label for="username">Username</label>

@@ -51,9 +51,7 @@ angular.module('hoursApp')
         $scope.tasks = response;
       }
 
-      var taskLoadFailed = function(response){
-
-      }
+      var taskLoadFailed = function(response){}
 
   		var loadEntries = function(){
   			entryService.GetEntriesForUser($rootScope.CurrentUser.id)

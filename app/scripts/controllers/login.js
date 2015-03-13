@@ -9,20 +9,19 @@
  */
 angular.module('hoursApp')
   .controller('LoginCtrl', function ($scope, notificationService, $location, $rootScope, userService) {
-     	
-  		$scope.ErrorOccured = false;
-  		$scope.ErrorMessages = [];
-
+  		$scope.errorOccured = false;
+  		$scope.errorMessages = {};
      	$scope.username = '';
      	$scope.password = '';
 
      	var userLoggedIn = function(response){
-			  userService.GetCurrentUser().then(currentUserLoaded, currentUserLoadFailed);
+			  userService.GetCurrentUser()
+                   .then(currentUserLoaded, currentUserLoadFailed);
      	}
 
-     	var userLoginFailed = function(data){
-     		$scope.ErrorOccured = true;
-     		$scope.ErrorMessages = data.non_field_errors;
+     	var userLoginFailed = function(response){
+     		$scope.errorOccured = true;
+     		$scope.errorMessages = response;
      	}
 
      	var currentUserLoaded = function(response){
@@ -34,9 +33,9 @@ angular.module('hoursApp')
      	};
 
      	var currentUserLoadFailed = function(response){
-        notificationService.error('Failed to retrieve you details.');
-     		$scope.ErrorOccured = true;
-        $scope.ErrorMessages = ['Failed to log you in. ']; 
+        notificationService.error('Failed to retrieve your details.');
+     		$scope.errorOccured = true;
+        $scope.errorMessages = response; 
      	};
 
   		$scope.Login = function(){

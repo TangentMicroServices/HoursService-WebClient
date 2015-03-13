@@ -7,7 +7,6 @@ describe('Controller: LogoutCtrl', function () {
 
   var scope, createController;
 
-
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
@@ -20,12 +19,10 @@ describe('Controller: LogoutCtrl', function () {
   }));
 
   it('Will make sure user get logged out when controller is initiated', inject(function (userService) {
-    
     spyOn(userService, "Logout");
 
     createController();
 
     expect(userService.Logout).toHaveBeenCalled();
-    
   }));
 });
