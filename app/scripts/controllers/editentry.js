@@ -38,10 +38,7 @@ angular.module('hoursApp')
       var loadCurrentTasks = function(){
         $scope.tasks = projectService.MyTasks().then(function(response){
           $scope.tasks = response;
-        },
-        function(response){
-          notificationService.error(reponse);
-        });
+        }, function(response){});
       };
 
       //for the date picker.. need to refactor..... duplication in add and edit need to be resolved
