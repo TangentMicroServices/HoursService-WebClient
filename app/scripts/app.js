@@ -98,6 +98,6 @@ angular
   });
 
 angular.module('hoursApp')
-  .constant('SERVICE_BASE_URI', "http://staging.userservice.tangentme.com")
-  .constant('HOURSSERVICE_BASE_URI', "http://staging.hoursservice.tangentme.com")
-  .constant('PROJECTSERVICE_BASE_URI', "http://staging.projectservice.tangentme.com/api/v1");
+  .constant('SERVICE_BASE_URI', "http://userservice.tangentmicroservices.com")
+  .constant('HOURSSERVICE_BASE_URI', "http://hoursservice.tangentmicroservices.com")
+  .constant('PROJECTSERVICE_BASE_URI', "http://projectservice.tangentmicroservices.com/api/v1");
