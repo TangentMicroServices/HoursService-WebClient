@@ -97,7 +97,3 @@ angular
       }
   });
 
-angular.module('hoursApp')
-  .constant('SERVICE_BASE_URI', "http://userservice.tangentmicroservices.com")
-  .constant('HOURSSERVICE_BASE_URI', "http://hoursservice.tangentmicroservices.com")
-  .constant('PROJECTSERVICE_BASE_URI', "http://projectservice.tangentmicroservices.com/api/v1");

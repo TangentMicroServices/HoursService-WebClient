@@ -69,11 +69,11 @@ describe('Controller: LoginCtrl', function () {
     expect(userService.GetCurrentUser).toHaveBeenCalled();
   }));
 
-  it('When user logs in succesfully, make sure that a broadcast is sent to other controller that need to handle.', inject(function(userService, $rootScope, SERVICE_BASE_URI, $httpBackend){
+  it('When user logs in succesfully, make sure that a broadcast is sent to other controller that need to handle.', inject(function(userService, $rootScope, USERSERVICE_BASE_URI, $httpBackend){
     spyOn(userService, 'Login').and.callFake(fakeSuccessPromise);
     spyOn($rootScope, '$broadcast').and.callThrough();
     
-    $httpBackend.whenGET(SERVICE_BASE_URI + "/users/me/").respond(200, fakeAdminUser);
+    $httpBackend.whenGET(USERSERVICE_BASE_URI + "/users/me/").respond(200, fakeAdminUser);
 
     scope.Login();
     $httpBackend.flush();
@@ -82,7 +82,7 @@ describe('Controller: LoginCtrl', function () {
     expect($rootScope.$broadcast).toHaveBeenCalledWith('UserLoggedIn', {});
   }));
 
-  it('When user logs in succesfully, make sure that he receives a notification that he is logged in.', inject(function(notificationService, userService, $httpBackend, SERVICE_BASE_URI){
+  it('When user logs in succesfully, make sure that he receives a notification that he is logged in.', inject(function(notificationService, userService, $httpBackend){
     spyOn(userService, 'Login').and.callFake(fakeSuccessPromise);
     spyOn(userService, 'GetCurrentUser').and.callFake(fakeUserRetrievedPromise);
     spyOn(notificationService, 'success');

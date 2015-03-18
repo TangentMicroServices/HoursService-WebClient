@@ -8,7 +8,7 @@
  * Service in the hoursApp.
  */
 angular.module('hoursApp')
-  .service('userService', function(jsonService, $rootScope, $window, $q, SERVICE_BASE_URI){
+  .service('userService', function(jsonService, $rootScope, $window, $q, USERSERVICE_BASE_URI){
 
    		$rootScope.CurrentUser = {};
    		$rootScope.AccessToken = '';
@@ -33,7 +33,7 @@ angular.module('hoursApp')
    			GetCurrentUser: function(){
    				var deferred = $q.defer();
 
-   				var promise = jsonService.Get(SERVICE_BASE_URI, '/users/me/', {})
+   				var promise = jsonService.Get(USERSERVICE_BASE_URI, '/users/me/', {})
    					.success(function(response, status, headers, config){
    						setCurrentUser(response);
    						deferred.resolve(response, status, headers, config);
@@ -52,7 +52,7 @@ angular.module('hoursApp')
    					password: password
    				};
 
-   				var promise = jsonService.Post(SERVICE_BASE_URI, '/api-token-auth/', request)
+   				var promise = jsonService.Post(USERSERVICE_BASE_URI, '/api-token-auth/', request)
    										  .success(function(response, status, headers, config){
    										  	setAccessToken(response);
    										  	deffered.resolve(response, status, headers, config);
