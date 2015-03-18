@@ -33,7 +33,7 @@ angular.module('hoursApp')
    			GetCurrentUser: function(){
    				var deferred = $q.defer();
 
-   				var promise = jsonService.Get(USERSERVICE_BASE_URI, '/users/me/', {})
+   				var promise = jsonService.Get(USERSERVICE_BASE_URI, '/api/v1/users/me/', {})
    					.success(function(response, status, headers, config){
    						setCurrentUser(response);
    						deferred.resolve(response, status, headers, config);

@@ -11,7 +11,7 @@
 angular.module('hoursApp')
   .service('entryService', function(jsonService, HOURSSERVICE_BASE_URI){
 
-  		var entryUrl = '/entry/';
+  		var entryUrl = '/api/v1/entry/';
 
   		var selectedEntry = {};
 

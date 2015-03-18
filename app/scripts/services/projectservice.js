@@ -35,7 +35,7 @@ angular.module('hoursApp')
   					return deferred.promise;
   				}
   				//TODO remove duplication
-  				var promise = jsonService.Get(PROJECTSERVICE_BASE_URI, '/projects/', {})
+  				var promise = jsonService.Get(PROJECTSERVICE_BASE_URI, '/api/v1/projects/', {})
   					.success(function(response){
   						projectsLoaded = true;
   						setProjects(response);
@@ -59,7 +59,7 @@ angular.module('hoursApp')
   					return deferred.promise;
   				}
 
-  				var promise = jsonService.Get(PROJECTSERVICE_BASE_URI, "/tasks/?user=" + $rootScope.CurrentUser.id, {})
+  				var promise = jsonService.Get(PROJECTSERVICE_BASE_URI, "/api/v1/tasks/?user=" + $rootScope.CurrentUser.id, {})
 										.success(function(response){
 					  						tasksLoaded = true;
 					  						setTasks(response);
