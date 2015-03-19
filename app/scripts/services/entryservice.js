@@ -18,6 +18,7 @@ angular.module('hoursApp')
   		return {
   			EntrySelected: function(entry){
   				selectedEntry = entry;
+          selectedEntry.hours = parseFloat(entry.hours);
   			},
   			GetSelectedEntry: function(){
   				return selectedEntry;
