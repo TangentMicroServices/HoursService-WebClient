@@ -9,10 +9,7 @@
  */
 angular.module('hoursApp')
     .controller('EditentryCtrl', function ($scope, $location, projectService, entryService, notificationService) {
-      $scope.errorOccured = false;
-      $scope.errorMessage = {};
       $scope.entry = entryService.GetSelectedEntry();
-      $scope.tasks = [];
       $scope.saveButtonText = "Save";
 
   		$scope.Submit = function(){
@@ -40,24 +37,4 @@ angular.module('hoursApp')
           $scope.tasks = response;
         }, function(response){});
       };
-
-      //for the date picker.. need to refactor..... duplication in add and edit need to be resolved
-      $scope.format = 'yyyy-MM-dd';
-      $scope.minDate = new Date(2015, 1, 1);
-
-      $scope.disabled = function(date, mode) {
-        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-      };
-
-      $scope.open = function($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        $scope.opened = true;
-      };
-
-      var init = function(){
-        loadCurrentTasks();
-      };
-
-      init();
     });
