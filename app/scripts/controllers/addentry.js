@@ -55,6 +55,7 @@ angular.module('hoursApp')
        // for the date picker.. need to refactor..... duplication in add and edit need to be resolved
       $scope.format = 'yyyy-MM-dd';
       $scope.minDate = new Date(2015, 1, 1);
+      $scope.maxDate =  new Date();
 
       $scope.disabled = function(date, mode) {
         return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
