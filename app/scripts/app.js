@@ -23,9 +23,9 @@ angular
 
         notificationServiceProvider.setDefaults({
             history: false,
-            delay: 4000000,
-            closer: false,
-            closer_hover: false
+            delay: 40,
+            closer: true,
+            closer_hover: true
         });
 
         $routeProvider

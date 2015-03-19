@@ -15,7 +15,7 @@
             <tbody ng-repeat="entry in entries">
             <tr>
                 <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
-                <td>{{ GetTask(entry).title }}</td>
+                <td>{{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
                 <td>{{ entry.hours }}</td>
                 <!--<td>{{ entry.start_time | date:'medium' }}</td>
                 <td>{{ entry.end_time | date:'medium'  }}</td>-->

@@ -11,4 +11,4 @@ npm-debug.log
 dist
 reports/
 coverage/
-app/scripts/localsettings.py
+app/scripts/localsettings.js
