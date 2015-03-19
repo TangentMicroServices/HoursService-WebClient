@@ -9,3 +9,5 @@ npm-debug.log
 /.project
 .tmp
 dist
+reports/
+coverage/

@@ -18,7 +18,7 @@ describe('Service: projectService', function () {
       id: 1
     };
 
-    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/tasks/?user=' + $rootScope.CurrentUser.id).respond(200, fakeTasks);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/api/v1/tasks/?user=' + $rootScope.CurrentUser.id).respond(200, fakeTasks);
 
     projectService.MyTasks();
 
@@ -30,7 +30,7 @@ describe('Service: projectService', function () {
       id: 1
     };
 
-    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/tasks/?user=' + $rootScope.CurrentUser.id).respond(200, fakeTasks);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/api/v1/tasks/?user=' + $rootScope.CurrentUser.id).respond(200, fakeTasks);
 
     projectService.MyTasks();
 

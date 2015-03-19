@@ -71,7 +71,7 @@ describe('Service: userService', function () {
   }));
   //should maybe only keep cuurent user cached in userservice. instead of setting him in route scope.
   it('When fetching the current user from the access token, make sure that the current user is set in the rootScope.', inject(function($httpBackend, USERSERVICE_BASE_URI, $rootScope){
-    $httpBackend.expectGET(USERSERVICE_BASE_URI + '/users/me/').respond(200, fakeUser);
+    $httpBackend.expectGET(USERSERVICE_BASE_URI + '/api/v1/users/me/').respond(200, fakeUser);
 
     userService.GetCurrentUser();
 

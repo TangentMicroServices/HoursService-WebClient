@@ -73,7 +73,7 @@ describe('Controller: LoginCtrl', function () {
     spyOn(userService, 'Login').and.callFake(fakeSuccessPromise);
     spyOn($rootScope, '$broadcast').and.callThrough();
     
-    $httpBackend.whenGET(USERSERVICE_BASE_URI + "/users/me/").respond(200, fakeAdminUser);
+    $httpBackend.whenGET(USERSERVICE_BASE_URI + "/api/v1/users/me/").respond(200, fakeAdminUser);
 
     scope.Login();
     $httpBackend.flush();

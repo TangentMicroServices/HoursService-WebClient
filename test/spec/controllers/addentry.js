@@ -81,7 +81,7 @@ describe('Controller: AddentryCtrl', function () {
   it('After adding an entry you will be navigated to the view entries page', inject(function(PROJECTSERVICE_BASE_URI, $httpBackend, entryService, $location, projectService){
     spyOn(entryService, 'Add').and.callFake(fakeCall);
 
-    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/tasks/?user=1').respond(200, []);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/api/v1/tasks/?user=1').respond(200, []);
     spyOn($location, 'path');
     
     scope.Submit();
@@ -94,7 +94,7 @@ describe('Controller: AddentryCtrl', function () {
   it('When adding an antry you get a notification that the entry has been added.', inject(function(PROJECTSERVICE_BASE_URI, entryService, notificationService, $httpBackend, projectService){
     spyOn(entryService, 'Add').and.callFake(fakeCall);
 
-    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI +'/tasks/?user=1').respond(200, []);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI +'/api/v1/tasks/?user=1').respond(200, []);
     spyOn(notificationService, 'success');
 
     scope.Submit();
@@ -107,7 +107,7 @@ describe('Controller: AddentryCtrl', function () {
   it('When adding the entry fails, check that user receives an error notification', inject(function(PROJECTSERVICE_BASE_URI, $httpBackend, entryService, notificationService){
     spyOn(entryService, 'Add').and.callFake(fakeBadEntryAddCall);
 
-    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/tasks/?user=1').respond(200, []);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/api/v1/tasks/?user=1').respond(200, []);
     spyOn(notificationService, 'error');
 
     scope.Submit();
@@ -121,7 +121,7 @@ describe('Controller: AddentryCtrl', function () {
 
     spyOn(entryService, 'Add').and.callFake(fakeBadEntryAddCall);
 
-    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/tasks/?user=1').respond(200, []);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/api/v1/tasks/?user=1').respond(200, []);
     spyOn(notificationService, 'error');
 
     scope.Submit();

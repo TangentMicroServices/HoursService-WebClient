@@ -82,10 +82,10 @@ describe('Controller: ViewentriesCtrl', function () {
       id: 2
     };
 
-    $httpBackend.expectGET(HOURSSERVICE_BASE_URI +'/entry/?user:1/').respond(200, []);
-    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI +'/tasks/?user=1').respond(200, []);
+    $httpBackend.expectGET(HOURSSERVICE_BASE_URI +'/api/v1/entry/?user=1').respond(200, []);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI +'/api/v1/tasks/?user=1').respond(200, []);
     //Reload entries after deleted....
-    $httpBackend.expectGET(HOURSSERVICE_BASE_URI +'/entry/?user:1/').respond(200, []);
+    $httpBackend.expectGET(HOURSSERVICE_BASE_URI +'/api/v1/entry/?user=1').respond(200, []);
 
     scope.Delete(entry);
     $httpBackend.flush();
@@ -102,8 +102,8 @@ describe('Controller: ViewentriesCtrl', function () {
       id: 2
     };
 
-    $httpBackend.expectGET(HOURSSERVICE_BASE_URI +'/entry/?user:1/').respond(200, []);
-    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI +'/tasks/?user=1').respond(200, []);
+    $httpBackend.expectGET(HOURSSERVICE_BASE_URI +'/api/v1/entry/?user=1').respond(200, []);
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI +'/api/v1/tasks/?user=1').respond(200, []);
 
     scope.Delete(entry);
 
