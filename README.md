@@ -1,5 +1,7 @@
 # HoursService-WebClient
 
+[![Build Status](http://jenkins.tangentme.com/buildStatus/icon?job=Build TimeTracker Client)](http://jenkins.tangentme.com/view/MicroServices/job/Build%20TimeTracker%20Client/)
+
 Calling the hours service with authentication. Using angular
 
 ## Setting Up
