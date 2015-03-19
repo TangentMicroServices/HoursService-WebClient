@@ -17,11 +17,11 @@ angular.module('hoursApp')
 
   		var setProjects = function(response){
   			projects = response;
-  		}
+  		};
 
   		var setTasks = function(response){
   			tasks = response;
-  		}
+  		};
 
   		return {
         AreTasksLoaded: function(){
@@ -42,7 +42,7 @@ angular.module('hoursApp')
   						deferred.resolve(response);
   					})
   					.error(function(response){
-  						notificationService.error('An error occured while trying to load projects.');
+  						notificationService.error('An error occurred while trying to load projects.');
   						deferred.reject(response);
   					});
 
@@ -53,11 +53,12 @@ angular.module('hoursApp')
   			},
   			MyTasks: function(){
   				var deferred = $q.defer();
-  				
-  				if(tasksLoaded){
+
+                //NOTE: Enable caching and fix the issue with user undefined.
+  				/*if(tasksLoaded){
   					deferred.resolve(tasks);
   					return deferred.promise;
-  				}
+  				}*/
 
   				var promise = jsonService.Get(PROJECTSERVICE_BASE_URI, "/api/v1/tasks/?user=" + $rootScope.CurrentUser.id, {})
 										.success(function(response){
@@ -66,7 +67,7 @@ angular.module('hoursApp')
 					  						deferred.resolve(response);
 					  					})
 					  					.error(function(response){
-					  						notificationService.error('An error occured while trying to load tasks.');
+					  						notificationService.error('An error occurred while trying to load tasks.');
 					  						deferred.reject(response);
 					  					});
 

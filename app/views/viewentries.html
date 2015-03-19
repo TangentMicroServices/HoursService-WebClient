@@ -1,43 +1,43 @@
 <div class="row">
-	<div class="col-md-12">
-		<table class="table table-striped">
-  			<thead>
-  				<tr>
-            <th>Date</th>
-  					<th>Task</th>
-  					<th>Hours</th>
-  					<th>Start Time</th>
-  					<th>End time</th>
-  					<th></th>
-  					<th></th>
-  				</tr>
-  			</thead>
-  			<tbody ng-repeat="entry in entries">
-  				<tr>
-            <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
-  					<td>{{ GetTask(entry).title }}</td>
-  					<td>{{ entry.hours }}</td>
-  					<td>{{ entry.start_time | date:'medium' }}</td>
-  					<td>{{ entry.end_time | date:'medium'  }}</td>
-  					<td><a ng-click="Edit(entry)"class="btn btn-warning"><i class="fa fa-edit"></a></td>
-  					<td><a ng-click="Delete(entry)"class="btn btn-danger"><i class="fa fa-trash"></a></td>
-  				</tr>
-          <tr >
-            <td colspan="6">{{ entry.comments }}</td>
-          </tr>
-  			</tbody>
-        <tbody>
-          <tr>
-            <td>Total Hours:</td>
-            <td></td>
-            <td>{{ entries | sum:'hours' }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-  		</table>
-	</div>
-  <hr />
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Task</th>
+                <th>Hours</th>
+                <!--<th>Start Time</th>
+                <th>End time</th>-->
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="entry in entries">
+            <tr>
+                <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
+                <td>{{ GetTask(entry).title }}</td>
+                <td>{{ entry.hours }}</td>
+                <!--<td>{{ entry.start_time | date:'medium' }}</td>
+                <td>{{ entry.end_time | date:'medium'  }}</td>-->
+                <td><a ng-click="Edit(entry)"class="btn btn-warning"><i class="fa fa-edit" ></i></a></td>
+                <td><a ng-click="Delete(entry)"class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+            </tr>
+            <tr>
+                <td colspan="7">{{ entry.comments }}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td><strong>Total Hours:</strong></td>
+                <td></td>
+                <td><strong>{{ entries | sum:'hours' }}</strong></td>
+                <!--<td></td>
+                <td></td>-->
+                <td></td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+    <hr />
 </div>
