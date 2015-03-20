@@ -18,11 +18,11 @@ angular.module('hoursApp')
 			     $rootScope.AccessToken = response.token;
               $window.localStorage.setItem('AccessToken', response.token);
    		   }
-         }  
+         };
 
    		var setCurrentUser = function(response){
    			$rootScope.CurrentUser = response;
-   		}
+   		};
    		//TODO needs cleaning....
    		return {
             Logout: function(){
@@ -33,7 +33,7 @@ angular.module('hoursApp')
    			GetCurrentUser: function(){
    				var deferred = $q.defer();
 
-   				var promise = jsonService.Get(USERSERVICE_BASE_URI, '/api/v1/users/me/', {})
+   				jsonService.Get(USERSERVICE_BASE_URI, '/api/v1/users/me/', {})
    					.success(function(response, status, headers, config){
    						setCurrentUser(response);
    						deferred.resolve(response, status, headers, config);
@@ -52,15 +52,16 @@ angular.module('hoursApp')
    					password: password
    				};
 
-   				var promise = jsonService.Post(USERSERVICE_BASE_URI, '/api-token-auth/', request)
-   										  .success(function(response, status, headers, config){
-   										  	setAccessToken(response);
-   										  	deffered.resolve(response, status, headers, config);
-   										  })
-   										  .error(function(response, status, headers, config){
-   										  	deffered.reject(response, status, headers, config);
-   										  });
+   				jsonService.Post(USERSERVICE_BASE_URI, '/api-token-auth/', request)
+   							  .success(function(response, status, headers, config){
+   								  	setAccessToken(response);
+   								  	deffered.resolve(response, status, headers, config);
+   								})
+   								.error(function(response, status, headers, config){
+   								  	deffered.reject(response, status, headers, config);
+   								});
+                           
    				return deffered.promise;
    			}
-   		}
+   		};
    });

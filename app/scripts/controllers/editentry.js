@@ -10,19 +10,19 @@
 angular.module('hoursApp')
     .controller('EditentryCtrl', function ($scope, $location, projectService, entryService, notificationService) {
       $scope.entry = entryService.GetSelectedEntry();
-      $scope.saveButtonText = "Save";
+      $scope.saveButtonText = 'Save';
       $scope.errorMessage = {};
       $scope.errorOccured = false;
 
   		$scope.Submit = function(){
-        $scope.saveButtonText = "Saving";
+        $scope.saveButtonText = 'Saving';
         $scope.entry.day = new moment($scope.entry.day).format("YYYY-MM-DD");
 
   			entryService.Edit($scope.entry)
   						.then(entryupdate, entryUpdateFailed);
   		};
 
-  		var entryupdate = function(response){
+  		var entryupdate = function(){
         notificationService.success('Your entry has been updated.');
         $location.path('/viewEntries');
   		};
