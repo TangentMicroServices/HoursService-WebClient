@@ -12,10 +12,6 @@ angular.module('hoursApp')
   		var tasks = [];
   		var tasksLoaded = false;
 
-  		var setProjects = function(response){
-  			projects = response;
-  		};
-
   		var setTasks = function(response){
   			tasks = response;
   		};
@@ -36,7 +32,7 @@ angular.module('hoursApp')
   					return deferred.promise;
   				}*/
 
-  				var promise = jsonService.Get(PROJECTSERVICE_BASE_URI, "/api/v1/tasks/?user=" + $rootScope.CurrentUser.id, {})
+  				var promise = jsonService.Get(PROJECTSERVICE_BASE_URI, '/api/v1/tasks/?user=' + $rootScope.CurrentUser.id, {})
 										.success(function(response){
 					  						tasksLoaded = true;
 					  						setTasks(response);
@@ -49,5 +45,5 @@ angular.module('hoursApp')
 
   				return deferred.promise;
   			}
-  		}
+  		};
   });
