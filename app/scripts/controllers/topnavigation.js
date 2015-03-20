@@ -8,26 +8,31 @@
  * Controller of the hoursApp
  */
 angular.module('hoursApp')
-  .controller('TopnavigationCtrl', function ($scope) {
-     
-  	$scope.loggedOut = [
-  		{ url: '#login', title: 'Login' }
-  	];
+    .controller('TopnavigationCtrl', function ($scope) {
+        $scope.leftLoggedOut = [];
+        $scope.rightLoggedOut = [
+            { url: '#login', title: 'Login' }
+        ];
 
-  	$scope.loggedIn = [
-  		{ url: '#viewEntries', title: 'View Entries'},
-  		{ url: '#addEntry', title: 'Add Entry' },
-      { url: '#logout', title: 'Logout' }
-  	]
+        $scope.leftLoggedIn = [
+            { url: '#viewEntries', title: 'View Entries'},
+            { url: '#addEntry', title: 'Add Entry' }
+        ];
 
-  	$scope.navigationItems = $scope.loggedOut;
+        $scope.rightLoggedIn = [
+            { url: '#logout', title: 'Logout' }
+        ];
 
-  	$scope.$on('UserLoggedIn', function(event, data){
-  		$scope.navigationItems = $scope.loggedIn;
-  	});
+        $scope.leftNavigationItems = $scope.leftLoggedOut;
+        $scope.rightNavigationItems = $scope.rightLoggedOut;
 
-    $scope.$on('UserLoggedOut', function(event, data){
-      $scope.navigationItems = $scope.loggedOut;
+        $scope.$on('UserLoggedIn', function(event, data){
+            $scope.leftNavigationItems = $scope.leftLoggedIn;
+            $scope.rightNavigationItems = $scope.rightLoggedIn;
+        });
+
+        $scope.$on('UserLoggedOut', function(event, data){
+            $scope.leftNavigationItems = $scope.leftLoggedOut;
+            $scope.rightNavigationItems = $scope.rightLoggedOut;
+        });
     });
-
-  });

@@ -25,20 +25,13 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <div ng-include="'views/topnavigation.html'" ng-controller="TopnavigationCtrl"></div>
     <div class="container">
-      <div class="header">
-        <div ng-include="'views/topnavigation.html'" ng-controller="TopnavigationCtrl"></div>
-
-        <h3 class="text-muted">hours</h3>
-      </div>
-
       <div ng-view=""></div>
-
-      <div class="footer">
-        <p>&copy; Tangent Solutions</p>
-      </div>
     </div>
-
+    <footer class="footer">
+        <div class="container"><p class="text-muted">&copy; Tangent Solutions</p></div>
+    </footer>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
