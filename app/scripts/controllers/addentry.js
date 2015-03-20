@@ -8,8 +8,8 @@
  * Controller of the hoursApp
  */
 angular.module('hoursApp')
-  .controller('AddentryCtrl', function ($scope, $location, $rootScope, notificationService, entryService, userService, projectService) {
-      $scope.saveButtonText = "Save";
+  .controller('AddentryCtrl', function ($scope, $location, $rootScope, notificationService, entryService) {
+      $scope.saveButtonText = 'Save';
 
       $scope.entry = {
         id: null,
@@ -32,7 +32,7 @@ angular.module('hoursApp')
     			.then(entryAdded, entryDidNotAdd);
     	};
 
-      var entryAdded = function(response){
+      var entryAdded = function(){
         notificationService.success('Entry added successfully.');
         $location.path('/viewEntries');
       };
