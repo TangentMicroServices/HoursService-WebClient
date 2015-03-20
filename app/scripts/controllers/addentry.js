@@ -42,4 +42,10 @@ angular.module('hoursApp')
         $scope.errorMessage = response;
         $scope.errorOccured = true;
       };
+
+      var init = function(){
+        $scope.entry.day = new moment($scope.entry.day).format("YYYY-MM-DD");
+      };
+
+      init();
   });
