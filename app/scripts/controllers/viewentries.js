@@ -24,7 +24,7 @@ angular.module('hoursApp')
 
       $scope.GetTask = function(entry){
          return projectService.GetTask(entry.project_task_id);
-      }
+      };
 
   		var entryDeleted = function(response){
   			notificationService.success("Your entry has succesfully been deleted.");
@@ -37,21 +37,21 @@ angular.module('hoursApp')
 
   		var onEntriesLoaded = function(data){
   			$scope.entries = data;
-  		}
+  		};
 
   		var onEntriesLoadFailed = function(data){
         notificationService.error('failed to load entries. ');
-  		}
+  		};
 
       var loadTasks = function(){
         projectService.MyTasks().then(tasksLoaded, taskLoadFailed);
-      }
+      };
 
       var tasksLoaded = function(response){
         $scope.tasks = response;
-      }
+      };
 
-      var taskLoadFailed = function(response){}
+      var taskLoadFailed = function(response){};
 
   		var loadEntries = function(){
   			entryService.GetEntriesForUser($rootScope.CurrentUser.id)

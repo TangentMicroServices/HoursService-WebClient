@@ -99,9 +99,9 @@ angular
                 $rootScope.$broadcast('UserLoggedIn', {});
             }, function(){
                 notificationService.error('Could not retrieve your details. Please login again.');
-                window.localStorage.setItem("AccessToken", '');
+                window.localStorage.setItem('AccessToken', '');
                 $location.path('/login');
             });
-        };
+        }
     });
 
