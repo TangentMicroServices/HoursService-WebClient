@@ -22,18 +22,26 @@ describe('Controller: TopnavigationCtrl', function () {
       { url: '#login', title: 'Login' }
     ];
 
-    expect(scope.loggedOut).toEqual(loggedOutMenu);
+    expect(scope.rightLoggedOut).toEqual(loggedOutMenu);
   });
 
-  it('When useer logges in it should display the correct navigation.', function(){
+  it('When user logs in it should display the correct left navigation.', function(){
 
     var loggedInMenu = [
       { url: '#viewEntries', title: 'View Entries'},
-      { url: '#addEntry', title: 'Add Entry' },
-      { url: '#logout', title: 'Logout' }
+      { url: '#addEntry', title: 'Add Entry' }
     ];
 
-    expect(scope.loggedIn).toEqual(loggedInMenu);
+    expect(scope.leftLoggedIn).toEqual(loggedInMenu);
   });
+
+    it('When user logs in it should display the correct right navigation.', function(){
+
+        var loggedInMenu = [
+            { url: '#logout', title: 'Logout' }
+        ];
+
+        expect(scope.rightLoggedIn).toEqual(loggedInMenu);
+    });
   
 });
