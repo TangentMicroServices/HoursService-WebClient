@@ -32,4 +32,8 @@ describe('Controller: EntryformCtrl', function () {
 
     $httpBackend.flush();
   }));
+
+  it('When entry form controller is loaded, expect date format to be', function(){
+    expect(scope.format).toBe('yyyy-MM-dd');
+  })
 });
