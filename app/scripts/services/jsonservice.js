@@ -20,16 +20,16 @@ angular.module('hoursApp')
 
 		return{
 			Get: function(apiUrl, restMethod, parameters){
-				return ajax(apiUrl, "GET", restMethod, parameters);
+				return ajax(apiUrl, 'GET', restMethod, parameters);
 			},
 			Put: function(apiUrl, restMethod, data){
-				return ajax(apiUrl, "PUT", restMethod, data);
+				return ajax(apiUrl, 'PUT', restMethod, data);
 			},
 			Post: function(apiUrl, restMethod, data){
-				return ajax(apiUrl, "POST", restMethod, data);
+				return ajax(apiUrl, 'POST', restMethod, data);
 			},
 			Delete: function(apiUrl, restMethod, data){
-				return ajax(apiUrl, "DELETE", restMethod, data);
+				return ajax(apiUrl, 'DELETE', restMethod, data);
 			}
 		};
 	})
