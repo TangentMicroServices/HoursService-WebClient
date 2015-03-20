@@ -26,7 +26,7 @@ angular.module('hoursApp')
       };
 
     	$scope.Submit = function(){
-        $scope.entry.day = new moment($scope.entry.day).format("YYYY-MM-DD");
+        $scope.entry.day = new moment($scope.entry.day).format('YYYY-MM-DD');
 
     		entryService.Add($scope.entry)
     			.then(entryAdded, entryDidNotAdd);
@@ -44,7 +44,7 @@ angular.module('hoursApp')
       };
 
       var init = function(){
-        $scope.entry.day = new moment($scope.entry.day).format("YYYY-MM-DD");
+        $scope.entry.day = new moment($scope.entry.day).format('YYYY-MM-DD');
       };
 
       init();

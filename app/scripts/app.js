@@ -71,7 +71,7 @@ angular
                     var accessToken = $window.localStorage.getItem('AccessToken');
 
                     if(accessToken && accessToken !== '' && accessToken !== null){
-                        config.headers.Authorization = 'Token ' + accessToken
+                        config.headers.Authorization = 'Token ' + accessToken;
                     }
                     return config;
                 },
@@ -92,16 +92,16 @@ angular
     .run(function ($location, $window, $rootScope, userService, notificationService) {
         var accessToken = $window.localStorage.getItem('AccessToken');
 
-        if(accessToken && accessToken != '' && accessToken != null){
+        if(accessToken && accessToken !== '' && accessToken != null){
             userService.GetCurrentUser().then(function(){
                 notificationService.success('Logging you in...');
                 $location.path('/viewEntries');
                 $rootScope.$broadcast('UserLoggedIn', {});
             }, function(){
                 notificationService.error('Could not retrieve your details. Please login again.');
-                window.localStorage.setItem("AccessToken", "");
+                window.localStorage.setItem("AccessToken", '');
                 $location.path('/login');
             });
-        }
+        };
     });
 
