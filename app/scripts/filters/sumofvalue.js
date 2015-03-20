@@ -20,5 +20,5 @@ angular.module('hoursApp')
 			sum = sum + parseFloat(data[i][key]);
 		}
 		return sum;
-	}
+	};
   });
