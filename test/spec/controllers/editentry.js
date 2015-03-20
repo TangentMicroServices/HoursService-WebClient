@@ -36,6 +36,11 @@ describe('Controller: EditentryCtrl', function () {
 
   }));
 
+  var fakeErrorFields = {
+    "start_time": ["Please send a valid start_time"],
+    "end_time": ["Please send a valid end_time"]
+  }
+
   var fakeSuccessPromise = function(){
       var deferred = $q.defer();
 
@@ -47,7 +52,7 @@ describe('Controller: EditentryCtrl', function () {
   var fakeErrorPromise = function(){
       var deferred = $q.defer();
 
-      deferred.reject();
+      deferred.reject(fakeErrorFields);
 
       return deferred.promise;
   };
@@ -98,6 +103,16 @@ describe('Controller: EditentryCtrl', function () {
     scope.$digest();
 
     expect(notificationService.error).toHaveBeenCalledWith('Your entry failed to update.');
+  }));
+
+  it('When you edit your entry and the server fails to update it, make sure that the error messages are set.', inject(function(entryService, notificationService){
+    spyOn(entryService, 'Edit').and.callFake(fakeErrorPromise);
+    
+    scope.Submit();
+    scope.$digest();
+
+    expect(scope.errorMessage).toEqual(fakeErrorFields);
+    expect(scope.errorOccured).toBe(true);
   }));
 
 });

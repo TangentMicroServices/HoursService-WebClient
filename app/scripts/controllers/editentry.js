@@ -11,6 +11,8 @@ angular.module('hoursApp')
     .controller('EditentryCtrl', function ($scope, $location, projectService, entryService, notificationService) {
       $scope.entry = entryService.GetSelectedEntry();
       $scope.saveButtonText = "Save";
+      $scope.errorMessage = {};
+      $scope.errorOccured = false;
 
   		$scope.Submit = function(){
         $scope.saveButtonText = "Saving";
@@ -28,6 +30,7 @@ angular.module('hoursApp')
   		var entryUpdateFailed = function(response){
             //TODO check failed response and show right error message
         notificationService.error('Your entry failed to update.');
-  		};
-
+        $scope.errorMessage = response;
+        $scope.errorOccured = true;
+  		}; 
     });

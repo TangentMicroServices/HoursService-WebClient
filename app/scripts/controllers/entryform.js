@@ -35,7 +35,6 @@ angular.module('hoursApp')
       $event.stopPropagation();
       $scope.opened = true;
     };
-
     // 
 
     var populateHours = function(){
