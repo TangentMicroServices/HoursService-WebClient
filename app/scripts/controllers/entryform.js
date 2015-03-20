@@ -24,7 +24,7 @@ angular.module('hoursApp')
     $scope.minDate = new Date(2015, 1, 1);
     $scope.maxDate =  new Date();
 
-    $scope.disabled = function(date, mode) {
+    $scope.disabled = function() {
       return false;
     };
 
@@ -39,13 +39,13 @@ angular.module('hoursApp')
     	for(var i=1; i<24; i++){
     		$scope.hours.push({
     			hours: i,
-    			description: i + " hours",
+    			description: i + ' hours',
     		});
     		$scope.hours.push({
     			hours: i + 0.5,
-    			description: i + " hours and 30 minutes"
+    			description: i + ' hours and 30 minutes'
     		});
-    	};
+    	}
     };
 
     var init = function(){

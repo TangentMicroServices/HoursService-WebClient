@@ -27,12 +27,12 @@ angular.module('hoursApp')
       };
 
   		var entryDeleted = function(response){
-  			notificationService.success("Your entry has succesfully been deleted.");
+  			notificationService.success('Your entry has succesfully been deleted.');
         loadEntries();
   		};
 
   		var entryDeletionFailed = function(response){
-  			notificationService.error("Failed to delete your entry.");
+  			notificationService.error('Failed to delete your entry.');
   		};
 
   		var onEntriesLoaded = function(data){
@@ -57,7 +57,7 @@ angular.module('hoursApp')
   			entryService.GetEntriesForUser($rootScope.CurrentUser.id)
   				.success(onEntriesLoaded)
   				.error(onEntriesLoadFailed);
-  		}
+  		};
 
   		var init = function(){
   			loadEntries();

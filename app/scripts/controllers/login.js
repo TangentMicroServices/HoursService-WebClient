@@ -14,15 +14,15 @@ angular.module('hoursApp')
      	$scope.username = '';
      	$scope.password = '';
 
-     	var userLoggedIn = function(response){
+     	var userLoggedIn = function(){
 			  userService.GetCurrentUser()
                    .then(currentUserLoaded, currentUserLoadFailed);
-     	}
+     	};
 
      	var userLoginFailed = function(response){
      		$scope.errorOccured = true;
      		$scope.errorMessages = response;
-     	}
+     	};
 
      	var currentUserLoaded = function(response){
         $rootScope.$broadcast('UserLoggedIn', {});
@@ -41,5 +41,5 @@ angular.module('hoursApp')
   		$scope.Login = function(){
   			userService.Login($scope.username, $scope.password)
 			  		    .then(userLoggedIn, userLoginFailed);
-  		}
+  		};
   });

@@ -92,7 +92,7 @@ angular
     .run(function ($location, $window, $rootScope, userService, notificationService) {
         var accessToken = $window.localStorage.getItem('AccessToken');
 
-        if(accessToken && accessToken !== '' && accessToken != null){
+        if(accessToken && accessToken !== '' && accessToken !== null){
             userService.GetCurrentUser().then(function(){
                 notificationService.success('Logging you in...');
                 $location.path('/viewEntries');
