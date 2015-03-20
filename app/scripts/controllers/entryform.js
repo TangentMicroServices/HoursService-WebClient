@@ -10,15 +10,13 @@
 angular.module('hoursApp')
   .controller('EntryformCtrl', function ($scope, projectService) {
   	
-  	$scope.errorOccured = false;
-    $scope.errorMessage = {};
   	$scope.tasks = [];
   	$scope.hours = [];
 
     var loadCurrentTasks = function(){
         projectService.MyTasks().then(function(response){
           $scope.tasks = response;
-        }, function(response){ });
+        }, function(){ });
     };
 
     // for the date picker.. need to refactor..... duplication in add and edit need to be resolved
@@ -47,7 +45,7 @@ angular.module('hoursApp')
     			hours: i + 0.5,
     			description: i + " hours and 30 minutes"
     		});
-    	}
+    	};
     };
 
     var init = function(){

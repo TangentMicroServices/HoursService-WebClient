@@ -11,12 +11,25 @@ describe('Controller: EntryformCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
+    
+    $rootScope.CurrentUser = {
+      id: 1
+    };
+
     EntryformCtrl = $controller('EntryformCtrl', {
       $scope: scope
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    
+  it('When controller is loaded, the first hour in hours dropdown should be 1.', function () {
+    expect(scope.hours[0]).toEqual({ hours: 1, description: '1 hours' });
   });
+
+  it('When controller is loaded check that my tasks are laoded.', inject(function($httpBackend, PROJECTSERVICE_BASE_URI, projectService){
+    spyOn(projectService, 'MyTasks').and.callFake();
+
+    $httpBackend.expectGET(PROJECTSERVICE_BASE_URI + '/api/v1/tasks/?user=1').respond(200);
+
+    $httpBackend.flush();
+  }));
 });

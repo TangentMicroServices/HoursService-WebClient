@@ -11,8 +11,27 @@ describe('Filter: sumOfValue', function () {
     sumOfValue = $filter('sum');
   }));
 
-  it('should return the input prefixed with "sumOfValue filter:"', function () {
-   
+  var fakeData = [{
+  	hours: 5
+  }, {
+  	hours: 5
+  }];
+
+  var fakeData = [{
+  	hours: "5"
+  }, {
+  	hours: 5
+  }];
+
+  it('When calculating the number of hours, make sure the hours are summed.', function () {
+      var result = sumOfValue(fakeData, 'hours');
+
+      expect(result).toBe(10);
   });
 
+  it('When calculating the number of hours, make sure the hours are summed even if string is passed.', function(){
+  	  var result = sumOfValue(fakeData, 'hours');
+
+      expect(result).toBe(10);
+  });
 });
