@@ -28,13 +28,6 @@ angular.module('hoursApp')
   		var entryUpdateFailed = function(response){
             //TODO check failed response and show right error message
         notificationService.error('Your entry failed to update.');
-        $scope.errorMessage = response;
-        $scope.errorOccured = true;
   		};
 
-      var loadCurrentTasks = function(){
-        $scope.tasks = projectService.MyTasks().then(function(response){
-          $scope.tasks = response;
-        }, function(response){});
-      };
     });
