@@ -1,65 +1,67 @@
 <div class="row">
-    <form role="form"  name="entryform" ng-submit="Submit()" class="form-horizontal">
-        <div ng-show="errorOccured">
-            <div class="alert alert-danger">{{ errorMessage }}</div>
-        </div>
-        <div class="form-group" ng-class="{ 'has-error': entryform.task.$dirty && entryform.task.$invalid}">
-            <label for="task" class="col-sm-2 control-label">Task</label>
-            <div class="col-sm-10">
-                <select name="task" class="form-control" ng-model="entry.project_task_id"
-                        ng-options="task.id as task.project_data.title + ' - ' + task.title for task in tasks" required></select>
+    <div class="col-md-12">
+        <form role="form"  name="entryform" ng-submit="Submit()" class="form-horizontal">
+            <div ng-show="errorOccured">
+                <div class="alert alert-danger">{{ errorMessage }}</div>
             </div>
-        </div>
-        <div class="form-group" ng-class="{ 'has-error': entryform.entrydate.$dirty && entryform.entrydate.$invalid}">
-            <label for="entrydate" class="col-sm-2 control-label">Day</label>
-            <div class="col-sm-10">
-                <p class="input-group">
-                    <input type="text" name="entrydate" class="form-control" datepicker-popup="{{format}}" ng-model="entry.day"
-                           is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
-                           date-disabled="disabled(date, mode)" close-text="Close" required/>
+            <div class="form-group" ng-class="{ 'has-error': entryform.task.$dirty && entryform.task.$invalid}">
+                <label for="task" class="col-sm-2 control-label">Task</label>
+                <div class="col-sm-10">
+                    <select name="task" class="form-control" ng-model="entry.project_task_id"
+                            ng-options="task.id as task.project_data.title + ' - ' + task.title for task in tasks" required></select>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': entryform.entrydate.$dirty && entryform.entrydate.$invalid}">
+                <label for="entrydate" class="col-sm-2 control-label">Day</label>
+                <div class="col-sm-10">
+                    <p class="input-group">
+                        <input type="text" name="entrydate" class="form-control" datepicker-popup="{{format}}" ng-model="entry.day"
+                               is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
+                               date-disabled="disabled(date, mode)" close-text="Close" required/>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="open($event)">
                     <i class="glyphicon glyphicon-calendar"></i></button>
               </span>
-                </p>
-            </div>
-            <!-- can consider making this on directive -->
-            <div class="text-danger" ng-show="errorMessage.day">
-                <span ng-repeat="value in errorMessage.day">{{ value }}</span>
-            </div>
-        </div>
-   
-         <div class="form-group" ng-class="{ 'has-error': entryform.hoursfield.$dirty && entryform.hoursfield.$invalid}">
-            <label for="hoursfield" class="col-sm-2 control-label">Hours</label>
-            <div class="col-sm-10">
-                <select name="hoursfield" class="form-control" ng-model="entry.hours" ng-options="hour.hours as hour.description for hour in hours" required>
-        		</select>
-            </div>
-        </div>
-        <div class="form-group" ng-class="{ 'has-error': entryform.comment.$dirty && entryform.comment.$invalid}">
-            <label for="comment" class="col-sm-2 control-label">Comments</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" ng-model="entry.comments" name="comment" cols="3" rows="3" required></textarea>
+                    </p>
+                </div>
                 <!-- can consider making this on directive -->
-                <div class="text-danger" ng-show="errorMessage.comments">
-                    <span ng-repeat="value in errorMessage.comments">{{ value }}</span>
+                <div class="text-danger" ng-show="errorMessage.day">
+                    <span ng-repeat="value in errorMessage.day">{{ value }}</span>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="entry.overtime"> Overtime
-                    </label>
-                </div>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" ng-disabled="entryform.$invalid" class="btn btn-primary">{{ saveButtonText }}</button>
+            <div class="form-group" ng-class="{ 'has-error': entryform.hoursfield.$dirty && entryform.hoursfield.$invalid}">
+                <label for="hoursfield" class="col-sm-2 control-label">Hours</label>
+                <div class="col-sm-10">
+                    <select name="hoursfield" class="form-control" ng-model="entry.hours" ng-options="hour.hours as hour.description for hour in hours" required>
+                    </select>
+                </div>
             </div>
-        </div>
-    </form>
+            <div class="form-group" ng-class="{ 'has-error': entryform.comment.$dirty && entryform.comment.$invalid}">
+                <label for="comment" class="col-sm-2 control-label">Comments</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" ng-model="entry.comments" name="comment" cols="3" rows="3" required></textarea>
+                    <!-- can consider making this on directive -->
+                    <div class="text-danger" ng-show="errorMessage.comments">
+                        <span ng-repeat="value in errorMessage.comments">{{ value }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="entry.overtime"> Overtime
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" ng-disabled="entryform.$invalid" class="btn btn-primary">{{ saveButtonText }}</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
