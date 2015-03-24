@@ -44,6 +44,20 @@ angular.module('hoursApp')
 
    				return deferred.promise;
    			},
+            GetUsers: function(){
+                var deferred = $q.defer();
+
+                jsonService.Get(USERSERVICE_BASE_URI, '/api/v1/users/', {})
+                    .success(function(response, status, headers, config){
+                        //setCurrentUser(response);
+                        deferred.resolve(response, status, headers, config);
+                    })
+                    .error(function(response, status, headers, config){
+                        deferred.reject(response, status, headers, config);
+                    });
+
+                return deferred.promise;
+            },
    			Login: function(username, password){
    				var deffered = $q.defer();
 

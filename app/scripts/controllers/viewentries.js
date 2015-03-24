@@ -8,10 +8,11 @@
  * Controller of the hoursApp
  */
 angular.module('hoursApp')
-  .controller('ViewentriesCtrl', function ($scope, $rootScope, $location, notificationService, entryService, projectService) {
+  .controller('ViewentriesCtrl', function ($scope, $rootScope, $location, notificationService, userService, entryService, projectService) {
     	
   		$scope.entries = [];
       $scope.tasks = [];
+        $scope.users = [];
   		
   		$scope.Delete = function(entry){
   			entryService.Delete(entry.id).then(entryDeleted, entryDeletionFailed);
@@ -26,8 +27,13 @@ angular.module('hoursApp')
          return projectService.GetTask(entry.project_task_id);
       };
 
+        $scope.updateUserEntries = function(){
+            var userId = $scope.users.id;
+            loadEntries(userId);
+        };
+
   		var entryDeleted = function(response){
-  			notificationService.success('Your entry has succesfully been deleted.');
+  			notificationService.success('Your entry has successfully been deleted.');
         loadEntries();
   		};
 
@@ -53,16 +59,29 @@ angular.module('hoursApp')
 
       var taskLoadFailed = function(response){};
 
-  		var loadEntries = function(){
-  			entryService.GetEntriesForUser($rootScope.CurrentUser.id)
-  				.success(onEntriesLoaded)
-  				.error(onEntriesLoadFailed);
-  		};
+        var loadEntries = function(userId){
+            entryService.GetEntriesForUser(userId)
+                .success(onEntriesLoaded)
+                .error(onEntriesLoadFailed);
+        };
 
-  		var init = function(){
-  			loadEntries();
-        loadTasks();
-  		};
+        var loadUsers = function(){
+            userService.GetUsers().then(usersLoaded, userLoadFailed);
+        };
 
-  		init();
+        var usersLoaded = function(response){
+            $scope.users = response;
+        };
+
+        var userLoadFailed = function(response){};
+
+
+
+        var init = function(){
+            loadEntries($rootScope.CurrentUser.id);
+            loadTasks();
+            loadUsers();
+        };
+
+        init();
   });
