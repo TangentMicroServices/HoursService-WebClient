@@ -13,7 +13,7 @@ describe('Service: projectService', function () {
 
   var fakeTasks = [{ id: 1}, {id: 2}];
 
-  it('When fetching tasks for a specific user, make sure the url matches.', inject(function(PROJECTSERVICE_BASE_URI, $httpBackend, $rootScope){
+  xit('When fetching tasks for a specific user, make sure the url matches.', inject(function(PROJECTSERVICE_BASE_URI, $httpBackend, $rootScope){
     $rootScope.CurrentUser = {
       id: 1
     };
@@ -25,7 +25,7 @@ describe('Service: projectService', function () {
     $httpBackend.verifyNoOutstandingExpectation();
   }));
 
-  it('When fetching tasks for a specific user, make sure that the tasks get stored in the project service.', inject(function($httpBackend, PROJECTSERVICE_BASE_URI, $rootScope){
+  xit('When fetching tasks for a specific user, make sure that the tasks get stored in the project service.', inject(function($httpBackend, PROJECTSERVICE_BASE_URI, $rootScope){
     $rootScope.CurrentUser = {
       id: 1
     };

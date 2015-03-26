@@ -43,7 +43,8 @@ angular
             })
             .when('/viewEntries', {
                 templateUrl: 'views/viewentries.html',
-                controller: 'ViewentriesCtrl'
+                controller: 'ViewentriesCtrl',
+                requireLogin: true
             })
             .when('/login', {
                 templateUrl: 'views/login.html',
@@ -61,11 +62,15 @@ angular
                 templateUrl: 'views/logout.html',
                 controller: 'LogoutCtrl'
             })
+            .when('/overview', {
+                templateUrl: 'views/entriesoverview.html',
+                controller: 'EntriesOverviewCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });
 
-        $provide.factory('myHttpInterceptor', function($q, $rootScope, $window) {
+        $provide.factory('myHttpInterceptor', function($q, $rootScope, $window, $location) {
             return {
                 'request': function(config) {
                     var accessToken = $window.localStorage.getItem('AccessToken');
@@ -79,6 +84,15 @@ angular
                     return $q.reject(rejection);
                 },
                 'response': function(response) {
+
+                    var accessToken = $window.localStorage.getItem('AccessToken');
+
+                    var hasAccessToken = accessToken !== '' && accessToken !== null;
+
+                    if(!hasAccessToken){
+                        $location.path('/login');
+                    }
+
                     return response;
                 },
                 'responseError': function(rejection) {
@@ -89,10 +103,47 @@ angular
 
         $httpProvider.interceptors.push('myHttpInterceptor');
     })
+    /*.run(function($location, $window, $rootScope, userService, notificationService){
+
+        $rootScope.$on("$locationChangeStart", function(event, next, current) {
+            var accessToken = $window.localStorage.getItem('AccessToken');
+            var currentUserId = $window.localStorage.getItem('CurrentUserId');
+
+            var hasAccessToken = accessToken !== '' && accessToken !== null;
+            var hasCurrentUser = currentUserId !== '' && currentUserId !== null;
+
+            if(hasAccessToken && !hasCurrentUser){
+                userService.GetCurrentUser().then(function(){
+                    notificationService.success('Logging you in...');
+                    $location.path('/viewEntries');
+                    $rootScope.$broadcast('UserLoggedIn', {});
+                }, function(){
+                    notificationService.error('Could not retrieve your details. Please login again.');
+                    window.localStorage.setItem('AccessToken', '');
+                    window.localStorage.setItem('CurrentUserId', '');
+                    $location.path('/login');
+                });
+            }else if (hasAccessToken && hasCurrentUser){
+                notificationService.success('Logging you in...');
+                $location.path('/viewEntries');
+                $rootScope.$broadcast('UserLoggedIn', {});
+            }
+            else{
+                notificationService.error('Could not retrieve your details. Please login again.');
+                window.localStorage.setItem('AccessToken', '');
+                window.localStorage.setItem('CurrentUserId', '');
+                $location.path('/login');
+            }
+        });*/
+
     .run(function ($location, $window, $rootScope, userService, notificationService) {
         var accessToken = $window.localStorage.getItem('AccessToken');
+        var currentUserId = $window.localStorage.getItem('CurrentUserId');
 
-        if(accessToken && accessToken !== '' && accessToken !== null){
+        var hasAccessToken = accessToken !== '' && accessToken !== null;
+        var hasCurrentUser = currentUserId !== '' && currentUserId !== null;
+        debugger;
+        if(hasAccessToken && !hasCurrentUser){
             userService.GetCurrentUser().then(function(){
                 notificationService.success('Logging you in...');
                 $location.path('/viewEntries');
@@ -100,8 +151,19 @@ angular
             }, function(){
                 notificationService.error('Could not retrieve your details. Please login again.');
                 window.localStorage.setItem('AccessToken', '');
+                window.localStorage.setItem('CurrentUserId', '');
                 $location.path('/login');
             });
+        }else if (hasAccessToken && hasCurrentUser){
+            notificationService.success('Logging you in...');
+            $location.path('/viewEntries');
+            $rootScope.$broadcast('UserLoggedIn', {});
+        }
+        else{
+            notificationService.error('Could not retrieve your details. Please login again.');
+            window.localStorage.setItem('AccessToken', '');
+            window.localStorage.setItem('CurrentUserId', '');
+            $location.path('/login');
         }
     });
 

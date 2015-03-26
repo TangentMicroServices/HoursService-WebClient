@@ -15,24 +15,26 @@ angular.module('hoursApp')
 
    		var setAccessToken = function(response){
    			if(response.token){
-			     $rootScope.AccessToken = response.token;
-              $window.localStorage.setItem('AccessToken', response.token);
+                $rootScope.AccessToken = response.token;
+                $window.localStorage.setItem('AccessToken', response.token);
    		   }
          };
 
    		var setCurrentUser = function(response){
    			$rootScope.CurrentUser = response;
+            window.localStorage.setItem('CurrentUserId', response.id);
    		};
    		//TODO needs cleaning....
    		return {
             Logout: function(){
                $window.localStorage.setItem('AccessToken', "");
+                $window.localStorage.setItem('CurrentUserId', "");
                setCurrentUser({});
                $rootScope.$broadcast('UserLoggedOut', {});
             },
    			GetCurrentUser: function(){
    				var deferred = $q.defer();
-
+                debugger;
    				jsonService.Get(USERSERVICE_BASE_URI, '/api/v1/users/me/', {})
    					.success(function(response, status, headers, config){
    						setCurrentUser(response);
@@ -61,6 +63,7 @@ angular.module('hoursApp')
    			Login: function(username, password){
    				var deffered = $q.defer();
 
+
    				var request = {
    					username: username,
    					password: password
@@ -74,7 +77,7 @@ angular.module('hoursApp')
    								.error(function(response, status, headers, config){
    								  	deffered.reject(response, status, headers, config);
    								});
-                           
+
    				return deffered.promise;
    			}
    		};

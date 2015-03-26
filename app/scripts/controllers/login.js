@@ -25,17 +25,17 @@ angular.module('hoursApp')
      	};
 
      	var currentUserLoaded = function(response){
-        $rootScope.$broadcast('UserLoggedIn', {});
+            $rootScope.$broadcast('UserLoggedIn', {});
 
-        notificationService.success('You are currently logged in as ' + response.username);
+            notificationService.success('You are currently logged in as ' + response.username);
 
-        $location.path('/viewEntries');
+            $location.path('/viewEntries');
      	};
 
      	var currentUserLoadFailed = function(response){
-        notificationService.error('Failed to retrieve your details.');
+            notificationService.error('Failed to retrieve your details.');
      		$scope.errorOccured = true;
-        $scope.errorMessages = response; 
+            $scope.errorMessages = response;
      	};
 
   		$scope.Login = function(){

@@ -8,56 +8,57 @@
  * Controller of the hoursApp
  */
 angular.module('hoursApp')
-  .controller('ViewentriesCtrl', function ($scope, $rootScope, $location, notificationService, userService, entryService, projectService) {
-    	
-  		$scope.entries = [];
-      $scope.tasks = [];
+    .controller('ViewentriesCtrl', function ($scope, $rootScope, $location, notificationService, userService, entryService, projectService) {
+
+        $scope.entries = [];
+        $scope.tasks = [];
         $scope.users = [];
-  		
-  		$scope.Delete = function(entry){
-  			entryService.Delete(entry.id).then(entryDeleted, entryDeletionFailed);
-  		};
+        $scope.selectedUser = null;
 
-  		$scope.Edit = function(entry){
-  			entryService.EntrySelected(entry);
-  			$location.path('/editEntry');
-  		};
+        $scope.Delete = function(entry){
+            entryService.Delete(entry.id).then(entryDeleted, entryDeletionFailed);
+        };
 
-      $scope.GetTask = function(entry){
-         return projectService.GetTask(entry.project_task_id);
-      };
+        $scope.Edit = function(entry){
+            entryService.EntrySelected(entry);
+            $location.path('/editEntry');
+        };
+
+        $scope.GetTask = function(entry){
+            return projectService.GetTask(entry.project_task_id);
+        };
 
         $scope.updateUserEntries = function(){
-            var userId = $scope.users.id;
+            var userId = $scope.selectedUser.id;
             loadEntries(userId);
         };
 
-  		var entryDeleted = function(response){
-  			notificationService.success('Your entry has successfully been deleted.');
-        loadEntries();
-  		};
+        var entryDeleted = function(response){
+            notificationService.success('Your entry has successfully been deleted.');
+            loadEntries();
+        };
 
-  		var entryDeletionFailed = function(response){
-  			notificationService.error('Failed to delete your entry.');
-  		};
+        var entryDeletionFailed = function(response){
+            notificationService.error('Failed to delete your entry.');
+        };
 
-  		var onEntriesLoaded = function(data){
-  			$scope.entries = data;
-  		};
+        var onEntriesLoaded = function(data){
+            $scope.entries = data;
+        };
 
-  		var onEntriesLoadFailed = function(data){
-        notificationService.error('failed to load entries. ');
-  		};
+        var onEntriesLoadFailed = function(data){
+            notificationService.error('failed to load entries.');
+        };
 
-      var loadTasks = function(){
-        projectService.MyTasks().then(tasksLoaded, taskLoadFailed);
-      };
+        var loadTasks = function(){
+            projectService.MyTasks().then(tasksLoaded, taskLoadFailed);
+        };
 
-      var tasksLoaded = function(response){
-        $scope.tasks = response;
-      };
+        var tasksLoaded = function(response){
+            $scope.tasks = response;
+        };
 
-      var taskLoadFailed = function(response){};
+        var taskLoadFailed = function(response){};
 
         var loadEntries = function(userId){
             entryService.GetEntriesForUser(userId)
@@ -71,17 +72,21 @@ angular.module('hoursApp')
 
         var usersLoaded = function(response){
             $scope.users = response;
+            $scope.selectedUser = _.findWhere($scope.users, {id: $rootScope.CurrentUser.id});
         };
 
         var userLoadFailed = function(response){};
 
-
-
         var init = function(){
-            loadEntries($rootScope.CurrentUser.id);
+            var userId = $rootScope.CurrentUser.id;
+            if(typeof userId !== 'undefined')
+            {
+                loadEntries(userId);
+            }
+
             loadTasks();
             loadUsers();
         };
 
         init();
-  });
+    });

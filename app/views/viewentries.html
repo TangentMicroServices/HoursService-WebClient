@@ -4,8 +4,8 @@
             <div class="form-group">
                 <label for="user" class="col-sm-2 control-label">User</label>
                 <div class="col-sm-10">
-                    <select ng-change="updateUserEntries()" name="user" id="user" class="form-control" ng-model="users.id"
-                            ng-options="user.id as user.first_name for user in users" required></select>
+                    <select ng-change="updateUserEntries()" name="user" id="user" class="form-control" ng-model="selectedUser"
+                            ng-options="user.first_name for user in users" required></select>
                 </div>
             </div>
         </form>

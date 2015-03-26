@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-horizontal well">
+            <div class="form-group">
+                <label for="user" class="col-sm-2 control-label">User</label>
+                <div class="col-sm-10">
+                    <select ng-change="updateUserEntries()" name="user" id="user" class="form-control" ng-model="users.id"
+                            ng-options="user.id as user.first_name for user in users" required></select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+    </div>
+</div>
