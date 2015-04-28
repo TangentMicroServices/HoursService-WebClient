@@ -136,13 +136,13 @@ angular
             }
         });*/
 
-    .run(function ($location, $window, $rootScope, userService, notificationService) {
+    .run(function ($location, $window, $rootScope, $timeout, userService, notificationService) {
         var accessToken = $window.localStorage.getItem('AccessToken');
-        var currentUserId = $window.localStorage.getItem('CurrentUserId');
+        var currentUserId = $rootScope.CurrentUser.id = $window.localStorage.getItem('CurrentUserId');
 
         var hasAccessToken = accessToken !== '' && accessToken !== null;
         var hasCurrentUser = currentUserId !== '' && currentUserId !== null;
-        debugger;
+
         if(hasAccessToken && !hasCurrentUser){
             userService.GetCurrentUser().then(function(){
                 notificationService.success('Logging you in...');
@@ -157,7 +157,9 @@ angular
         }else if (hasAccessToken && hasCurrentUser){
             notificationService.success('Logging you in...');
             $location.path('/viewEntries');
-            $rootScope.$broadcast('UserLoggedIn', {});
+            userService.GetCurrentUser().then(function() {
+                $rootScope.$broadcast('UserLoggedIn', {});
+            });
         }
         else{
             notificationService.error('Could not retrieve your details. Please login again.');

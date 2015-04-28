@@ -12,3 +12,4 @@ dist
 reports/
 coverage/
 app/scripts/localsettings.js
+.eslintrc
