@@ -25,12 +25,20 @@ angular.module('hoursApp')
         tags: ''
       };
 
+      $scope.task = {};
+
     	$scope.Submit = function(){
         $scope.entry.day = new moment($scope.entry.day).format('YYYY-MM-DD');
 
     		entryService.Add($scope.entry)
     			.then(entryAdded, entryDidNotAdd);
     	};
+
+      $scope.Change = function () {
+        var task = $scope.task;
+        $scope.entry.project_id = task.project;
+        $scope.entry.project_task_id = task.id;
+      };
 
       var entryAdded = function(){
         notificationService.success('Entry added successfully.');

@@ -35,7 +35,6 @@ angular.module('hoursApp')
 
                 //Get current user from cache
                 var currentUserId = $window.localStorage.getItem('CurrentUserId');
-                debugger;
 
                 var promise = jsonService.Get(PROJECTSERVICE_BASE_URI, '/api/v1/tasks/?user=' + currentUserId, {})
                     .success(function (response) {

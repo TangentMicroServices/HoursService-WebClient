@@ -9,12 +9,13 @@
  */
 angular.module('hoursApp')
   .controller('EntryformCtrl', function ($scope, projectService) {
-  	
+
   	$scope.tasks = [];
   	$scope.hours = [];
 
     var loadCurrentTasks = function(){
         projectService.MyTasks().then(function(response){
+          console.log(response);
           $scope.tasks = response;
         }, function(){ });
     };
@@ -33,7 +34,7 @@ angular.module('hoursApp')
       $event.stopPropagation();
       $scope.opened = true;
     };
-    // 
+    //
 
     var populateHours = function(){
     	for(var i=1; i<24; i++){

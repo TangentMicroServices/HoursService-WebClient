@@ -14,6 +14,8 @@ angular.module('hoursApp')
       $scope.errorMessage = {};
       $scope.errorOccured = false;
 
+      $scope.task = {};
+
   		$scope.Submit = function(){
         $scope.saveButtonText = 'Saving';
         $scope.entry.day = new moment($scope.entry.day).format("YYYY-MM-DD");
@@ -21,6 +23,12 @@ angular.module('hoursApp')
   			entryService.Edit($scope.entry)
   						.then(entryupdate, entryUpdateFailed);
   		};
+
+      $scope.Change = function () {
+        var task = $scope.task;
+        $scope.entry.project_id = task.project;
+        $scope.entry.project_task_id = task.id;
+      };
 
   		var entryupdate = function(){
         notificationService.success('Your entry has been updated.');
@@ -32,5 +40,5 @@ angular.module('hoursApp')
         notificationService.error('Your entry failed to update.');
         $scope.errorMessage = response;
         $scope.errorOccured = true;
-  		}; 
+  		};
     });

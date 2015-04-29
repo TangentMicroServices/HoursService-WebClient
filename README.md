@@ -13,12 +13,16 @@ Calling the hours service with authentication. Using angular
 
 1. Setup environment
 
-        npm install && bower install
+    npm install && bower install
 
 1. Build the application
 
-		grunt
-		
+		npm build
+
 1. Run the application
 
-		grunt serve
+		npm start
+
+1. Run Tests
+
+    npm test
