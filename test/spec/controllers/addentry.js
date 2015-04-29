@@ -117,7 +117,8 @@ describe('Controller: AddentryCtrl', function () {
     scope.Change();
     scope.Submit();
 
-    expect(scope.entry).toEqual(expectedEntry);
+    expect(scope.entry.project_id).toEqual(expectedEntry.project_id);
+    expect(scope.entry.project_task_id).toEqual(expectedEntry.project_task_id);
   });
 
   it('After adding an entry you will be navigated to the view entries page', inject(function(PROJECTSERVICE_BASE_URI, $httpBackend, entryService, $location, projectService){

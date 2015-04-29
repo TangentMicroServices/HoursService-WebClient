@@ -95,7 +95,8 @@ describe('Controller: EditentryCtrl', function () {
     scope.Change();
     scope.Submit();
 
-    expect(scope.entry).toEqual(expectedEntry);
+    expect(scope.entry.project_id).toEqual(expectedEntry.project_id);
+    expect(scope.entry.project_task_id).toEqual(expectedEntry.project_task_id);
   });
 
   it('When you edit your entry and click save, make sure button text changes.', inject(function ($httpBackend, entryService) {
