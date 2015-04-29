@@ -57,6 +57,47 @@ describe('Controller: EditentryCtrl', function () {
       return deferred.promise;
   };
 
+  it('Updates the entry with the correct data from the task object', function () {
+
+    scope.entry = {
+      id: 1,
+      user: 1,
+      project_id: 0,
+      project_task_id: 0,
+      status: 'Open',
+      day: '2015-03-09T22:00:00.000Z',
+      start_time: '08:00:00',
+      end_time: '17:00:00',
+      hours: 8,
+      overtime: 0,
+      tags: ''
+    }
+
+    scope.task = {
+      id: 1,
+      project: 2
+    }
+
+    var expectedEntry = {
+      id: 1,
+      user: 1,
+      project_id: 2,
+      project_task_id: 1,
+      status: 'Open',
+      day: '2015-03-10',
+      start_time: '08:00:00',
+      end_time: '17:00:00',
+      hours: 8,
+      overtime: 0,
+      tags: ''
+    }
+
+    scope.Change();
+    scope.Submit();
+
+    expect(scope.entry).toEqual(expectedEntry);
+  });
+
   it('When you edit your entry and click save, make sure button text changes.', inject(function ($httpBackend, entryService) {
     spyOn(entryService, 'Edit').and.callFake(fakeSuccessPromise);
 
@@ -107,7 +148,7 @@ describe('Controller: EditentryCtrl', function () {
 
   it('When you edit your entry and the server fails to update it, make sure that the error messages are set.', inject(function(entryService, notificationService){
     spyOn(entryService, 'Edit').and.callFake(fakeErrorPromise);
-    
+
     scope.Submit();
     scope.$digest();
 
