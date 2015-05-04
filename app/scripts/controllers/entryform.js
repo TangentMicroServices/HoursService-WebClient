@@ -16,6 +16,7 @@ angular.module('hoursApp')
     var loadCurrentTasks = function(){
         projectService.MyTasks().then(function(response){
           $scope.tasks = response;
+          $scope.$emit('loadCurrentTasks', response);
         }, function(){ });
     };
 
@@ -33,7 +34,6 @@ angular.module('hoursApp')
       $event.stopPropagation();
       $scope.opened = true;
     };
-    //
 
     var populateHours = function(){
     	for(var i=1; i<24; i++){

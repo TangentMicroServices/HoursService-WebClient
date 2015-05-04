@@ -14,7 +14,16 @@ angular.module('hoursApp')
       $scope.errorMessage = {};
       $scope.errorOccured = false;
 
-      $scope.task = {};
+      $scope.task = {
+        project: $scope.entry.project_id,
+        id: $scope.entry.project_task_id
+      };
+
+      $scope.$on('loadCurrentTasks', function(event, tasks) {
+        $scope.task = _.find(tasks, function (task) {
+          return task.id === $scope.task.id;
+        });
+      });
 
   		$scope.Submit = function(){
         $scope.saveButtonText = 'Saving';
@@ -30,13 +39,13 @@ angular.module('hoursApp')
         $scope.entry.project_task_id = task.id;
       };
 
-  		var entryupdate = function(){
+  		var entryupdate = function() {
         notificationService.success('Your entry has been updated.');
         $location.path('/viewEntries');
   		};
 
   		var entryUpdateFailed = function(response){
-            //TODO check failed response and show right error message
+        //TODO check failed response and show right error message
         notificationService.error('Your entry failed to update.');
         $scope.errorMessage = response;
         $scope.errorOccured = true;

@@ -17,14 +17,10 @@ Duplicate `/app/scripts/localsettings.js.example` and rename to `localsettings.j
 
     npm install && bower install
 
-1. Build the application
-
-    grunt build
-
 1. Run the application
 
-    grunt serve
+    npm start
 
 1. Run Tests
 
-    grunt test
+    npm test
