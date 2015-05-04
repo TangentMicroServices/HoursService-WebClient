@@ -15,7 +15,6 @@ angular.module('hoursApp')
 
     var loadCurrentTasks = function(){
         projectService.MyTasks().then(function(response){
-          console.log(response);
           $scope.tasks = response;
         }, function(){ });
     };

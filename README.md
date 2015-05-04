@@ -11,18 +11,20 @@ Calling the hours service with authentication. Using angular
 
 ## Setting Up
 
+Duplicate `/app/scripts/localsettings.js.example` and rename to `localsettings.js`.
+
 1. Setup environment
 
     npm install && bower install
 
 1. Build the application
 
-		npm build
+    grunt build
 
 1. Run the application
 
-		npm start
+    grunt serve
 
 1. Run Tests
 
-    npm test
+    grunt test
