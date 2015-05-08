@@ -19,8 +19,7 @@
                 <th>Date</th>
                 <th>Task</th>
                 <th>Hours</th>
-                <!--<th>Start Time</th>
-                <th>End time</th>-->
+                <th>Status</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -30,22 +29,22 @@
                 <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
                 <td>{{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
                 <td>{{ entry.hours }}</td>
+                <td>{{ entry.status }}</td>
                 <!--<td>{{ entry.start_time | date:'medium' }}</td>
                 <td>{{ entry.end_time | date:'medium'  }}</td>-->
                 <td><a ng-click="Edit(entry)"class="btn btn-warning"><i class="fa fa-edit" ></i></a></td>
                 <td><a ng-click="Delete(entry)"class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
             </tr>
-            <tr>
+            <tr class="table-comments">
                 <td colspan="7">{{ entry.comments }}</td>
             </tr>
             </tbody>
             <tfoot>
-            <tr>
+            <tr class="totals">
                 <td><strong>Total Hours:</strong></td>
                 <td></td>
-                <td><strong>{{ entries | sum:'hours' }}</strong></td>
-                <!--<td></td>
-                <td></td>-->
+                <td class="total-hours"><strong>{{ entries | sum:'hours' }}</strong></td>
+                <td></td>
                 <td></td>
                 <td></td>
             </tr>

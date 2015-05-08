@@ -27,23 +27,6 @@ angular.module('hoursApp')
 
       $scope.task = {};
 
-      $scope.$on('loadCurrentTasks', function(event, tasks) {
-        $scope.task = tasks[0];
-      });
-
-    	$scope.Submit = function(){
-        $scope.entry.day = new moment($scope.entry.day).format('YYYY-MM-DD');
-
-    		entryService.Add($scope.entry)
-    			.then(entryAdded, entryDidNotAdd);
-    	};
-
-      $scope.Change = function () {
-        var task = $scope.task;
-        $scope.entry.project_id = task.project;
-        $scope.entry.project_task_id = task.id;
-      };
-
       var entryAdded = function(){
         notificationService.success('Entry added successfully.');
         $location.path('/viewEntries');
@@ -57,6 +40,28 @@ angular.module('hoursApp')
 
       var init = function(){
         $scope.entry.day = new moment($scope.entry.day).format('YYYY-MM-DD');
+      };
+
+      var setEntryTask = function(task) {
+        $scope.entry.project_id = task.project;
+        $scope.entry.project_task_id = task.id;
+      }
+
+      $scope.$on('loadCurrentTasks', function(event, tasks) {
+        var task = $scope.task = tasks[0];
+        setEntryTask(task);
+      });
+
+      $scope.Submit = function(){
+        $scope.entry.day = new moment($scope.entry.day).format('YYYY-MM-DD');
+
+        entryService.Add($scope.entry)
+          .then(entryAdded, entryDidNotAdd);
+      };
+
+      $scope.Change = function () {
+        var task = $scope.task;
+        setEntryTask(task);
       };
 
       init();
