@@ -1,6 +1,6 @@
 {
   "name": "hours",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "start": "./node_modules/.bin/grunt serve",
     "build": "./node_modules/.bin/grunt build",

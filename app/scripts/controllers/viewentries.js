@@ -34,8 +34,9 @@ angular.module('hoursApp')
         };
 
         var entryDeleted = function(response){
+            var userId = $scope.selectedUser.id;
             notificationService.success('Your entry has successfully been deleted.');
-            loadEntries();
+            loadEntries(userId);
         };
 
         var entryDeletionFailed = function(response){
