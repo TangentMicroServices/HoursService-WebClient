@@ -17,7 +17,7 @@ describe('Controller: TopnavigationCtrl', function () {
   }));
 
   it('When user logged out it should display the correct navigation.', function () {
-    
+
     var loggedOutMenu = [
       { url: '#login', title: 'Login' }
     ];
@@ -43,5 +43,17 @@ describe('Controller: TopnavigationCtrl', function () {
 
         expect(scope.rightLoggedIn).toEqual(loggedInMenu);
     });
-  
+
+  it('displays the appropriate buttons when logged in', function() {
+    scope.$emit('UserLoggedIn');
+    expect(scope.leftNavigationItems).toEqual(scope.leftLoggedIn);
+    expect(scope.rightNavigationItems).toEqual(scope.rightLoggedIn);
+  });
+
+  it('displays the appropriate buttons when logged out', function() {
+    scope.$emit('UserLoggedOut');
+    expect(scope.leftNavigationItems).toEqual(scope.leftLoggedOut);
+    expect(scope.rightNavigationItems).toEqual(scope.rightLoggedOut);
+  });
+
 });

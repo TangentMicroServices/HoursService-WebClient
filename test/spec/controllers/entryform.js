@@ -69,4 +69,17 @@ describe('Controller: EntryformCtrl', function () {
     scope.$digest();
     expect(scope.tasks.length).toEqual(3);
   });
+
+  it('opens the calendar popup', function() {
+    var eventMock = {
+      preventDefault: function() {},
+      stopPropagation: function() {}
+    };
+    scope.open(eventMock);
+    expect(scope.opened).toEqual(true);
+  });
+
+  it('disable when scope.disabled has been called', function() {
+    expect(scope.disabled()).toEqual(false);
+  });
 });
