@@ -15,8 +15,10 @@ angular.module('hoursApp')
 
     var loadCurrentTasks = function(){
         projectService.MyTasks().then(function(response){
-          $scope.tasks = response;
-          $scope.$emit('loadCurrentTasks', response);
+          var tasks = $scope.tasks = _.sortBy(response, function(task) {
+            return task.project_data.title;
+          });
+          $scope.$emit('loadCurrentTasks', tasks);
         }, function(){ });
     };
 

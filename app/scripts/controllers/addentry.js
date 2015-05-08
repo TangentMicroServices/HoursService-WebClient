@@ -27,6 +27,10 @@ angular.module('hoursApp')
 
       $scope.task = {};
 
+      $scope.$on('loadCurrentTasks', function(event, tasks) {
+        $scope.task = tasks[0];
+      });
+
     	$scope.Submit = function(){
         $scope.entry.day = new moment($scope.entry.day).format('YYYY-MM-DD');
 
