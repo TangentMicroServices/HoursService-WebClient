@@ -3,6 +3,16 @@ body {
 
 }
 
+.app-container{
+  min-height: 300px;
+  background: url('/images/preloader.gif') center center no-repeat;
+}
+
+  .app{
+    background-color: #fff;
+    min-height: 300px;
+  }
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
@@ -86,5 +96,9 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+.entry-submitted{
+  opacity: 0.7;
 }
 

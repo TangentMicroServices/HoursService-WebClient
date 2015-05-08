@@ -40,6 +40,9 @@ angular.module('hoursApp')
   			},
   			GetEntriesForUser: function(userId){
   				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + "?user=" +userId , {});
-  			}
+  			},
+        Submit: function(entryIds){
+          return jsonService.Post(HOURSSERVICE_BASE_URI, entryUrl + 'submit/', entryIds);
+        }
   		};
   });

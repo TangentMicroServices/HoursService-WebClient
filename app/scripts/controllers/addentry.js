@@ -39,6 +39,7 @@ angular.module('hoursApp')
       };
 
       var init = function(){
+        $scope.loaded = true;
         $scope.entry.day = new moment($scope.entry.day).format('YYYY-MM-DD');
       };
 

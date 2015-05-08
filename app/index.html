@@ -27,7 +27,9 @@
     <!-- Add your site or application content here -->
     <div ng-include="'views/topnavigation.html'" ng-controller="TopnavigationCtrl"></div>
     <div class="container">
-      <div ng-view=""></div>
+        <div class="app-container">
+            <div class="app" ng-show="loaded" ng-view=""></div>
+        </div>
     </div>
     <footer class="footer">
         <div class="container"><p class="text-muted">&copy; Tangent Solutions</p></div>

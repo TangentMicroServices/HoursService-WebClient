@@ -9,10 +9,6 @@
  */
 angular.module('hoursApp')
   .controller('EntryformCtrl', function ($scope, projectService) {
-
-  	$scope.tasks = [];
-  	$scope.hours = [];
-
     var sortTasks = function(tasks) {
       return _.sortBy(tasks, function(task) {
         return task.project_data.title;
@@ -26,6 +22,8 @@ angular.module('hoursApp')
         });
     };
 
+    $scope.tasks = [];
+    $scope.hours = [];
     // for the date picker.. need to refactor..... duplication in add and edit need to be resolved
     $scope.format = 'yyyy-MM-dd';
     $scope.minDate = new Date(2015, 1, 1);

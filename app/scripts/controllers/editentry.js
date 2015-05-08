@@ -9,10 +9,24 @@
  */
 angular.module('hoursApp')
     .controller('EditentryCtrl', function ($scope, $location, projectService, entryService, notificationService) {
+      var entryupdate = function() {
+        notificationService.success('Your entry has been updated.');
+        $location.path('/viewEntries');
+      };
+
+      var entryUpdateFailed = function(response){
+        //TODO check failed response and show right error message
+        notificationService.error('Your entry failed to update.');
+        $scope.errorMessage = response;
+        $scope.errorOccured = true;
+      };
+
       $scope.entry = entryService.GetSelectedEntry();
       $scope.saveButtonText = 'Save';
       $scope.errorMessage = {};
       $scope.errorOccured = false;
+
+      $scope.loaded = true;
 
       $scope.task = {
         project: $scope.entry.project_id,
@@ -38,16 +52,4 @@ angular.module('hoursApp')
         $scope.entry.project_id = task.project;
         $scope.entry.project_task_id = task.id;
       };
-
-  		var entryupdate = function() {
-        notificationService.success('Your entry has been updated.');
-        $location.path('/viewEntries');
-  		};
-
-  		var entryUpdateFailed = function(response){
-        //TODO check failed response and show right error message
-        notificationService.error('Your entry failed to update.');
-        $scope.errorMessage = response;
-        $scope.errorOccured = true;
-  		};
     });

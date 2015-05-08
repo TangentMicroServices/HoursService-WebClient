@@ -9,30 +9,6 @@
  */
 angular.module('hoursApp')
     .controller('ViewentriesCtrl', function ($scope, $rootScope, $location, notificationService, userService, entryService, projectService) {
-
-        $scope.entries = [];
-        $scope.tasks = [];
-        $scope.users = [];
-        $scope.selectedUser = null;
-
-        $scope.Delete = function(entry){
-            entryService.Delete(entry.id).then(entryDeleted, entryDeletionFailed);
-        };
-
-        $scope.Edit = function(entry){
-            entryService.EntrySelected(entry);
-            $location.path('/editEntry');
-        };
-
-        $scope.GetTask = function(entry){
-            return projectService.GetTask(entry.project_task_id);
-        };
-
-        $scope.updateUserEntries = function(){
-            var userId = $scope.selectedUser.id;
-            loadEntries(userId);
-        };
-
         var entryDeleted = function(response){
             var userId = $scope.selectedUser.id;
             notificationService.success('Your entry has successfully been deleted.');
@@ -44,7 +20,8 @@ angular.module('hoursApp')
         };
 
         var onEntriesLoaded = function(data){
-            $scope.entries = data;
+            $scope.entries = getOpenEntries(data);
+            $scope.loaded = true;
         };
 
         var onEntriesLoadFailed = function(data){
@@ -76,6 +53,12 @@ angular.module('hoursApp')
             $scope.selectedUser = _.findWhere($scope.users, {id: $rootScope.CurrentUser.id});
         };
 
+        var getOpenEntries = function(entries) {
+            return _.filter(entries, function(entry) {
+                return entry.status === 'Open';
+            })
+        }
+
         var userLoadFailed = function(response){};
 
         var init = function(){
@@ -87,6 +70,34 @@ angular.module('hoursApp')
 
             loadTasks();
             loadUsers();
+        };
+
+        $scope.entries = [];
+        $scope.tasks = [];
+        $scope.users = [];
+        $scope.selectedUser = null;
+
+        $scope.Delete = function(entry){
+            entryService.Delete(entry.id).then(entryDeleted, entryDeletionFailed);
+        };
+
+        $scope.Edit = function(entry){
+            entryService.EntrySelected(entry);
+            $location.path('/editEntry');
+        };
+
+        $scope.GetTask = function(entry){
+            return projectService.GetTask(entry.project_task_id);
+        };
+
+        $scope.updateUserEntries = function(){
+            var userId = $scope.selectedUser.id;
+            loadEntries(userId);
+        };
+
+        $scope.submitOpenEntries = function() {
+            var userId = $scope.selectedUser.id;
+            entryService.Submit().then(loadEntries.bind(null, userId));
         };
 
         init();
