@@ -157,4 +157,14 @@ describe('Controller: EditentryCtrl', function () {
     expect(scope.errorOccured).toBe(true);
   }));
 
+  it('Receives tasks from event loadCurrentTasks', inject(function(){
+    scope.task = {
+      id: 1,
+      title: 'Title must change'
+    };
+    scope.$emit('loadCurrentTasks', [{ id: 1, title: 'Task 1' }]);
+    expect(scope.task.id).toEqual(1);
+    expect(scope.task.title).toEqual('Task 1');
+  }));
+
 });

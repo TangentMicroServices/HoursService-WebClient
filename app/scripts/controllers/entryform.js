@@ -13,13 +13,17 @@ angular.module('hoursApp')
   	$scope.tasks = [];
   	$scope.hours = [];
 
+    var sortTasks = function(tasks) {
+      return _.sortBy(tasks, function(task) {
+        return task.project_data.title;
+      });
+    };
+
     var loadCurrentTasks = function(){
         projectService.MyTasks().then(function(response){
-          var tasks = $scope.tasks = _.sortBy(response, function(task) {
-            return task.project_data.title;
-          });
+          var tasks = $scope.tasks = sortTasks(response);
           $scope.$emit('loadCurrentTasks', tasks);
-        }, function(){ });
+        });
     };
 
     // for the date picker.. need to refactor..... duplication in add and edit need to be resolved

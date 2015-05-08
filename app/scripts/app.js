@@ -62,10 +62,6 @@ angular
                 templateUrl: 'views/logout.html',
                 controller: 'LogoutCtrl'
             })
-            .when('/overview', {
-                templateUrl: 'views/entriesoverview.html',
-                controller: 'EntriesOverviewCtrl'
-            })
             .otherwise({
                 redirectTo: '/'
             });

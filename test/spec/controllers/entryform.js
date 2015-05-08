@@ -5,18 +5,46 @@ describe('Controller: EntryformCtrl', function () {
   // load the controller's module
   beforeEach(module('hoursApp'));
 
-  var EntryformCtrl, scope;
+  var EntryformCtrl, scope, $q;
+
+  var mockDataServices = {
+      MyTasks: function () {
+          var deferred = $q.defer();
+
+          deferred.resolve([
+          {
+            id: 1,
+            project_data: {
+              title: 'C'
+            }
+          },
+          {
+            id: 2,
+            project_data: {
+              title: 'A'
+            }
+          },
+          {
+            id: 3,
+            project_data: {
+              title: 'B'
+            }
+          }
+        ]);
+
+        return deferred.promise;
+      }
+  };
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, projectService, _$q_) {
+    var currentUser = $rootScope.CurrentUser = {"id": 1};
+    $q = _$q_;
     scope = $rootScope.$new();
 
-      var currentUser = {"id": 1}
-
-    $rootScope.CurrentUser = currentUser;
-
     EntryformCtrl = $controller('EntryformCtrl', {
-      $scope: scope
+      $scope: scope,
+      projectService: mockDataServices
     });
   }));
 
@@ -35,5 +63,10 @@ describe('Controller: EntryformCtrl', function () {
 
   it('When entry form controller is loaded, expect date format to be', function(){
     expect(scope.format).toBe('yyyy-MM-dd');
-  })
+  });
+
+  it('Receives tasks and sorts them by their title', function(){
+    scope.$digest();
+    expect(scope.tasks.length).toEqual(3);
+  });
 });

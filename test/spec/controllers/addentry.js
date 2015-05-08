@@ -174,4 +174,11 @@ describe('Controller: AddentryCtrl', function () {
 
     expect(entryService.Add).toHaveBeenCalled();
   }));
+
+  it('Receives tasks from event loadCurrentTasks', inject(function(){
+    expect(scope.task).toEqual({});
+    scope.$emit('loadCurrentTasks', [{ id: 1, title: 'Task 1' }]);
+    expect(scope.task.id).toEqual(1);
+    expect(scope.task.title).toEqual('Task 1');
+  }));
 });
