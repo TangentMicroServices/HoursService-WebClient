@@ -48,8 +48,7 @@ module.exports = function(config) {
     reporters: ['dots', 'progress', 'junit', 'html', 'coverage'],
 
     preprocessors: {
-      'app/scripts/*.js' : 'coverage',
-      'app/scripts/**/*.js' : 'coverage'      
+      'app/scripts/**/*.js' : 'coverage'
     },
 
     // list of files / patterns to exclude
