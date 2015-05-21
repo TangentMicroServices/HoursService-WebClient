@@ -15,6 +15,12 @@ angular.module('hoursApp')
 
   		var selectedEntry = {};
 
+      var userEntries = [];
+
+      var storeEntries = function(entries) {
+        userEntries = entries;
+      };
+
   		return {
   			EntrySelected: function(entry){
   				selectedEntry = entry;
@@ -35,11 +41,23 @@ angular.module('hoursApp')
   			Delete: function(id){
   				return jsonService.Delete(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {})
   			},
-  			GetAll: function(){
-  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
+  			GetAll: function() {
+  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});;
   			},
+        GetUserOpenEntries: function(){
+          return _.filter(userEntries, function(entry) {
+            return entry.status === 'Open';
+          });
+        },
+        GetUserSubmittedEntries: function(){
+          return _.reject(userEntries, function(entry) {
+            return entry.status === 'Open' || entry.status === 'Deleted';
+          });
+        },
   			GetEntriesForUser: function(userId){
-  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + "?user=" +userId , {});
+          var promise = jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + "?user=" +userId , {});
+          promise.success(storeEntries);
+  				return promise;
   			},
         Submit: function(entryIds){
           return jsonService.Post(HOURSSERVICE_BASE_URI, entryUrl + 'submit/', entryIds);

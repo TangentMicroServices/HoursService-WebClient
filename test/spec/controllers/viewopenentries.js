@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: ViewentriesCtrl', function () {
+describe('Controller: ViewopenentriesCtrl', function () {
 
   // load the controller's module
   beforeEach(module('hoursApp'));
@@ -15,7 +15,7 @@ describe('Controller: ViewentriesCtrl', function () {
       id : 1
     }
 
-    ViewentriesCtrl = $controller('ViewentriesCtrl', {
+    ViewentriesCtrl = $controller('ViewopenentriesCtrl', {
       $scope: scope
     });
   }));

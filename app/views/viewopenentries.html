@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-horizontal well">
+            <div class="form-group">
+                <label for="user" class="col-sm-2 control-label">User</label>
+                <div class="col-sm-10">
+                    <select ng-change="updateUserEntries()" name="user" id="user" class="form-control" ng-model="selectedUser"
+                            ng-options="user.first_name for user in users" required></select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Task</th>
+                <th>Hours</th>
+                <th>Status</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="entry in entries">
+            <tr class="entry-{{entry.status.toLowerCase()}}">
+                <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
+                <td>{{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
+                <td>{{ entry.hours }}</td>
+                <td>{{ entry.status }}</td>
+                <!--<td>{{ entry.start_time | date:'medium' }}</td>
+                <td>{{ entry.end_time | date:'medium'  }}</td>-->
+                <td><a ng-disabled="{{ entry.status === 'Submitted' }}" ng-click="Edit(entry)"class="btn btn-warning"><i class="fa fa-edit" ></i></a></td>
+                <td><a ng-disabled="{{ entry.status === 'Submitted' }}" ng-click="Delete(entry)"class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+            </tr>
+            <tr class="table-comments">
+                <td colspan="7">{{ entry.comments }}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr class="totals">
+                <td>
+                    <h4>Total Hours:</h4>
+                    <small>For all open entries</small>
+                </td>
+                <td></td>
+                <td class="total-hours">
+                    <h4><span class="label label-primary">{{ entries | sum:'hours' }}</span></h4></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+        <div class="well well-lg text-center">
+            <button type="submit" ng-click="submitOpenEntries()" class="btn btn-lg btn-success">SUBMIT OPEN ENTRIES</button>
+        </div>
+    </div>
+    <hr />
+</div>

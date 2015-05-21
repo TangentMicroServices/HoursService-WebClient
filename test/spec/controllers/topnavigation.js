@@ -28,7 +28,8 @@ describe('Controller: TopnavigationCtrl', function () {
   it('When user logs in it should display the correct left navigation.', function(){
 
     var loggedInMenu = [
-      { url: '#viewEntries', title: 'View Entries'},
+      { url: '#viewOpenEntries', title: 'Open Entries'},
+      { url: '#viewEntries', title: 'Submitted Entries'},
       { url: '#addEntry', title: 'Add Entry' }
     ];
 
