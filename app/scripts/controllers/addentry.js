@@ -20,7 +20,7 @@ angular.module('hoursApp')
         day: new Date(),
         start_time: '08:00:00',
         end_time: '17:00:00',
-        hours: 8,
+        hours: 9,
         overtime: 0,
         tags: ''
       };
