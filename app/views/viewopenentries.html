@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-12">
-        <h3>Open Entries</h3>
+        <h3>Open Entries <small class="pull-right" easypiechart options="options" percent="percent">{{percent | number:0}}% Complete</small></h3>
+
         <table class="table table-condensed">
             <thead>
                 <tr>
@@ -13,7 +14,7 @@
                 </tr>
             </thead>
             <tbody ng-repeat="entry in entries">
-                <tr ng-class="{deleted: deletingItem}" class="entry-{{entry.status.toLowerCase()}}">
+                <tr ng-class="{deleted: entry.deleting}" class="entry-{{entry.status.toLowerCase()}}">
                     <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
                     <td>{{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
                     <td>{{ entry.hours }}</td>

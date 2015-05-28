@@ -9,6 +9,20 @@
  */
 angular.module('hoursApp')
     .controller('ViewopenentriesCtrl', function ($scope, $rootScope, $location, notificationService, userService, entryService, projectService) {
+
+
+
+        $scope.options = {
+            animate:{
+                duration:800,
+                enabled:true
+            },
+            barColor:'#00C4B5',
+            scaleColor:false,
+            lineWidth:20,
+            lineCap:'circle'
+        };
+
         var entryDeleted = function(response){
             var userId = $scope.selectedUser.id;
             notificationService.success('Your entry has successfully been deleted.');
@@ -26,6 +40,12 @@ angular.module('hoursApp')
             $scope.entries = getOpenEntries(data);
             $scope.loaded = true;
             $scope.deletingItem = false;
+
+            $scope.totalOpenHours = _.reduce($scope.entries, function(sum, el) {
+                return sum + parseFloat(el.hours)
+            }, 0);
+
+            $scope.percent = ($scope.totalOpenHours / 160) * 100;
 
         };
 
@@ -83,7 +103,7 @@ angular.module('hoursApp')
         $scope.selectedItem = null;
 
         $scope.Delete = function(){
-            $scope.deletingItem = true;
+            $scope.selectedItem.deleting = true;
             if($scope.selectedItem !== null){
                 entryService.Delete($scope.selectedItem.id).then(entryDeleted, entryDeletionFailed);
             }

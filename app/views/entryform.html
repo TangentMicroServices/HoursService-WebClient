@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8">
         <form role="form"  name="entryform" ng-submit="Submit()" class="form-horizontal">
             <div ng-show="errorOccured">
                 <div class="alert alert-danger">{{ errorMessage }}</div>
@@ -64,5 +64,9 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="col-md-4">
+        <p><a class="btn btn-primary disabled"><i class="fa fa-github"></i> Load from GitHub</a></p>
+        <p><a class="btn btn-primary disabled">Load from Pivotal</a></p>
     </div>
 </div>

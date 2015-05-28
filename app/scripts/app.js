@@ -13,6 +13,7 @@ angular
         'ngAnimate',
         'ngCookies',
         'ngResource',
+        'easypiechart',
         'ngRoute',
         'ngSanitize',
         'ngTouch',
@@ -67,8 +68,12 @@ angular
                 templateUrl: 'views/logout.html',
                 controller: 'LogoutCtrl'
             })
+            .when('/dashboard', {
+                templateUrl: 'views/dashboard.html',
+                controller: 'DashboardCtrl'
+            })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/dashboard'
             });
 
         $provide.factory('myHttpInterceptor', function($q, $rootScope, $window, $location) {
@@ -104,6 +109,7 @@ angular
 
         $httpProvider.interceptors.push('myHttpInterceptor');
     })
+
     /*.run(function($location, $window, $rootScope, userService, notificationService){
 
         $rootScope.$on("$locationChangeStart", function(event, next, current) {
