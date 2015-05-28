@@ -129,7 +129,7 @@ describe('Controller: AddentryCtrl', function () {
     scope.Submit();
     scope.$digest();
 
-    expect($location.path).toHaveBeenCalledWith('/viewEntries');
+    expect($location.path).toHaveBeenCalledWith('/viewOpenEntries');
   }));
 
   it('When adding an antry you get a notification that the entry has been added.', inject(function(PROJECTSERVICE_BASE_URI, entryService, notificationService, $httpBackend, projectService){

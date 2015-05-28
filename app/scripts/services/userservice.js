@@ -27,8 +27,9 @@ angular.module('hoursApp')
    		//TODO needs cleaning....
    		return {
             Logout: function(){
-               $window.localStorage.setItem('AccessToken', "");
-                $window.localStorage.setItem('CurrentUserId', "");
+
+               $window.localStorage.setItem('AccessToken', '');
+                $window.localStorage.setItem('CurrentUserId', '');
                setCurrentUser({});
                $rootScope.$broadcast('UserLoggedOut', {});
             },

@@ -8,7 +8,7 @@
  * Controller of the hoursApp
  */
 angular.module('hoursApp')
-    .controller('ViewentriesCtrl', function ($scope, $rootScope, $location, notificationService, entryService) {
+    .controller('ViewentriesCtrl', function ($scope, $rootScope, $location, notificationService, entryService, projectService) {
 
         var onEntriesLoaded = function(data){
             $scope.entries = getSubmittedEntries(data);
@@ -37,6 +37,10 @@ angular.module('hoursApp')
             {
                 loadEntries(userId);
             }
+        };
+
+        $scope.GetTask = function(entry){
+            return projectService.GetTask(entry.project_task_id);
         };
 
         $scope.entries = [];

@@ -29,7 +29,7 @@ angular.module('hoursApp')
 
       var entryAdded = function(){
         notificationService.success('Entry added successfully.');
-        $location.path('/viewEntries');
+        $location.path('/viewOpenEntries');
       };
 
       var entryDidNotAdd = function(response){

@@ -69,7 +69,9 @@ describe('Controller: ViewopenentriesCtrl', function () {
       id: 2
     };
 
-    scope.Delete(entry);
+    scope.selectedItem = entry;
+
+    scope.Delete();
 
     expect(entryService.Delete).toHaveBeenCalledWith(2);
   }));

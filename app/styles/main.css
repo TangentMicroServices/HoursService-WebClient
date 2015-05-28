@@ -1,6 +1,6 @@
 /* Space out content a bit */
 body {
-
+    padding-top:60px;
 }
 
 .app-container{
@@ -8,97 +8,32 @@ body {
   background: url('/images/preloader.gif') center center no-repeat;
 }
 
-  .app{
+.app{
     background-color: #fff;
     min-height: 300px;
-  }
-
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
-}
-
-.footer {
-    /*position: absolute;
-    bottom: 0;*/
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-    background-color: #f5f5f5;
-}
-
-.footer .container {
-    width: auto;
-    max-width: 680px;
-    padding: 0 15px;
-}
-.footer .container .text-muted {
-    margin: 20px 0;
-}
-
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
-.container-narrow > hr {
-  margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-}
-.jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
-}
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-}
-.marketing p + h4 {
-  margin-top: 28px;
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+.deleted{
+    opacity: 0.2;
 }
 
 .entry-submitted{
   opacity: 0.7;
 }
 
+table
+{
+    table-layout:fixed;
+}
+
+table .hours, table .overtime{
+    width:70px;
+}
+
+table .buttons, table .status{
+    width:100px;
+}
+
+table .date{
+    width:100px;
+}

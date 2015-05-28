@@ -1,26 +1,40 @@
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-striped">
+        <h3>Closed Entries</h3>
+        <table class="table table-condensed">
             <thead>
-            <tr>
-                <th>Date</th>
-                <th>Task</th>
-                <th>Hours</th>
-                <th>Status</th>
-            </tr>
+                <tr>
+                    <th class="date">Date</th>
+                    <th>Project - Task</th>
+                    <th class="hours">Hours</th>
+                    <th class="overtime">Overtime</th>
+                    <th class="hidden-xs">Comments</th>
+                    <th class="status">Status</th>
+                </tr>
             </thead>
             <tbody ng-repeat="entry in entries">
-            <tr class="entry-{{entry.status.toLowerCase()}}">
-                <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
-                <td>{{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
-                <td>{{ entry.hours }}</td>
-                <td>{{ entry.status }}</td>
-            </tr>
-            <tr class="table-comments">
-                <td colspan="7">{{ entry.comments }}</td>
-            </tr>
+                <tr class="entry-{{entry.status.toLowerCase()}}">
+                    <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
+                    <td>{{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
+                    <td>{{ entry.hours }}</td>
+                    <td>{{ entry.overtime }}</td>
+                    <td class="hidden-xs">{{ entry.comments|limitTo: 120 }}{{entry.comments.length > 120 ? '...' : ''}}</td>
+                    <td>{{ entry.status }}</td>
+                </tr>
             </tbody>
+            <tfoot>
+                <tr class="totals">
+                    <td colspan="2">
+                        <h4>Total Hours:</h4>
+                        <small>For all open entries</small>
+                    </td>
+                    <td class="total-hours">
+                        <h4><span class="label label-primary">{{ entries | sum:'hours' }}</span></h4></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
-    <hr/>
 </div>

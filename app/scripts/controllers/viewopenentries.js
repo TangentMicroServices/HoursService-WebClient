@@ -15,17 +15,23 @@ angular.module('hoursApp')
             loadEntries(userId);
         };
 
+        $scope.deletingItem = false;
+
         var entryDeletionFailed = function(response){
             notificationService.error('Failed to delete your entry.');
+            $scope.deletingItem = false;
         };
 
         var onEntriesLoaded = function(data){
             $scope.entries = getOpenEntries(data);
             $scope.loaded = true;
+            $scope.deletingItem = false;
+
         };
 
         var onEntriesLoadFailed = function(data){
             notificationService.error('failed to load entries.');
+            $scope.deletingItem = false;
         };
 
         var loadTasks = function(){
@@ -74,9 +80,13 @@ angular.module('hoursApp')
         $scope.tasks = [];
         $scope.users = [];
         $scope.selectedUser = null;
+        $scope.selectedItem = null;
 
-        $scope.Delete = function(entry){
-            entryService.Delete(entry.id).then(entryDeleted, entryDeletionFailed);
+        $scope.Delete = function(){
+            $scope.deletingItem = true;
+            if($scope.selectedItem !== null){
+                entryService.Delete($scope.selectedItem.id).then(entryDeleted, entryDeletionFailed);
+            }
         };
 
         $scope.Edit = function(entry){
@@ -88,15 +98,14 @@ angular.module('hoursApp')
             return projectService.GetTask(entry.project_task_id);
         };
 
-        $scope.updateUserEntries = function(){
-            var userId = $scope.selectedUser.id;
-            loadEntries(userId);
-        };
-
         $scope.submitOpenEntries = function() {
             var userId = $scope.selectedUser.id;
             entryService.Submit().then(loadEntries.bind(null, userId));
         };
+
+        $scope.setSelectedEntry = function(entry) {
+            $scope.selectedItem = entry;
+        }
 
         init();
     });
