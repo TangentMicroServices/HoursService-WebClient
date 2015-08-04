@@ -10,7 +10,11 @@
 angular.module('hoursApp')
     .controller('ViewopenentriesCtrl', function ($scope, $rootScope, $location, notificationService, userService, entryService, projectService) {
 
-
+        //$scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+        $scope.labels = ["VOD - Guided Sales Journey Phase 1", "Vodacom Sales ToolKit Phase 2", "Tangent Internal Development", "Tangent General", "Ceramic Website SLA", "Italtile Retail Webstore", "Vodacom Smart Configurator", "Vodacom Phase 3 Release 1/2/3", "Tangent Business Development", "Vodacom GSJ Wireless"];
+        $scope.data = [
+            [65, 59, 80, 81, 56, 55, 40,56, 55, 40]
+        ];
 
         $scope.options = {
             animate:{
@@ -46,7 +50,6 @@ angular.module('hoursApp')
             }, 0);
 
             $scope.percent = ($scope.totalOpenHours / 160) * 100;
-
         };
 
         var onEntriesLoadFailed = function(data){
@@ -60,6 +63,9 @@ angular.module('hoursApp')
 
         var tasksLoaded = function(response){
             $scope.tasks = response;
+
+            //$scope.labels = _.unique(_.pluck(_.pluck($scope.tasks, "project_data"),"title"));
+            //debugger;
         };
 
         var taskLoadFailed = function(response){};

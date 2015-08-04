@@ -18,7 +18,8 @@ angular
         'ngSanitize',
         'ngTouch',
         'jlareau.pnotify',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'chart.js'
     ])
     .config(function ($routeProvider, $provide, $httpProvider, notificationServiceProvider) {
 
