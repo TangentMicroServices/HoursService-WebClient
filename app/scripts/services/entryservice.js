@@ -17,6 +17,8 @@ angular.module('hoursApp')
 
       var userEntries = [];
 
+      var entryCopy = false;
+
       var storeEntries = function(entries) {
         userEntries = entries;
       };
@@ -29,6 +31,13 @@ angular.module('hoursApp')
   			GetSelectedEntry: function(){
   				return selectedEntry;
   			},
+        Copy: function(){
+          return entryCopy;
+        },
+        SetCopy : function(copy){
+          entryCopy = copy;
+        },
+
   			Add: function(entry){
   				return jsonService.Post(HOURSSERVICE_BASE_URI, entryUrl, entry);
   			},

@@ -39,9 +39,24 @@ angular.module('hoursApp')
       };
 
       var init = function(){
+        duplicateCopyEntryDefaults();  
+
         $scope.loaded = true;
         $scope.entry.day = new moment($scope.entry.day).format('YYYY-MM-DD');
       };
+
+      var duplicateCopyEntryDefaults = function(){
+        //Check if a copy flag has been set
+        if(entryService.Copy()){
+          var selectedEntry = entryService.GetSelectedEntry();
+          $scope.entry.comments = selectedEntry.comments;          
+          $scope.entry.overtime = selectedEntry.overtime;
+          $scope.task = {
+            project : selectedEntry.project_id,
+            id : selectedEntry.project_task_id
+          };
+        } 
+      }
 
       var setEntryTask = function(task) {
         $scope.entry.project_id = task.project;
@@ -49,13 +64,24 @@ angular.module('hoursApp')
       }
 
       $scope.$on('loadCurrentTasks', function(event, tasks) {
-        var task = $scope.task = tasks[0];
-        setEntryTask(task);
+        var defaultTask = null;
+        if(entryService.Copy()){
+
+          $scope.task = _.find(tasks, function (task) {
+            return task.id === $scope.task.id;
+          });
+
+          defaultTask = $scope.task;
+        }else{
+          var defaultTask = $scope.task = tasks[0];
+        }        
+        setEntryTask(defaultTask);
+        //Unset the copy flag
+        entryService.SetCopy(false);
       });
 
       $scope.Submit = function(){
         $scope.entry.day = new moment($scope.entry.day).format('YYYY-MM-DD');
-
         entryService.Add($scope.entry)
           .then(entryAdded, entryDidNotAdd);
       };

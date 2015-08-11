@@ -113,6 +113,12 @@ angular.module('hoursApp')
             entryService.EntrySelected(entry);
             $location.path('/editEntry');
         };
+        $scope.Copy = function(entry){
+            entryService.EntrySelected(entry);
+            entryService.SetCopy(true);
+            $location.path('/addEntry');
+        };
+
 
         $scope.GetTask = function(entry){
             return projectService.GetTask(entry.project_task_id);
