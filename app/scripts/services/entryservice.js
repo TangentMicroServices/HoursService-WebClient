@@ -48,11 +48,17 @@ angular.module('hoursApp')
   				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {});
   			},
   			Delete: function(id){
-  				return jsonService.Delete(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {})
+  				return jsonService.Delete(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {});
   			},
   			GetAll: function() {
-  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});;
+          console.log('Getting all entries');
+  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
   			},
+        GetEntriesByDuration: function(duration, userId) {
+          var promise = jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + '?user=' + userId +'&date_range='+ duration  , {});
+          promise.success(storeEntries);
+          return promise;
+        },
         GetUserOpenEntries: function(){
           return _.filter(userEntries, function(entry) {
             return entry.status === 'Open';

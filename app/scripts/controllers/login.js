@@ -9,16 +9,18 @@
  */
 angular.module('hoursApp')
   .controller('LoginCtrl', function ($scope, notificationService, $location, $rootScope, userService) {
+      $scope.loginButtonText = 'Login';
+
       var currentUserLoaded = function(response){
         $rootScope.$broadcast('UserLoggedIn', {});
         notificationService.success('You are currently logged in as ' + response.username);
-        $location.path('/viewEntries');
+        $location.path('/myhours');
       };
 
       var currentUserLoadFailed = function(response){
         notificationService.error('Failed to retrieve your details.');
         $scope.errorOccured = true;
-        $scope.errorMessages = response;
+        $scope.errorMessages = response;        
       };
 
      	var userLoggedIn = function(){
@@ -29,6 +31,7 @@ angular.module('hoursApp')
      	var userLoginFailed = function(response){
      		$scope.errorOccured = true;
      		$scope.errorMessages = response;
+        $scope.loginButtonText = 'Login';
      	};
 
       $scope.errorOccured = false;
@@ -37,6 +40,7 @@ angular.module('hoursApp')
       $scope.password = '';
 
   		$scope.Login = function(){
+        $scope.loginButtonText = 'Logging you in';
   			userService.Login($scope.username, $scope.password)
           .then(userLoggedIn, userLoginFailed);
   		};

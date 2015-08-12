@@ -42,6 +42,11 @@ angular
                 templateUrl: 'views/addentry.html',
                 controller: 'AddentryCtrl'
             })
+            .when('/myhours', {
+                templateUrl: 'views/my-entries.html',
+                controller: 'EntriesCtrl',
+                requireLogin: true
+            })
             .when('/viewOpenEntries', {
                 templateUrl: 'views/viewopenentries.html',
                 controller: 'ViewopenentriesCtrl',
@@ -153,7 +158,7 @@ angular
         if(hasAccessToken && !hasCurrentUser){
             userService.GetCurrentUser().then(function(){
                 notificationService.success('Logging you in...');
-                $location.path('/viewOpenEntries');
+                $location.path('/myhours');
                 $rootScope.$broadcast('UserLoggedIn', {});
             }, function(){
                 notificationService.error('Could not retrieve your details. Please login again.');
@@ -163,7 +168,7 @@ angular
             });
         }else if (hasAccessToken && hasCurrentUser){
             notificationService.success('Logging you in...');
-            $location.path('/viewOpenEntries');
+            $location.path('/myhours');
             userService.GetCurrentUser().then(function() {
                 $rootScope.$broadcast('UserLoggedIn', {});
             });
