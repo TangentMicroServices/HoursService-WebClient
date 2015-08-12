@@ -51,7 +51,6 @@ angular.module('hoursApp')
   				return jsonService.Delete(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {});
   			},
   			GetAll: function() {
-          console.log('Getting all entries');
   				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
   			},
         GetEntriesByDuration: function(duration, userId) {

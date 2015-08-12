@@ -132,7 +132,6 @@ angular.module('hoursApp')
         };
 
         $scope.ChangeType = function(){
-            console.log($rootScope.AccessToken);
             entryService.GetEntriesByDuration($scope.searchCriteria.key, $scope.selectedUser.id)
                 .success(onEntriesLoaded)
                 .error(onEntriesLoadFailed);;
