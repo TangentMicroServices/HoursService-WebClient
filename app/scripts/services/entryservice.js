@@ -59,6 +59,7 @@ angular.module('hoursApp')
           return promise;
         },
         GetEntriesByFilter: function(project_id, duration, userId) {
+          debugger;
           if(project_id !== ''){
             project_id = '&project_id='+ project_id
           }

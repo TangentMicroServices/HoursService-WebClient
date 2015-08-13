@@ -83,9 +83,10 @@ angular.module('hoursApp')
         var taskLoadFailed = function(response){};
 
         var loadEntries = function(userId, project_id){
-            if(typeof project_id === 'undefined'){
-                project_id = 3
-            }
+            //debugger;
+            //if(typeof project_id === 'undefined'){
+            //    project_id = 3
+            //}
             entryService.GetEntriesByDuration(project_id, userId)
                 .success(onEntriesLoaded)
                 .error(onEntriesLoadFailed);
@@ -143,9 +144,7 @@ angular.module('hoursApp')
 
         $scope.ChangeTask = function(){
             if($scope.task.hasOwnProperty('project_data')){
-                console.log($scope.task);
-                //entryService.GetEntriesByFilter($scope.task.id,$scope.searchCriteria.key, $scope.selectedUser.id)
-                entryService.GetEntriesByFilter($scope.task.id,'', $scope.selectedUser.id)
+                entryService.GetEntriesByFilter($scope.task.project,'', $scope.selectedUser.id)
                 .success(onEntriesLoaded)
                 .error(onEntriesLoadFailed);
             }else{
