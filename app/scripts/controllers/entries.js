@@ -143,8 +143,6 @@ angular.module('hoursApp')
 
         $scope.ChangeTask = function(){
             if($scope.task.hasOwnProperty('project_data')){
-                console.log($scope.task);
-                //entryService.GetEntriesByFilter($scope.task.id,$scope.searchCriteria.key, $scope.selectedUser.id)
                 entryService.GetEntriesByFilter($scope.task.id,'', $scope.selectedUser.id)
                 .success(onEntriesLoaded)
                 .error(onEntriesLoadFailed);

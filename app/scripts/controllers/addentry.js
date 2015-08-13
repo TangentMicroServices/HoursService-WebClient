@@ -50,7 +50,6 @@ angular.module('hoursApp')
         //Check if a copy flag has been set
         if(entryService.Copy()){
           var selectedEntry = entryService.GetSelectedEntry();
-          console.log(selectedEntry);
           $scope.entry.comments = selectedEntry.comments;          
           $scope.entry.overtime = selectedEntry.overtime;
           $scope.entry.hours = selectedEntry.hours;
