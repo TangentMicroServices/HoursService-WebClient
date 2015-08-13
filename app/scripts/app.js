@@ -43,7 +43,7 @@ angular
                 controller: 'AddentryCtrl'
             })
             .when('/myhours', {
-                templateUrl: 'views/my-entries.html',
+                templateUrl: 'views/my-hours.html',
                 controller: 'EntriesCtrl',
                 requireLogin: true
             })

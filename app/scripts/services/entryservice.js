@@ -58,6 +58,17 @@ angular.module('hoursApp')
           promise.success(storeEntries);
           return promise;
         },
+        GetEntriesByFilter: function(project_id, duration, userId) {
+          if(project_id !== ''){
+            project_id = '&project_id='+ project_id
+          }
+          if(duration !== ''){
+            duration = '&date_range=' + duration;
+          }
+          var promise = jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + '?user=' + userId + project_id + duration  , {});
+          promise.success(storeEntries);
+          return promise;
+        },
         GetUserOpenEntries: function(){
           return _.filter(userEntries, function(entry) {
             return entry.status === 'Open';

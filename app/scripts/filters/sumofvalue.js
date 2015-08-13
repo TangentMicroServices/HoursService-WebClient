@@ -17,9 +17,7 @@ angular.module('hoursApp')
 		var sum = 0;
 
 		for (var i = 0; i < data.length; i++) {
-			if(data[i]['status'] !== 'Submitted'){
-				sum = sum + parseFloat(data[i][key]);
-			}			
+			sum = sum + parseFloat(data[i][key]);		
 		}
 		return sum;
 	};

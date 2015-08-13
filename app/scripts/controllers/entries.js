@@ -10,8 +10,6 @@
 angular.module('hoursApp')
     .controller('EntriesCtrl', function ($scope, $rootScope, $location, notificationService, userService, entryService, projectService) {
 
-
-
         $scope.options = {
             animate:{
                 duration:800,
@@ -31,8 +29,15 @@ angular.module('hoursApp')
             {key : '5', value : 'Last Month'},
             {key : '4', value : 'This Year'}
         ];
+        //Defaulting hours to this month
+        $scope.searchCriteria = $scope.searchTypes[3];
 
-        $scope.searchCriteria = $scope.searchTypes[0];
+        $scope.entries = [];
+        $scope.tasks = [];
+        $scope.users = [];
+        $scope.selectedUser = null;
+        $scope.selectedItem = null;
+        $scope.task = null;
 
         var entryDeleted = function(response){
             var userId = $scope.selectedUser.id;
@@ -71,12 +76,17 @@ angular.module('hoursApp')
 
         var tasksLoaded = function(response){
             $scope.tasks = response;
+            $scope.tasks.unshift({title: 'All projects - '});
+            $scope.task = $scope.tasks[0];
         };
 
         var taskLoadFailed = function(response){};
 
-        var loadEntries = function(userId){
-            entryService.GetEntriesForUser(userId)
+        var loadEntries = function(userId, project_id){
+            if(typeof project_id === 'undefined'){
+                project_id = 3
+            }
+            entryService.GetEntriesByDuration(project_id, userId)
                 .success(onEntriesLoaded)
                 .error(onEntriesLoadFailed);
         };
@@ -104,14 +114,8 @@ angular.module('hoursApp')
             }
 
             loadTasks();
-            loadUsers();
-        };
-
-        $scope.entries = [];
-        $scope.tasks = [];
-        $scope.users = [];
-        $scope.selectedUser = null;
-        $scope.selectedItem = null;
+            loadUsers();            
+        };        
 
         $scope.Delete = function(){
             $scope.selectedItem.deleting = true;
@@ -132,10 +136,22 @@ angular.module('hoursApp')
         };
 
         $scope.ChangeType = function(){
-            entryService.GetEntriesByDuration($scope.searchCriteria.key, $scope.selectedUser.id)
+            entryService.GetEntriesByDuration($scope.searchCriteria.key, $rootScope.CurrentUser.id)
                 .success(onEntriesLoaded)
-                .error(onEntriesLoadFailed);;
+                .error(onEntriesLoadFailed);
         };
+
+        $scope.ChangeTask = function(){
+            if($scope.task.hasOwnProperty('project_data')){
+                console.log($scope.task);
+                //entryService.GetEntriesByFilter($scope.task.id,$scope.searchCriteria.key, $scope.selectedUser.id)
+                entryService.GetEntriesByFilter($scope.task.id,'', $scope.selectedUser.id)
+                .success(onEntriesLoaded)
+                .error(onEntriesLoadFailed);
+            }else{
+                loadEntries($scope.selectedUser.id, $scope.searchCriteria.key);
+            }           
+        }
 
 
         $scope.GetTask = function(entry){
