@@ -111,7 +111,7 @@ angular.module('hoursApp')
 
          var projectsLoaded = function(response){
             $scope.projects = response;
-            $scope.projects.unshift({title: 'All projects'});
+            $scope.projects.unshift({title: '- All projects -'});
             $scope.project = $scope.projects[0];
         };
 

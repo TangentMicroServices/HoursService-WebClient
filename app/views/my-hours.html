@@ -14,7 +14,7 @@
                         <label>Project</label>
                         <select name="task" class="form-control" ng-model="project"
                             ng-change="Change()"
-                            ng-options="project.title for project in projects" required></select>
+                            ng-options="project.title for project in projects | orderBy:'title'" required></select>
                     </div>
                 </div>
             </div>
