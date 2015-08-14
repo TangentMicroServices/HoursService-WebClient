@@ -12,9 +12,9 @@
                     </div>
                     <div class="col-md-12">
                         <label>Project</label>
-                        <select name="task" class="form-control" ng-model="task"
+                        <select name="task" class="form-control" ng-model="project"
                             ng-change="Change()"
-                            ng-options="task as task.project_data.title + ' - ' + task.title for task in tasks" required></select>
+                            ng-options="project.title for project in projects" required></select>
                     </div>
                 </div>
             </div>

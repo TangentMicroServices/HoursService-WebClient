@@ -34,10 +34,12 @@ angular.module('hoursApp')
 
         $scope.entries = [];
         $scope.tasks = [];
+        $scope.projects = [];
         $scope.users = [];
         $scope.selectedUser = null;
         $scope.selectedItem = null;
         $scope.task = null;
+        $scope.project = null;
 
         var entryDeleted = function(response){
             var userId = $scope.selectedUser.id;
@@ -92,9 +94,9 @@ angular.module('hoursApp')
                 }
             }
 
-            if($scope.task !== null){
-                if($scope.task.hasOwnProperty('project')){
-                    project_id = $scope.task.project;
+            if($scope.project !== null){
+                if($scope.project.hasOwnProperty('pk')){
+                    project_id = $scope.project.pk;
                 }
             }
 
@@ -102,6 +104,18 @@ angular.module('hoursApp')
                 .success(onEntriesLoaded)
                 .error(onEntriesLoadFailed);
         };
+
+        var loadProjects = function(){
+            projectService.GetUserProjects($rootScope.CurrentUser.id).then(projectsLoaded, projectsLoadFailed);
+        }
+
+         var projectsLoaded = function(response){
+            $scope.projects = response;
+            $scope.projects.unshift({title: 'All projects'});
+            $scope.project = $scope.projects[0];
+        };
+
+        var projectsLoadFailed = function(response){};
 
         var loadUsers = function(){
             userService.GetUsers().then(usersLoaded, userLoadFailed);
@@ -125,6 +139,7 @@ angular.module('hoursApp')
                 loadEntries(userId);
             }
 
+            loadProjects();
             loadTasks();
             loadUsers();            
         };        
@@ -145,12 +160,11 @@ angular.module('hoursApp')
             entryService.EntrySelected(entry);
             entryService.SetCopy(true);
             $location.path('/addEntry');
-        };
+        };               
 
         $scope.Change = function(){
-            loadEntries($scope.selectedUser.id);         
+            loadEntries($rootScope.CurrentUser.id);         
         }
-
 
         $scope.GetTask = function(entry){
             return projectService.GetTask(entry.project_task_id);

@@ -11,7 +11,7 @@ angular.module('hoursApp')
     .controller('TopnavigationCtrl', function ($scope) {
         $scope.leftLoggedOut = [];
         $scope.rightLoggedOut = [
-            //{ url: '#login', title: 'Login' }
+            { url: '#login', title: 'Login' }
         ];
 
         $scope.leftLoggedIn = [
