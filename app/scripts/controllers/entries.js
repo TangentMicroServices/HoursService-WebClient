@@ -21,7 +21,7 @@ angular.module('hoursApp')
             lineCap:'circle'
         };
 
-        $scope.searchTypes = [
+        $scope.dateRangeTypes = [
             {key : '', value: 'Show All'},
             {key : '1', value : 'Today'},
             {key : '2', value : 'This Week'},
@@ -30,7 +30,7 @@ angular.module('hoursApp')
             {key : '4', value : 'This Year'}
         ];
         //Defaulting hours to this month
-        $scope.searchCriteria = $scope.searchTypes[3];
+        $scope.dateRange = $scope.dateRangeTypes[3];
 
         $scope.entries = [];
         $scope.tasks = [];
@@ -82,11 +82,23 @@ angular.module('hoursApp')
 
         var taskLoadFailed = function(response){};
 
-        var loadEntries = function(userId, project_id){
-            if(typeof project_id === 'undefined'){
-                project_id = 3
+        var loadEntries = function(userId){
+            var dateRange = '';
+            var project_id = '';
+
+            if($scope.dateRange !== null){
+                if($scope.dateRange.hasOwnProperty('key')){
+                    dateRange = $scope.dateRange.key;
+                }
             }
-            entryService.GetEntriesByDuration(project_id, userId)
+
+            if($scope.task !== null){
+                if($scope.task.hasOwnProperty('project')){
+                    project_id = $scope.task.project;
+                }
+            }
+
+            entryService.GetEntries(userId, dateRange, project_id)
                 .success(onEntriesLoaded)
                 .error(onEntriesLoadFailed);
         };
@@ -135,20 +147,8 @@ angular.module('hoursApp')
             $location.path('/addEntry');
         };
 
-        $scope.ChangeType = function(){
-            entryService.GetEntriesByDuration($scope.searchCriteria.key, $rootScope.CurrentUser.id)
-                .success(onEntriesLoaded)
-                .error(onEntriesLoadFailed);
-        };
-
-        $scope.ChangeTask = function(){
-            if($scope.task.hasOwnProperty('project_data')){
-                entryService.GetEntriesByFilter($scope.task.id,'', $scope.selectedUser.id)
-                .success(onEntriesLoaded)
-                .error(onEntriesLoadFailed);
-            }else{
-                loadEntries($scope.selectedUser.id, $scope.searchCriteria.key);
-            }           
+        $scope.Change = function(){
+            loadEntries($scope.selectedUser.id);         
         }
 
 

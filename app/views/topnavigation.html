@@ -21,6 +21,12 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li ng-class="{hidden:!CurrentUser.profile}">
+                    <a>
+                        <i class="fa fa-user"></i>
+                        &nbsp;&nbsp;{{CurrentUser.first_name}} {{CurrentUser.last_name}}
+                    </a>
+                </li>
                 <li ng-repeat="navigationItem in rightNavigationItems">
                     <a ng-href="{{navigationItem.url}}">{{ navigationItem.title}}</a>
                 </li>

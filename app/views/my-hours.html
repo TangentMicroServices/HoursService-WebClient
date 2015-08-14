@@ -7,19 +7,26 @@
                     <h4>Search</h4>
                     <div class="col-md-12">
                         <label>Hours</label>
-                        <select  class="form-control" ng-model="searchCriteria" ng-change="ChangeType()"
-                        ng-options="searchType.value for searchType in searchTypes"></select>
+                        <select  class="form-control" ng-model="dateRange" ng-change="Change()"
+                        ng-options="dateRangeType.value for dateRangeType in dateRangeTypes"></select>
                     </div>
                     <div class="col-md-12">
                         <label>Project</label>
                         <select name="task" class="form-control" ng-model="task"
-                            ng-change="ChangeTask()"
+                            ng-change="Change()"
                             ng-options="task as task.project_data.title + ' - ' + task.title for task in tasks" required></select>
                     </div>
                 </div>
             </div>
             <div class="col-md-8">
-                <h3><small class="pull-right" easypiechart options="options" percent="percent">{{percent | number:0}}% Complete</small></h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="pull-right" easypiechart options="options" percent="percent"></p>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="pull-right">{{percent | number:0}}% Complete</p>
+                    </div>
+                </div>
             </div>
         </div>
         

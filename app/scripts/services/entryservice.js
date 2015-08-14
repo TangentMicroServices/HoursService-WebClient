@@ -23,6 +23,13 @@ angular.module('hoursApp')
         userEntries = entries;
       };
 
+      var notEmpty = function(value){
+        if(value !== '' && typeof value !== 'undefined' && value !== null){
+          return true;
+        }
+        return false;
+      }
+
   		return {
   			EntrySelected: function(entry){
   				selectedEntry = entry;
@@ -53,16 +60,18 @@ angular.module('hoursApp')
   			GetAll: function() {
   				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
   			},
-        GetEntriesByDuration: function(duration, userId) {
-          var promise = jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + '?user=' + userId +'&date_range='+ duration  , {});
-          promise.success(storeEntries);
-          return promise;
-        },
-        GetEntriesByFilter: function(project_id, duration, userId) {
-          if(project_id !== ''){
+        /**
+        *This function does 4 types of entries fetching
+        *1. By user id,
+        *2. By user id && duration,
+        *3. By user id && project_id,
+        *3. By user id && project_id && duration
+        */
+        GetEntries: function(userId, duration, project_id) {
+          if(notEmpty(project_id)){
             project_id = '&project_id='+ project_id
           }
-          if(duration !== ''){
+          if(notEmpty(duration)){
             duration = '&date_range=' + duration;
           }
           var promise = jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + '?user=' + userId + project_id + duration  , {});
@@ -79,11 +88,6 @@ angular.module('hoursApp')
             return entry.status === 'Open' || entry.status === 'Deleted';
           });
         },
-  			GetEntriesForUser: function(userId){
-          var promise = jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + "?user=" +userId , {});
-          promise.success(storeEntries);
-  				return promise;
-  			},
         Submit: function(entryIds){
           return jsonService.Post(HOURSSERVICE_BASE_URI, entryUrl + 'submit/', entryIds);
         }
