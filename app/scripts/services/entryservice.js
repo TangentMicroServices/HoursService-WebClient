@@ -9,14 +9,11 @@
  */
 
 angular.module('hoursApp')
-  .service('entryService', function(jsonService, HOURSSERVICE_BASE_URI){
+    .service('entryService', function(jsonService, HOURSSERVICE_BASE_URI){
 
-  		var entryUrl = '/api/v1/entry/';
-
-  		var selectedEntry = {};
-
+      var entryUrl = '/api/v1/entry/';
+      var selectedEntry = {};
       var userEntries = [];
-
       var entryCopy = false;
 
       var storeEntries = function(entries) {
@@ -28,16 +25,16 @@ angular.module('hoursApp')
           return true;
         }
         return false;
-      }
+      };
 
-  		return {
-  			EntrySelected: function(entry){
-  				selectedEntry = entry;
+      return {
+        EntrySelected: function(entry){
+          selectedEntry = entry;
           selectedEntry.hours = parseFloat(entry.hours);
-  			},
-  			GetSelectedEntry: function(){
-  				return selectedEntry;
-  			},
+        },
+        GetSelectedEntry: function(){
+          return selectedEntry;
+        },
         Copy: function(){
           return entryCopy;
         },
@@ -45,29 +42,30 @@ angular.module('hoursApp')
           entryCopy = copy;
         },
 
-  			Add: function(entry){
-  				return jsonService.Post(HOURSSERVICE_BASE_URI, entryUrl, entry);
-  			},
-  			Edit: function(entry){
-  				return jsonService.Put(HOURSSERVICE_BASE_URI, entryUrl + entry.id + "/", entry);
-  			},
-  			Get: function(id){
-  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {});
-  			},
-  			Delete: function(id){
-  				return jsonService.Delete(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {});
-  			},
-  			GetAll: function() {
-  				return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
-  			},
+        Add: function(entry){
+          return jsonService.Post(HOURSSERVICE_BASE_URI, entryUrl, entry);
+        },
+        Edit: function(entry){
+          return jsonService.Put(HOURSSERVICE_BASE_URI, entryUrl + entry.id + "/", entry);
+        },
+        Get: function(id){
+          return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {});
+        },
+        Delete: function(id){
+          return jsonService.Delete(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {});
+        },
+        GetAll: function() {
+          return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl, {});
+        },
         /**
-        *This function does 4 types of entries fetching
-        *1. By user id,
-        *2. By user id && duration,
-        *3. By user id && project_id,
-        *3. By user id && project_id && duration
-        */
+         *This function does 4 types of entries fetching
+         *1. By user id,
+         *2. By user id && duration,
+         *3. By user id && project_id,
+         *3. By user id && project_id && duration
+         */
         GetEntries: function(userId, duration, project_id) {
+          debugger;
           if(notEmpty(project_id)){
             project_id = '&project_id='+ project_id
           }
@@ -91,5 +89,5 @@ angular.module('hoursApp')
         Submit: function(entryIds){
           return jsonService.Post(HOURSSERVICE_BASE_URI, entryUrl + 'submit/', entryIds);
         }
-  		};
-  });
+      };
+    });
