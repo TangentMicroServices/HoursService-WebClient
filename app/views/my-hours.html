@@ -23,28 +23,41 @@
                     <div class="col-md-12">
                         <p class="pull-right" easypiechart options="options" percent="percent"></p>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 clearfix">
                         <p class="pull-right">{{percent | number:0}}% Complete</p>
                     </div>
                 </div>
             </div>
+            <div class="col-md-12">
+                <p class="pull-right">
+                    <button ng-class="{btn:true, 'btn-default':true, 'btn-sm':true, hidden:submit}" ng-click="submitEntries()">Submit entries</button>
+                    <button ng-class="{btn:true, 'btn-default':true, 'btn-sm':true, hidden:!submit}" ng-click="clearSubmissionEntries()">Cancel</button>
+                    <button ng-class="{btn:true, 'btn-primary':true, 'btn-sm':true, hidden:!submit}" ng-click="submitEntries()">Submit</button>
+                </p>
+            </div>
         </div>
-
 
         <table class="table table-condensed">
             <thead>
                 <tr>
+                    <th ng-class="{'text-center':true, 'submit-checkbox':true, select:true}">
+                        <input type="checkbox" ng-click="submitAllEntries(entry)"  ng-class="{hidden:!submit}"/>
+                    </th>
                     <th class="date">Date</th>
                     <th>Project - Task</th>
                     <th class="hours">Hours</th>
                     <th class="overtime">Overtime</th>
                     <th class="hidden-xs">Comments</th>
                     <!-- <th class="hours">Status</th> -->
-                    <th class="buttons"></th>
+                    <th class="buttons">
+                    </th>
                 </tr>
             </thead>
             <tbody ng-repeat="entry in entries">
                 <tr ng-class="{deleted: entry.deleting}" class="entry-{{entry.status.toLowerCase()}}">
+                    <td ng-class="{'text-center':true}">
+                        <input type="checkbox" ng-click="submitEntry(entry)"  ng-class="{hidden:!submit}"/>
+                    </td>
                     <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
                     <td>{{entry.project_task_id}} - {{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
                     <td>{{ entry.hours }}</td>

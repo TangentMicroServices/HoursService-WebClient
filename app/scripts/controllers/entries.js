@@ -31,6 +31,9 @@ angular.module('hoursApp')
         ];
         //Defaulting hours to this month
         $scope.dateRange = $scope.dateRangeTypes[3];
+        $scope.submit = false;
+
+        $scope.entriesForSubmission = [];
 
         $scope.entries = [];
         $scope.tasks = [];
@@ -40,14 +43,13 @@ angular.module('hoursApp')
         $scope.selectedItem = null;
         $scope.task = null;
         $scope.project = null;
+        $scope.deletingItem = false;
 
         var entryDeleted = function(response){
             var userId = $scope.selectedUser.id;
             notificationService.success('Your entry has successfully been deleted.');
             loadEntries(userId);
         };
-
-        $scope.deletingItem = false;
 
         var entryDeletionFailed = function(response){
             notificationService.error('Failed to delete your entry.');
@@ -109,7 +111,7 @@ angular.module('hoursApp')
             projectService.GetUserProjects($rootScope.CurrentUser.id).then(projectsLoaded, projectsLoadFailed);
         }
 
-         var projectsLoaded = function(response){
+        var projectsLoaded = function(response){
             $scope.projects = response;
             $scope.projects.unshift({title: '- All projects -'});
             $scope.project = $scope.projects[0];
@@ -141,8 +143,23 @@ angular.module('hoursApp')
 
             loadProjects();
             loadTasks();
-            loadUsers();            
-        };        
+            loadUsers();
+        };
+
+        $scope.submitEntry = function(entry){
+
+        };
+
+        $scope.entriesForSubmission = function(){
+            return $scope.entriesForSubmission.length > 0;
+        };
+
+        $scope.clearSubmissionEntries = function(){
+            for(var i = $scope.entriesForSubmission.length - 1; i >= 0; i--) {
+                $scope.entriesForSubmission.splice(i, 1);
+            }
+            $scope.submit = false;
+        };
 
         $scope.Delete = function(){
             $scope.selectedItem.deleting = true;
@@ -160,10 +177,10 @@ angular.module('hoursApp')
             entryService.EntrySelected(entry);
             entryService.SetCopy(true);
             $location.path('/addEntry');
-        };               
+        };
 
         $scope.Change = function(){
-            loadEntries($rootScope.CurrentUser.id);         
+            loadEntries($rootScope.CurrentUser.id);
         }
 
         $scope.GetTask = function(entry){
@@ -177,6 +194,10 @@ angular.module('hoursApp')
 
         $scope.setSelectedEntry = function(entry) {
             $scope.selectedItem = entry;
+        }
+
+        $scope.submitEntries = function(){
+            $scope.submit = !$scope.submit;
         }
 
         init();
