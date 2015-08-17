@@ -37,7 +37,7 @@ angular.module('hoursApp')
           return '0' + Number(value + 1)
       }
       return value
-  } 
+  }
 
   var getMonthDateRange = function() {
       var now = moment();
@@ -93,6 +93,8 @@ angular.module('hoursApp')
   api.GetEntries = function(userId, duration, project_id) {
     if(notEmpty(project_id)){
       project_id = '&project_id='+ project_id
+    }else{
+          project_id = '';
     }
     if(notEmpty(duration)){
       if(duration === '5'){
@@ -100,7 +102,9 @@ angular.module('hoursApp')
         duration = '&date_from='+dateRange.start+'&date_to='+dateRange.end;
       }else{
         duration = '&date_range=' + duration;
-      }      
+      }
+    }else{
+      duration = '';
     }
 
     var promise = jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + '?user=' + userId + project_id + duration  , {});
