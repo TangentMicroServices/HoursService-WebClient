@@ -35,9 +35,6 @@ describe('Controller: AddentryCtrl', function () {
         return deferred.promise;
     };
 
-    it('Expect 6 date range values', function(){
-        expect(scope.dateRange.length).toEqual(6);
-    });
 
     it('When deleting an entry, make sure the entry delete entry is called.', inject(function(entryService){
         spyOn(entryService, 'Delete').and.callFake(fakeSuccessPromise);
