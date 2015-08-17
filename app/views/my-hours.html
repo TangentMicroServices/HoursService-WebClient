@@ -2,15 +2,15 @@
     <div class="col-md-12">
         <h3>My Hours</h3>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <div class="well row search">
                     <h4>Search</h4>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label>Hours</label>
                         <select  class="form-control" ng-model="dateRange" ng-change="Change()"
                         ng-options="dateRangeType.value for dateRangeType in dateRangeTypes"></select>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label>Project</label>
                         <select name="task" class="form-control" ng-model="project"
                             ng-change="Change()"
@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-12">
                         <p class="pull-right" easypiechart options="options" percent="percent"></p>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        
+
 
         <table class="table table-condensed">
             <thead>
