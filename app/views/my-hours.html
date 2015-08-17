@@ -1,0 +1,122 @@
+<div class="row">
+    <div class="col-md-12">
+        <h3>My Hours</h3>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="well row search">
+                    <h4>Search</h4>
+                    <div class="col-md-6">
+                        <label>Hours</label>
+                        <select  class="form-control" ng-model="dateRange" ng-change="Change()"
+                        ng-options="dateRangeType.value for dateRangeType in dateRangeTypes"></select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Project</label>
+                        <select name="task" class="form-control" ng-model="project"
+                            ng-change="Change()"
+                            ng-options="project.title for project in projects | orderBy:'title'" required></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="pull-right" easypiechart options="options" percent="percent"></p>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="pull-right">{{percent | number:0}}% Complete</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th class="date">Date</th>
+                    <th>Project - Task</th>
+                    <th class="hours">Hours</th>
+                    <th class="overtime">Overtime</th>
+                    <th class="hidden-xs">Comments</th>
+                    <!-- <th class="hours">Status</th> -->
+                    <th class="buttons"></th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="entry in entries">
+                <tr ng-class="{deleted: entry.deleting}" class="entry-{{entry.status.toLowerCase()}}">
+                    <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
+                    <td>{{entry.project_task_id}} - {{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
+                    <td>{{ entry.hours }}</td>
+                    <td>{{ entry.overtime }}</td>
+                    <td class="hidden-xs">{{ entry.comments|limitTo: 120 }}{{entry.comments.length > 120 ? '...' : ''}}</td>
+                    <!-- <td>{{ entry.status }}</td> -->
+                    <!--<td>{{ entry.start_time | date:'medium' }}</td>
+                    <td>{{ entry.end_time | date:'medium'  }}</td>-->
+                    <td>
+                        <a ng-disabled="entry.status === 'Submitted'" ng-click="Copy(entry)" ng-class="{'btn': true, 'btn-xs': true, 'btn-default':true, hidden: entry.status === 'Submitted'}" title="Copy entry"><i class="fa fa-copy" ></i></a>
+                        <a ng-disabled="entry.status === 'Submitted'" ng-click="Edit(entry)" ng-class="{btn: true, 'btn-xs': true, 'btn-warning': true, hidden: entry.status === 'Submitted'}" title="Edit entry"><i class="fa fa-edit" ></i></a>
+                        <a ng-disabled="entry.status === 'Submitted'" ng-click="setSelectedEntry(entry)" data-toggle="modal" data-target="#deleteModal" ng-class="{btn: true, 'btn-xs': true, 'btn-danger': true, hidden: entry.status === 'Submitted'}" title="Delete entry"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+            <tr class="totals">
+                <td colspan="2">
+                    <h4>Total Hours:</h4>
+                </td>
+                <td class="total-hours">
+                    <h4><span class="label label-primary">{{ entries | sum:'hours' }}</span></h4></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+        <div class="well well-lg text-center">
+            <button type="submit" data-toggle="modal" data-target="#submitModal" class="btn btn-lg btn-success">SUBMIT OPEN ENTRIES</button>
+        </div>
+    </div>
+    <hr />
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Are you sure you want to delete this record?</h4>
+            </div>
+            <div class="modal-body">
+                <p ng-if="selectedItem != null" class="well">{{ selectedItem.day | date:'EEE, d MMM yyyy'}},
+                    {{ GetTask(selectedItem).project_data.title}} - {{ GetTask(selectedItem).title }},
+                    {{ selectedItem.hours }} hours
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button ng-click="Delete()" type="button" data-dismiss="modal" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Are you sure you want to submit all your entries?</h4>
+            </div>
+            <div class="modal-body">
+                <p class="well">
+                    You cannot edit your entries once submitted!!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button ng-click="submitOpenEntries()" type="button" data-dismiss="modal" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
