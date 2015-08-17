@@ -72,7 +72,7 @@ describe('Controller: LoginCtrl', function () {
   it('When user logs in succesfully, make sure that a broadcast is sent to other controller that need to handle.', inject(function(userService, $rootScope, USERSERVICE_BASE_URI, $httpBackend){
     spyOn(userService, 'Login').and.callFake(fakeSuccessPromise);
     spyOn($rootScope, '$broadcast').and.callThrough();
-    
+
     $httpBackend.whenGET(USERSERVICE_BASE_URI + "/api/v1/users/me/").respond(200, fakeAdminUser);
 
     scope.Login();
@@ -101,12 +101,12 @@ describe('Controller: LoginCtrl', function () {
     scope.Login();
     scope.$digest();
 
-    expect($location.path).toHaveBeenCalledWith('/viewEntries');
+    expect($location.path).toHaveBeenCalledWith('/myhours');
   }));
 
   it('When user login failed, make sure that the error response is set.', inject(function(userService){
     spyOn(userService, 'Login').and.callFake(fakeErrorPromise);
- 
+
     scope.Login();
     scope.$digest();
 

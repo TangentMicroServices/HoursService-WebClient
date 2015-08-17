@@ -112,7 +112,7 @@ describe('Controller: AddentryCtrl', function () {
       hours: 8,
       overtime: 0,
       tags: ''
-    };    
+    };
 
     scope.Change();
     scope.Submit();
@@ -129,7 +129,7 @@ describe('Controller: AddentryCtrl', function () {
     scope.Submit();
     scope.$digest();
 
-    expect($location.path).toHaveBeenCalledWith('/viewOpenEntries');
+    expect($location.path).toHaveBeenCalledWith('/myhours');
   }));
 
   it('When adding an antry you get a notification that the entry has been added.', inject(function(PROJECTSERVICE_BASE_URI, entryService, notificationService, $httpBackend, projectService){
@@ -204,7 +204,7 @@ describe('Controller: AddentryCtrl', function () {
 
     // duplicateCopyEntryDefaults();
 
-    // expect($scope.comment).toEqual('This is a copied entry');    
+    // expect($scope.comment).toEqual('This is a copied entry');
     // expect($scope.task.id).toEqual(31);
 
   }));

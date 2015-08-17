@@ -134,7 +134,7 @@ describe('Controller: EditentryCtrl', function () {
     scope.Submit();
     scope.$digest();
 
-    expect($location.path).toHaveBeenCalledWith('/viewOpenEntries');
+    expect($location.path).toHaveBeenCalledWith('/myhours');
   }));
 
   it('When you edit your entry and the server fails to update it, make sure the user receives a notification.', inject(function(entryService, notificationService){

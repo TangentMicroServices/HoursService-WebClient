@@ -31,7 +31,7 @@ describe('Service: entryservice', function () {
   };
 
   it('When adding an entry, expect a post request to made to the hoursservice.', inject(function ($httpBackend, HOURSSERVICE_BASE_URI) {
-    entryService.Add(fakeEntry);  
+    entryService.Add(fakeEntry);
 
     $httpBackend.expectPOST(HOURSSERVICE_BASE_URI + '/api/v1/entry/', fakeEntry).respond(200, fakeEntry);
 
@@ -39,7 +39,7 @@ describe('Service: entryservice', function () {
   }));
 
   it('When editing an entry, expect put request to be made to the hours service', inject(function($httpBackend, HOURSSERVICE_BASE_URI){
-    entryService.Edit(fakeEntry);  
+    entryService.Edit(fakeEntry);
 
     $httpBackend.expectPUT(HOURSSERVICE_BASE_URI + '/api/v1/entry/' + fakeEntry.id + "/", fakeEntry).respond(200, fakeEntry);
 
@@ -47,7 +47,7 @@ describe('Service: entryservice', function () {
   }));
 
   it('When deleting an entry, expect delete request to be made to the hours service', inject(function($httpBackend, HOURSSERVICE_BASE_URI){
-    entryService.Delete(fakeEntry.id);  
+    entryService.Delete(fakeEntry.id);
 
     $httpBackend.expectDELETE(HOURSSERVICE_BASE_URI + '/api/v1/entry/' + fakeEntry.id + "/").respond(200, fakeEntry);
 
@@ -55,7 +55,7 @@ describe('Service: entryservice', function () {
   }));
 
   it('When fetching a a specific entry, expect get request to be made to the hours service.', inject(function($httpBackend, HOURSSERVICE_BASE_URI){
-    entryService.Get(fakeEntry.id);  
+    entryService.Get(fakeEntry.id);
 
     $httpBackend.expectGET(HOURSSERVICE_BASE_URI + '/api/v1/entry/' + fakeEntry.id + "/").respond(200, fakeEntry);
 
@@ -63,7 +63,7 @@ describe('Service: entryservice', function () {
   }));
 
   it('When fetching entries for specific user, make sure the correctly filtered get request gets sent to service. ', inject(function($httpBackend, HOURSSERVICE_BASE_URI){
-    entryService.GetEntriesForUser(rootScope.CurrentUser.id);
+    entryService.GetEntries(rootScope.CurrentUser.id);
 
     $httpBackend.expectGET(HOURSSERVICE_BASE_URI + '/api/v1/entry/?user=' + rootScope.CurrentUser.id ).respond(200, fakeEntry);
 

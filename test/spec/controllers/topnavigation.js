@@ -28,9 +28,8 @@ describe('Controller: TopnavigationCtrl', function () {
   it('When user logs in it should display the correct left navigation.', function(){
 
     var loggedInMenu = [
-      { url: '#viewOpenEntries', title: 'Open Entries'},
-      { url: '#viewEntries', title: 'Submitted Entries'},
-      { url: '#addEntry', title: 'Add Entry' }
+        { url: '#myhours', title: 'My Hours'},
+        { url: '#addEntry', title: 'Add Entry' }
     ];
 
     expect(scope.leftLoggedIn).toEqual(loggedInMenu);
