@@ -66,7 +66,6 @@ angular.module('hoursApp')
             }, 0);
 
             $scope.percent = ($scope.totalOpenHours / 160) * 100;
-
         };
 
         var onEntriesLoadFailed = function(data){
@@ -98,15 +97,29 @@ angular.module('hoursApp')
             }
 
             if($scope.project !== null){
-                $rootScope.project = $scope.projects.indexOf($scope.project);
+                $rootScope.project = getProjectID();
+                $rootScope.projectpk = $scope.project.pk;
                 if($scope.project.hasOwnProperty('pk')){
                     project_id = $scope.project.pk;
                 }
+            }else if($rootScope.projectpk > -1){
+                project_id = $rootScope.projectpk;
             }
 
             entryService.GetEntries(userId, dateRange, project_id)
                 .success(onEntriesLoaded)
                 .error(onEntriesLoadFailed);
+        };
+
+        var getProjectID = function(){
+            if($scope.project !== null){
+                for(var index in $scope.projects){
+                    if($scope.projects[index].title === $scope.project.title){
+                        return Number(index);
+                    }
+                }
+            }
+            return -1;
         };
 
         var loadProjects = function(){
@@ -123,7 +136,6 @@ angular.module('hoursApp')
             }else{
                 $scope.project = $scope.projects[Number($rootScope.project)];
             }
-
         };
 
         var projectsLoadFailed = function(response){};
@@ -152,14 +164,14 @@ angular.module('hoursApp')
                 $scope.dateRange = $scope.dateRangeTypes[Number($rootScope.dateRange)];
             }
 
+            loadProjects();
+            loadTasks();
+            loadUsers();
+
             if(typeof userId !== 'undefined')
             {
                 loadEntries(userId);
             }
-
-            loadProjects();
-            loadTasks();
-            loadUsers();
         };
 
         var getAllSelected = function () {
@@ -172,10 +184,7 @@ angular.module('hoursApp')
 
         var setAllSelected = function (value) {
             angular.forEach($scope.entries, function (entry) {
-                //Don't want to submit already submitted entries
-                if(entry.status === 'Open'){
-                    entry.Selected = value;
-                }
+                entry.Selected = value;
             });
         }
 
@@ -183,10 +192,11 @@ angular.module('hoursApp')
 
         $scope.allSelected = function (value) {
             if (value !== undefined) {
-               return setAllSelected(value);
-            } else {
-               return getAllSelected();
+               setAllSelected(value);
+               return value;
             }
+
+            return getAllSelected();
         }
 
         $scope.entriesForSubmission = function(){
@@ -219,6 +229,7 @@ angular.module('hoursApp')
         };
 
         $scope.Change = function(){
+            $rootScope.project = $scope.project;
             loadEntries($rootScope.CurrentUser.id);
         }
 

@@ -56,16 +56,14 @@
             <tbody ng-repeat="entry in entries">
                 <tr ng-class="{deleted: entry.deleting}" class="entry-{{entry.status.toLowerCase()}}">
                     <td ng-class="{'text-center':true}">
-                        <input type="checkbox" ng-model="entry.Selected" ng-class="{hidden:!submit}"/>
+                        <input type="checkbox" ng-model="entry.Selected" ng-class="{hidden:!submit}" ng-if="entry.status === 'Open'"/>
                     </td>
                     <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
                     <td>{{entry.project_task_id}} - {{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
                     <td>{{ entry.hours }}</td>
                     <td>{{ entry.overtime }}</td>
                     <td class="hidden-xs">{{ entry.comments|limitTo: 120 }}{{entry.comments.length > 120 ? '...' : ''}}</td>
-                    <td>{{ entry.status }}</td> -
-                    <!--<td>{{ entry.start_time | date:'medium' }}</td>
-                    <td>{{ entry.end_time | date:'medium'  }}</td>-->
+                    <td>{{ entry.status }}</td>
                     <td>
                         <a ng-disabled="entry.status === 'Submitted'" ng-click="Copy(entry)" ng-class="{'btn': true, 'btn-xs': true, 'btn-default':true, hidden: entry.status === 'Submitted'}" title="Copy entry"><i class="fa fa-copy" ></i></a>
                         <a ng-disabled="entry.status === 'Submitted'" ng-click="Edit(entry)" ng-class="{btn: true, 'btn-xs': true, 'btn-warning': true, hidden: entry.status === 'Submitted'}" title="Edit entry"><i class="fa fa-edit" ></i></a>
@@ -86,9 +84,6 @@
             </tr>
             </tfoot>
         </table>
-        <!-- <div class="well well-lg text-center">
-            <button type="submit" data-toggle="modal" data-target="#submitModal" class="btn btn-lg btn-success">SUBMIT OPEN ENTRIES</button>
-        </div> -->
     </div>
     <hr />
 </div>
@@ -119,7 +114,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Are you sure you want to submit all your entries?</h4>
+                <h4 class="modal-title">Are you sure you want to submit selected entries?</h4>
             </div>
             <div class="modal-body">
                 <p class="well">
