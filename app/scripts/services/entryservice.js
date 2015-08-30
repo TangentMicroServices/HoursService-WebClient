@@ -125,7 +125,7 @@ angular.module('hoursApp')
   };
 
   api.Submit = function(entryIds){
-    return jsonService.Post(HOURSSERVICE_BASE_URI, entryUrl + 'submit/', entryIds);
+    return jsonService.Post(HOURSSERVICE_BASE_URI, entryUrl + 'submit/', {'entry_id':entryIds});
   };
 
   return api;

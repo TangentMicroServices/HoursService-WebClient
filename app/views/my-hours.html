@@ -30,25 +30,25 @@
             </div>
             <div class="col-md-12">
                 <p class="pull-right">
-                    <button ng-class="{btn:true, 'btn-default':true, 'btn-sm':true, hidden:submit}" ng-click="submitEntries()">Submit entries</button>
+                    <button ng-class="{btn:true, 'btn-default':true, 'btn-sm':true, hidden:submit}" ng-click="selectAllEntries()">Submit entries</button>
                     <button ng-class="{btn:true, 'btn-default':true, 'btn-sm':true, hidden:!submit}" ng-click="clearSubmissionEntries()">Cancel</button>
-                    <button ng-class="{btn:true, 'btn-primary':true, 'btn-sm':true, hidden:!submit}" ng-click="submitEntries()">Submit</button>
+                    <button ng-class="{btn:true, 'btn-primary':true, 'btn-sm':true, hidden:!submit}" data-toggle="modal" data-target="#submitModal">Submit</button>
                 </p>
             </div>
         </div>
 
         <table class="table table-condensed">
             <thead>
-                <tr>
+                <tr class="active">
                     <th ng-class="{'text-center':true, 'submit-checkbox':true, select:true}">
-                        <input type="checkbox" ng-click="submitAllEntries(entry)"  ng-class="{hidden:!submit}"/>
+                        <input type="checkbox" ng-model="allSelected"  ng-model-options="{getterSetter: true}" ng-class="{hidden:!submit}"/>
                     </th>
                     <th class="date">Date</th>
                     <th>Project - Task</th>
                     <th class="hours">Hours</th>
                     <th class="overtime">Overtime</th>
                     <th class="hidden-xs">Comments</th>
-                    <!-- <th class="hours">Status</th> -->
+                    <th class="hours">Status</th>
                     <th class="buttons">
                     </th>
                 </tr>
@@ -56,14 +56,14 @@
             <tbody ng-repeat="entry in entries">
                 <tr ng-class="{deleted: entry.deleting}" class="entry-{{entry.status.toLowerCase()}}">
                     <td ng-class="{'text-center':true}">
-                        <input type="checkbox" ng-click="submitEntry(entry)"  ng-class="{hidden:!submit}"/>
+                        <input type="checkbox" ng-model="entry.Selected" ng-class="{hidden:!submit}"/>
                     </td>
                     <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
                     <td>{{entry.project_task_id}} - {{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
                     <td>{{ entry.hours }}</td>
                     <td>{{ entry.overtime }}</td>
                     <td class="hidden-xs">{{ entry.comments|limitTo: 120 }}{{entry.comments.length > 120 ? '...' : ''}}</td>
-                    <!-- <td>{{ entry.status }}</td> -->
+                    <td>{{ entry.status }}</td> -
                     <!--<td>{{ entry.start_time | date:'medium' }}</td>
                     <td>{{ entry.end_time | date:'medium'  }}</td>-->
                     <td>
@@ -128,7 +128,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                <button ng-click="submitOpenEntries()" type="button" data-dismiss="modal" class="btn btn-primary">Yes</button>
+                <button ng-click="submitSelectedEntries()" type="button" data-dismiss="modal" class="btn btn-primary">Yes</button>
             </div>
         </div>
     </div>

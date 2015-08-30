@@ -146,9 +146,32 @@ angular.module('hoursApp')
             loadUsers();
         };
 
-        $scope.submitEntry = function(entry){
+        var getAllSelected = function () {
+            var selectedItems = $scope.entries.filter(function (entry) {
+               return entry.Selected;
+            });
 
-        };
+            return selectedItems.length === $scope.entries.length;
+        }
+
+        var setAllSelected = function (value) {
+            angular.forEach($scope.entries, function (entry) {
+                //Don't want to submit already submitted entries
+                if(entry.status === 'Open'){
+                    entry.Selected = value;
+                }
+            });
+        }
+
+        $scope.submitEntry = function(entry){ };
+
+        $scope.allSelected = function (value) {
+            if (value !== undefined) {
+               return setAllSelected(value);
+            } else {
+               return getAllSelected();
+            }
+        }
 
         $scope.entriesForSubmission = function(){
             return $scope.entriesForSubmission.length > 0;
@@ -196,9 +219,23 @@ angular.module('hoursApp')
             $scope.selectedItem = entry;
         }
 
-        $scope.submitEntries = function(){
+        $scope.selectAllEntries = function(){
             $scope.submit = !$scope.submit;
+            setAllSelected(true);
         }
+
+        $scope.submitSelectedEntries = function(){
+            var userId = $rootScope.CurrentUser.id;
+
+            var entryIds = [];
+            angular.forEach($scope.entries, function (entry) {
+                if(entry.Selected){
+                    entryIds.push(entry.id);
+                }
+            });
+
+            entryService.Submit(entryIds.join(',')).then(loadEntries.bind(null, userId));
+        };
 
         init();
     });
