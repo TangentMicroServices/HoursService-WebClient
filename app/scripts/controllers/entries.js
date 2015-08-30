@@ -22,15 +22,15 @@ angular.module('hoursApp')
         };
 
         $scope.dateRangeTypes = [
-            {key : '', value: 'Show All'},
-            {key : '1', value : 'Today'},
-            {key : '2', value : 'This Week'},
-            {key : '3', value : 'This Month'},
-            {key : '5', value : 'Last Month'},
-            {key : '4', value : 'This Year'}
+            {id : 0, key : '', value: 'Show All'},
+            {id : 1, key : '1', value : 'Today'},
+            {id : 2, key : '2', value : 'This Week'},
+            {id : 3, key : '3', value : 'This Month'},
+            {id : 4, key : '5', value : 'Last Month'},
+            {id : 5, key : '4', value : 'This Year'}
         ];
         //Defaulting hours to this month
-        $scope.dateRange = $scope.dateRangeTypes[3];
+        $scope.dateRange;
         $scope.submit = false;
 
         $scope.entriesForSubmission = [];
@@ -91,12 +91,14 @@ angular.module('hoursApp')
             var project_id = '';
 
             if($scope.dateRange !== null){
+                $rootScope.dateRange = Number($scope.dateRange.id);
                 if($scope.dateRange.hasOwnProperty('key')){
                     dateRange = $scope.dateRange.key;
                 }
             }
 
             if($scope.project !== null){
+                $rootScope.project = $scope.projects.indexOf($scope.project);
                 if($scope.project.hasOwnProperty('pk')){
                     project_id = $scope.project.pk;
                 }
@@ -114,7 +116,14 @@ angular.module('hoursApp')
         var projectsLoaded = function(response){
             $scope.projects = response;
             $scope.projects.unshift({title: '- All projects -'});
-            $scope.project = $scope.projects[0];
+
+            if(typeof $rootScope.project === 'undefined'){
+                $scope.project = $scope.projects[0];
+                $rootScope.project = 0;
+            }else{
+                $scope.project = $scope.projects[Number($rootScope.project)];
+            }
+
         };
 
         var projectsLoadFailed = function(response){};
@@ -136,6 +145,13 @@ angular.module('hoursApp')
 
         var init = function(){
             var userId = $rootScope.CurrentUser.id;
+            if(typeof $rootScope.dateRange === 'undefined'){
+                $scope.dateRange = $scope.dateRangeTypes[3];
+                $rootScope.dateRange = 3;
+            }else{
+                $scope.dateRange = $scope.dateRangeTypes[Number($rootScope.dateRange)];
+            }
+
             if(typeof userId !== 'undefined')
             {
                 loadEntries(userId);
