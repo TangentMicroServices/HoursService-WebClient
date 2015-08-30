@@ -233,8 +233,12 @@ angular.module('hoursApp')
                     entryIds.push(entry.id);
                 }
             });
-
-            entryService.Submit(entryIds.join(',')).then(loadEntries.bind(null, userId));
+            if(entryIds.length > 0){
+                entryService.Submit(entryIds.join(',')).then(loadEntries.bind(null, userId));
+                $scope.submit = false;
+            }else{
+                notificationService.error('No entries were selected.');
+            }
         };
 
         init();
