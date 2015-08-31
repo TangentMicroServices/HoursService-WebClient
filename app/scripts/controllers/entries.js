@@ -22,15 +22,18 @@ angular.module('hoursApp')
         };
 
         $scope.dateRangeTypes = [
-            {key : '', value: 'Show All'},
-            {key : '1', value : 'Today'},
-            {key : '2', value : 'This Week'},
-            {key : '3', value : 'This Month'},
-            {key : '5', value : 'Last Month'},
-            {key : '4', value : 'This Year'}
+            {id : 0, key : '', value: 'Show All'},
+            {id : 1, key : '1', value : 'Today'},
+            {id : 2, key : '2', value : 'This Week'},
+            {id : 3, key : '3', value : 'This Month'},
+            {id : 4, key : '5', value : 'Last Month'},
+            {id : 5, key : '4', value : 'This Year'}
         ];
         //Defaulting hours to this month
-        $scope.dateRange = $scope.dateRangeTypes[3];
+        $scope.dateRange;
+        $scope.submit = false;
+
+        $scope.entriesForSubmission = [];
 
         $scope.entries = [];
         $scope.tasks = [];
@@ -40,14 +43,13 @@ angular.module('hoursApp')
         $scope.selectedItem = null;
         $scope.task = null;
         $scope.project = null;
+        $scope.deletingItem = false;
 
         var entryDeleted = function(response){
             var userId = $scope.selectedUser.id;
             notificationService.success('Your entry has successfully been deleted.');
             loadEntries(userId);
         };
-
-        $scope.deletingItem = false;
 
         var entryDeletionFailed = function(response){
             notificationService.error('Failed to delete your entry.');
@@ -64,7 +66,6 @@ angular.module('hoursApp')
             }, 0);
 
             $scope.percent = ($scope.totalOpenHours / 160) * 100;
-
         };
 
         var onEntriesLoadFailed = function(data){
@@ -89,15 +90,20 @@ angular.module('hoursApp')
             var project_id = '';
 
             if($scope.dateRange !== null){
+                $rootScope.dateRange = Number($scope.dateRange.id);
                 if($scope.dateRange.hasOwnProperty('key')){
                     dateRange = $scope.dateRange.key;
                 }
             }
 
             if($scope.project !== null){
+                $rootScope.project = getProjectID();
+                $rootScope.projectpk = $scope.project.pk;
                 if($scope.project.hasOwnProperty('pk')){
                     project_id = $scope.project.pk;
                 }
+            }else if($rootScope.projectpk > -1){
+                project_id = $rootScope.projectpk;
             }
 
             entryService.GetEntries(userId, dateRange, project_id)
@@ -105,14 +111,31 @@ angular.module('hoursApp')
                 .error(onEntriesLoadFailed);
         };
 
+        var getProjectID = function(){
+            if($scope.project !== null){
+                for(var index in $scope.projects){
+                    if($scope.projects[index].title === $scope.project.title){
+                        return Number(index);
+                    }
+                }
+            }
+            return -1;
+        };
+
         var loadProjects = function(){
             projectService.GetUserProjects($rootScope.CurrentUser.id).then(projectsLoaded, projectsLoadFailed);
         }
 
-         var projectsLoaded = function(response){
+        var projectsLoaded = function(response){
             $scope.projects = response;
             $scope.projects.unshift({title: '- All projects -'});
-            $scope.project = $scope.projects[0];
+
+            if(typeof $rootScope.project === 'undefined'){
+                $scope.project = $scope.projects[0];
+                $rootScope.project = 0;
+            }else{
+                $scope.project = $scope.projects[Number($rootScope.project)];
+            }
         };
 
         var projectsLoadFailed = function(response){};
@@ -134,15 +157,58 @@ angular.module('hoursApp')
 
         var init = function(){
             var userId = $rootScope.CurrentUser.id;
-            if(typeof userId !== 'undefined')
-            {
-                loadEntries(userId);
+            if(typeof $rootScope.dateRange === 'undefined'){
+                $scope.dateRange = $scope.dateRangeTypes[3];
+                $rootScope.dateRange = 3;
+            }else{
+                $scope.dateRange = $scope.dateRangeTypes[Number($rootScope.dateRange)];
             }
 
             loadProjects();
             loadTasks();
-            loadUsers();            
-        };        
+            loadUsers();
+
+            if(typeof userId !== 'undefined')
+            {
+                loadEntries(userId);
+            }
+        };
+
+        var getAllSelected = function () {
+            var selectedItems = $scope.entries.filter(function (entry) {
+               return entry.Selected;
+            });
+
+            return selectedItems.length === $scope.entries.length;
+        }
+
+        var setAllSelected = function (value) {
+            angular.forEach($scope.entries, function (entry) {
+                entry.Selected = value;
+            });
+        }
+
+        $scope.submitEntry = function(entry){ };
+
+        $scope.allSelected = function (value) {
+            if (value !== undefined) {
+               setAllSelected(value);
+               return value;
+            }
+
+            return getAllSelected();
+        }
+
+        $scope.entriesForSubmission = function(){
+            return $scope.entriesForSubmission.length > 0;
+        };
+
+        $scope.clearSubmissionEntries = function(){
+            for(var i = $scope.entriesForSubmission.length - 1; i >= 0; i--) {
+                $scope.entriesForSubmission.splice(i, 1);
+            }
+            $scope.submit = false;
+        };
 
         $scope.Delete = function(){
             $scope.selectedItem.deleting = true;
@@ -160,10 +226,11 @@ angular.module('hoursApp')
             entryService.EntrySelected(entry);
             entryService.SetCopy(true);
             $location.path('/addEntry');
-        };               
+        };
 
         $scope.Change = function(){
-            loadEntries($rootScope.CurrentUser.id);         
+            $rootScope.project = $scope.project;
+            loadEntries($rootScope.CurrentUser.id);
         }
 
         $scope.GetTask = function(entry){
@@ -178,6 +245,28 @@ angular.module('hoursApp')
         $scope.setSelectedEntry = function(entry) {
             $scope.selectedItem = entry;
         }
+
+        $scope.selectAllEntries = function(){
+            $scope.submit = !$scope.submit;
+            setAllSelected(true);
+        }
+
+        $scope.submitSelectedEntries = function(){
+            var userId = $rootScope.CurrentUser.id;
+
+            var entryIds = [];
+            angular.forEach($scope.entries, function (entry) {
+                if(entry.Selected){
+                    entryIds.push(entry.id);
+                }
+            });
+            if(entryIds.length > 0){
+                entryService.Submit(entryIds.join(',')).then(loadEntries.bind(null, userId));
+                $scope.submit = false;
+            }else{
+                notificationService.error('No entries were selected.');
+            }
+        };
 
         init();
     });
