@@ -180,13 +180,13 @@ angular.module('hoursApp')
             });
 
             return selectedItems.length === $scope.entries.length;
-        }
+        };
 
         var setAllSelected = function (value) {
             angular.forEach($scope.entries, function (entry) {
                 entry.Selected = value;
             });
-        }
+        };
 
         $scope.submitEntry = function(entry){ };
 
@@ -197,7 +197,7 @@ angular.module('hoursApp')
             }
 
             return getAllSelected();
-        }
+        };
 
         $scope.entriesForSubmission = function(){
             return $scope.entriesForSubmission.length > 0;
