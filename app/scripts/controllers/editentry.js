@@ -11,7 +11,7 @@ angular.module('hoursApp')
     .controller('EditentryCtrl', function ($scope, $location, projectService, entryService, notificationService) {
       var entryupdate = function() {
         notificationService.success('Your entry has been updated.');
-        $location.path('/viewOpenEntries');
+        $location.path('/myhours');
       };
 
       var entryUpdateFailed = function(response){

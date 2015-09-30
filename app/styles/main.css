@@ -37,3 +37,11 @@ table .buttons, table .status{
 table .date{
     width:100px;
 }
+
+table .submit-checkbox{
+    width:40px;
+}
+
+.search h4{
+  margin: 0 0 10px 15px;
+}

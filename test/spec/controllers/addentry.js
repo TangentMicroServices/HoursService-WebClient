@@ -11,7 +11,7 @@ describe('Controller: AddentryCtrl', function () {
 
     $rootScope.CurrentUser = {
       id : 1
-    }
+    };
 
     $q = _$q_;
     AddentryCtrl = $controller('AddentryCtrl', {
@@ -28,9 +28,9 @@ describe('Controller: AddentryCtrl', function () {
   };
 
   var fakeErrorFields = {
-    "start_time": ["Please send a valid start_time"],
-    "end_time": ["Please send a valid end_time"]
-  }
+    'start_time': ['Please send a valid start_time'],
+    'end_time': ['Please send a valid end_time']
+  };
 
   var fakeBadEntryAddCall = function(){
       var deferred = $q.defer();
@@ -57,7 +57,7 @@ describe('Controller: AddentryCtrl', function () {
       hours: 8,
       overtime: 0,
       tags: ''
-    }
+    };
 
     var expectedEntry = {
       id: 1,
@@ -71,7 +71,7 @@ describe('Controller: AddentryCtrl', function () {
       hours: 8,
       overtime: 0,
       tags: ''
-    }
+    };
 
     scope.Submit();
 
@@ -93,12 +93,12 @@ describe('Controller: AddentryCtrl', function () {
       hours: 8,
       overtime: 0,
       tags: ''
-    }
+    };
 
     scope.task = {
       id: 1,
       project: 2
-    }
+    };
 
     var expectedEntry = {
       id: 1,
@@ -112,7 +112,7 @@ describe('Controller: AddentryCtrl', function () {
       hours: 8,
       overtime: 0,
       tags: ''
-    }
+    };
 
     scope.Change();
     scope.Submit();
@@ -129,7 +129,7 @@ describe('Controller: AddentryCtrl', function () {
     scope.Submit();
     scope.$digest();
 
-    expect($location.path).toHaveBeenCalledWith('/viewOpenEntries');
+    expect($location.path).toHaveBeenCalledWith('/myhours');
   }));
 
   it('When adding an antry you get a notification that the entry has been added.', inject(function(PROJECTSERVICE_BASE_URI, entryService, notificationService, $httpBackend, projectService){
@@ -180,5 +180,32 @@ describe('Controller: AddentryCtrl', function () {
     scope.$emit('loadCurrentTasks', [{ id: 1, title: 'Task 1' }]);
     expect(scope.task.id).toEqual(1);
     expect(scope.task.title).toEqual('Task 1');
+  }));
+
+  it('Check if an entry to be added was copied from another entry', inject(function(entryService){
+
+    var copiedEntry = {
+      id: 12,
+      user: 13,
+      project_id: 12,
+      project_task_id: 31,
+      status: 'Open',
+      day: '2015-03-10',
+      start_time: '08:00:00',
+      end_time: '17:00:00',
+      hours: 8,
+      overtime: 0,
+      tags: '',
+      comment: 'This is a copied entry'
+    };
+
+    entryService.SetCopy(true);
+    entryService.EntrySelected(copiedEntry);
+
+    // duplicateCopyEntryDefaults();
+
+    // expect($scope.comment).toEqual('This is a copied entry');
+    // expect($scope.task.id).toEqual(31);
+
   }));
 });

@@ -34,8 +34,9 @@
                     <!--<td>{{ entry.start_time | date:'medium' }}</td>
                     <td>{{ entry.end_time | date:'medium'  }}</td>-->
                     <td>
-                        <a ng-disabled="entry.status === 'Submitted'" ng-click="Edit(entry)"class="btn btn-xs btn-warning"><i class="fa fa-edit" ></i></a>
-                        <a ng-disabled="entry.status === 'Submitted'" ng-click="setSelectedEntry(entry)" data-toggle="modal" data-target="#deleteModal" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                        <a ng-disabled="entry.status === 'Submitted'" ng-click="Copy(entry)"class="btn btn-xs btn-default" title="Copy entry"><i class="fa fa-copy" ></i></a>
+                        <a ng-disabled="entry.status === 'Submitted'" ng-click="Edit(entry)"class="btn btn-xs btn-warning" title="Edit entry"><i class="fa fa-edit" ></i></a>
+                        <a ng-disabled="entry.status === 'Submitted'" ng-click="setSelectedEntry(entry)" data-toggle="modal" data-target="#deleteModal" class="btn btn-xs btn-danger" title="Delete entry"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             </tbody>

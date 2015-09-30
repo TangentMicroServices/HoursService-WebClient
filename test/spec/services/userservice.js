@@ -59,7 +59,7 @@ describe('Service: userService', function () {
 
     userService.Logout();
 
-    expect($rootScope.CurrentUser).toEqual({});    
+    expect($rootScope.CurrentUser).toEqual({});
   }));
 
   it('When user logges out, make sure that a broacast is sent into the browser so controllers can handle it accordingly.', inject(function($rootScope){
