@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>{{currentUser.first_name}} {{currentUser.last_name}}</h1>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <tbody>
+                    <tr>
+                        <th class="col-md-4">Username</th>
+                        <td>{{currentUser.username}}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-4">User ID</th>
+                        <td>{{currentUser.id}}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-4">Access Token</th>
+                        <td>{{accessToken}}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-md-4">Email</th>
+                        <td>{{currentUser.email}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h2>Projects</h2>
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="active">
+                        <th class="col-md-4">Project ID</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="project in projects | orderBy : 'pk'">
+                        <th class="col-md-4">{{project.pk}}</th>
+                        <td><b>{{project.title}}</b>
+                        <table class="table">
+                            <tr ng-repeat="task in tasks | OrderTasksByProject : project.pk">
+                                <th class="col-md-1">{{task.id}}</th>
+                                <td>{{task.title}}</td>
+                            </tr>
+                        </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

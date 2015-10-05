@@ -7,6 +7,6 @@
   */
 
 angular.module('hoursApp')
-  .constant('USERSERVICE_BASE_URI', "http://userservice.staging.tangentmicroservices.com")
-  .constant('HOURSSERVICE_BASE_URI', "http://hoursservice.staging.tangentmicroservices.com")
-  .constant('PROJECTSERVICE_BASE_URI', "http://projectservice.staging.tangentmicroservices.com");
+  .constant('USERSERVICE_BASE_URI', 'http://userservice.staging.tangentmicroservices.com')
+  .constant('HOURSSERVICE_BASE_URI', 'http://hoursservice.staging.tangentmicroservices.com')
+  .constant('PROJECTSERVICE_BASE_URI', 'http://projectservice.staging.tangentmicroservices.com');
