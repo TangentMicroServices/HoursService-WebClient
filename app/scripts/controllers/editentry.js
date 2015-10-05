@@ -7,14 +7,14 @@
  * # EditentryCtrl
  * Controller of the hoursApp
  */
-angular.module('hoursApp')
-    .controller('EditentryCtrl', function ($scope, $location, projectService, entryService, notificationService) {
-      var entryupdate = function() {
-        notificationService.success('Your entry has been updated.');
-        $location.path('/myhours');
-      };
+ angular.module('hoursApp')
+ .controller('EditentryCtrl', function ($scope, $location, projectService, entryService, notificationService) {
+  var entryupdate = function() {
+    notificationService.success('Your entry has been updated.');
+    $location.path('/myhours');
+  };
 
-      var entryUpdateFailed = function(response){
+  var entryUpdateFailed = function(response){
         //TODO check failed response and show right error message
         notificationService.error('Your entry failed to update.');
         $scope.errorMessage = response;
@@ -39,13 +39,13 @@ angular.module('hoursApp')
         });
       });
 
-  		$scope.Submit = function(){
+      $scope.Submit = function(){
         $scope.saveButtonText = 'Saving';
         $scope.entry.day = new moment($scope.entry.day).format("YYYY-MM-DD");
 
-  			entryService.Edit($scope.entry)
-  						.then(entryupdate, entryUpdateFailed);
-  		};
+        entryService.Edit($scope.entry)
+        .then(entryupdate, entryUpdateFailed);
+      };
 
       $scope.Change = function () {
         var task = $scope.task;

@@ -77,6 +77,10 @@ angular
                 templateUrl: 'views/dashboard.html',
                 controller: 'DashboardCtrl'
             })
+            .when('/user-profile', {
+                templateUrl: 'views/user-profile.html',
+                controller: 'UserProfileCtrl'
+            })
             .otherwise({
                 redirectTo: '/dashboard'
             });
@@ -85,7 +89,6 @@ angular
             return {
                 'request': function(config) {
                     var accessToken = $window.localStorage.getItem('AccessToken');
-
                     if(accessToken && accessToken !== '' && accessToken !== null){
                         config.headers.Authorization = 'Token ' + accessToken;
                     }

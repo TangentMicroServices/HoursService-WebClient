@@ -33,18 +33,18 @@ angular.module('hoursApp')
   };
 
   var makeSqlDateProperty = function(value){
-      if(Number(value) < 10){
-          return '0' + Number(value + 1)
-      }
-      return value
+    if(Number(value) < 10){
+      return '0' + Number(value + 1)
+    }
+    return value
   }
 
   var getMonthDateRange = function() {
-      var now = moment();
-      var startDate = moment([now.year(), now.month() - 1]);
-      var endDate = moment(startDate).endOf('month');
+    var now = moment();
+    var startDate = moment([now.year(), now.month() - 1]);
+    var endDate = moment(startDate).endOf('month');
 
-      return { start: startDate.format('YYYY-MM-DD'), end: endDate.format('YYYY-MM-DD') };
+    return { start: startDate.format('YYYY-MM-DD'), end: endDate.format('YYYY-MM-DD') };
   };
 
   api.EntrySelected = function(entry){
@@ -94,7 +94,7 @@ angular.module('hoursApp')
     if(notEmpty(project_id)){
       project_id = '&project_id='+ project_id
     }else{
-          project_id = '';
+      project_id = '';
     }
     if(notEmpty(duration)){
       if(duration === '5'){
@@ -121,7 +121,7 @@ angular.module('hoursApp')
   api.GetUserSubmittedEntries = function(){
     return _.reject(userEntries, function(entry) {
      return entry.status === 'Open' || entry.status === 'Deleted';
-    });
+   });
   };
 
   api.Submit = function(entryIds){
