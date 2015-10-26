@@ -8,8 +8,240 @@
  * Controller of the hoursApp
  */
 angular.module('hoursApp')
-    .controller('EntriesCtrl', function ($scope, $rootScope, $location, notificationService, userService, entryService, projectService) {
+    .controller('EntriesCtrl', function ($scope, $filter, $rootScope, $location, notificationService, userService, entryService, projectService) {
 
+        $scope.getWeekdays = function(day){
+          day = day || moment();
+          var today = day.clone();
+          var monday = today.clone().startOf('week');
+          var days = [];
+          for(var i=1; i <= 7; i++){
+            var current = monday.clone().add(i, 'days');
+            days.push(current.format());
+          }
+          return days;
+        };
+
+        $scope.days = $scope.getWeekdays();
+
+        $scope.dailyTotals = [[], [], [], [], [], [], []];
+
+        $scope.getDailyTotal = function(array) {
+          var result = 0;
+          for (var i = 0; i < array.length; i++) {
+            result += Number(array[i]) || 0;
+          }
+          return result;
+        };
+
+        $scope.getProjectWeeklyTotal = function(project_index) {
+          var weeklyTotal = 0;
+          for (var i = 0; i < $scope.dailyTotals.length; i++) {
+            weeklyTotal += Number($scope.dailyTotals[i][project_index]) || 0;
+          }
+          return weeklyTotal;
+        };
+
+        $scope.getWeeklyTotal = function() {
+          var total = 0;
+          for (var day = 0; day < $scope.dailyTotals.length; day++) {
+            var projectEntries = $scope.dailyTotals[day];
+
+            for (var entry = 0; entry <  projectEntries.length; entry++) {
+              total += Number(projectEntries[entry]) || 0;
+            }
+          }
+          return total;
+        };
+
+        var stickyNote = angular.element(document.querySelector('.sticky-note'))[0];
+        var UITable = angular.element(document.querySelector('#newuitable'))[0];
+        var stickyNoteTextarea = angular.element(document.querySelector('.sticky-note textarea'))[0];
+        var currentCell = null;
+
+        $scope.revealCommentBox = function(event) {
+          stickyNote.style.display = "block";
+          stickyNote.style.left = event.pageX + "px";
+          stickyNote.style.top = event.pageY + "px";
+          currentCell = event.currentTarget.parentElement;
+          var entryIndex = event.currentTarget.parentElement.dataset.entryIndex || null;
+          if (entryIndex) {
+            angular.element(document.querySelector('.sticky-note')).attr('data-entry-index', entryIndex);
+            stickyNoteTextarea.value =  $scope.entries[entryIndex].comments || "";
+          }
+          event.stopPropagation();
+        };
+
+        var entryUpdated = function(){
+          currentCell = null;
+          stickyNoteTextarea.value = "";
+          notificationService.success('Entry updated successfully.');
+        };
+
+        var entryDidNotUpdate = function(response){
+          currentCell = null;
+          stickyNoteTextarea.value = "";
+          notificationService.error('Failed to update your entry.');
+        };
+
+
+        var entryAdded = function(){
+          notificationService.success('Entry added successfully.');
+        };
+
+        var entryDidNotAdd = function(response){
+          notificationService.error('Failed to add your entry.');
+        };
+
+        // TODO: reduce this massive function
+        UITable.onclick = function() {
+          if(stickyNote.style.display){
+            stickyNote.style.display = 'none';
+
+            // determine if an entry exists
+            var entryIndex = angular.element(document.querySelector('.sticky-note')).attr('data-entry-index') || null;
+
+            if(entryIndex) {
+              var entry = $scope.entries[entryIndex];
+              entry.comments = stickyNoteTextarea.value;
+              entry.day = new moment(entry.day).format("YYYY-MM-DD");
+
+              // update the entry
+              entryService.Edit(entry)
+              .then(entryUpdated, entryDidNotUpdate);
+
+            } else {
+              // check if the hours are valid
+              var hours = angular.element(angular.element(currentCell).children()[0]).val();
+              var entry = $scope.entries[entryIndex];
+
+              if(Number(hours) > 0) {
+
+                if(stickyNoteTextarea.value) {
+
+                  var project_index = angular.element(angular.element(currentCell).parent()[0]).parent()[0].rowIndex - 1 ;
+
+                  var newEntry = {
+                    id: null,
+                    user: $rootScope.CurrentUser.id,
+                    project_id: $scope.projects[project_index].pk,
+                    // TODO fix this!!!!
+                    project_task_id: $scope.projects[project_index].task_set[0].id,
+                    status: 'Open',
+                    day: $scope.days[angular.element(currentCell)[0].parentNode.cellIndex-1],
+                    start_time: '08:00:00',
+                    end_time: '17:00:00',
+                    comments: stickyNoteTextarea.value,
+                    hours: Number(hours),
+                    overtime: 0,
+                    tags: ''
+                  };
+
+                  newEntry.day = new moment(newEntry.day).format('YYYY-MM-DD');
+                  // console.log(newEntry, currentCell);
+                  entryService.Add(newEntry)
+                    .then(entryAdded, entryDidNotAdd);
+                }
+              }
+
+
+              // otherwise trash it
+            }
+          }
+        };
+
+
+
+        $scope.getPreviousWeek = function() {
+          var day = moment(Date.parse($scope.days[0])).subtract(2, 'days');
+          $scope.days = $scope.getWeekdays(day);
+        };
+
+        $scope.getNextWeek = function() {
+          var day = moment(Date.parse($scope.days[0])).add(1, 'weeks');
+          $scope.days = $scope.getWeekdays(day);
+        };
+
+        $scope.fillHours = function(dayIndex, projectIndex, entryIndex){
+          var hoursCell = angular.element(document.querySelector('#newuitable tbody tr:nth-child('+ (projectIndex+1) +') td:nth-child('+ (dayIndex+2)  +') .note'));
+          var hoursTextBox = angular.element(document.querySelector('#newuitable tbody tr:nth-child('+ (projectIndex+1) +') td:nth-child('+ (dayIndex+2) +') input'));
+
+          hoursTextBox[0].value = $scope.entries[entryIndex].hours;
+          hoursCell.attr("data-entry-index", entryIndex);
+          hoursTextBox.trigger('input');
+        }
+
+        $scope.$watch('entries', function(){
+          populateEntries()
+        });
+
+        $scope.$watch('days', function(){
+          populateEntries()
+        });
+
+        function populateEntries(){
+          var row = angular.element(document.querySelectorAll('#newuitable input'));
+
+          for (var i = 0; i < row.length; i++) {
+            row[i].value = "";
+            angular.element(row[i]).trigger('input');
+          }
+
+          $scope.days.forEach(function(element, dayIndex, array) {
+            // console.log($scope.entries);
+            var filter_date = moment(Date.parse(element)).format("YYYY-MM-DD");
+            var dayEntries = $filter('filter')($scope.entries, {day:filter_date}, true);
+
+            angular.forEach(dayEntries, function(entry, key) {
+
+              var project = $filter('filter')($scope.projects, {pk: entry.project_id}, true);
+              var entryIndex = $scope.entries.indexOf(entry);
+              var project_index = $scope.projects.indexOf(project[0]);
+              $scope.fillHours(dayIndex, project_index, entryIndex);
+            })
+
+          });
+        }
+
+        $scope.testprojects = [
+          {
+            id: "1",
+            title: 'African Bank: Development',
+            color: '#f28888'
+          },
+
+          {
+            id: "2",
+            title: 'Tangent Microservices',
+            color: '#c0deaf'
+          },
+
+          {
+            id: "3",
+            title: "Col'Cacchio: Meetings",
+            color: '#e0e080'
+          },
+          {
+            id: "4",
+            title: 'Ceramics: Development',
+            color: '#ebb07c'
+          }
+        ];
+
+        $scope.assignColor = function(title) {
+
+          var total = 0;
+
+          for (var i = 0; i < title.length; i++) {
+            total += title.charCodeAt(i);
+          }
+          console.log(total % $scope.colors.length, title);
+          var assigned = $scope.colors[total % $scope.colors.length];
+          // delete($scope.colors[total % $scope.colors.length]);
+          return assigned;
+
+        };
+        $scope.loaded = true;
         $scope.options = {
             animate:{
                 duration:800,
@@ -128,7 +360,7 @@ angular.module('hoursApp')
 
         var projectsLoaded = function(response){
             $scope.projects = response;
-            $scope.projects.unshift({title: '- All projects -'});
+            // $scope.projects.unshift({title: '- All projects -'});
 
             if(typeof $rootScope.project === 'undefined'){
                 $scope.project = $scope.projects[0];

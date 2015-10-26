@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <h3>My Hours</h3>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8" ng-show="false">
                 <div class="well row search">
                     <h4>Search</h4>
                     <div class="col-md-6">
@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" ng-show="false">
                 <div class="row">
                     <div class="col-md-12">
                         <p class="pull-right" easypiechart options="options" percent="percent"></p>
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" ng-show="false">
                 <p class="pull-right">
                     <button ng-class="{btn:true, 'btn-default':true, 'btn-sm':true, hidden:submit}" ng-click="selectAllEntries()">Submit entries</button>
                     <button ng-class="{btn:true, 'btn-default':true, 'btn-sm':true, hidden:!submit}" ng-click="clearSubmissionEntries()">Cancel</button>
@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <table class="table table-condensed">
+        <table class="table table-condensed" ng-show="true">
             <thead>
                 <tr class="active">
                     <th ng-class="{'text-center':true, 'submit-checkbox':true, select:true}">
@@ -127,4 +127,61 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="btn-group" role="group" aria-label="...">
+      <button type="button" class="btn btn-default" ng-click="getPreviousWeek()">Previous Week</button>
+      <button type="button" class="btn btn-default" ng-click="days = getWeekdays()">This Week</button>
+      <button type="button" class="btn btn-default" ng-click="getNextWeek()">Next Week</button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+
+    <table id="newuitable" class="table" style="margin-top:40px; border:none">
+      <thead>
+        <th colspan="2"></th>
+        <th style="text-align:center" ng-repeat="day in days" ng-class="{'rounded-top-left': day === days[0]}" >{{day | date : "EEE"}}<br/> {{day | date :"dd MMM"}}</th>
+        <th style="text-align:center">Total</th>
+      </thead>
+
+      <tbody>
+        <!-- TODO:  find a better way of assigning color -->
+        <tr ng-repeat="project in projects" style="background-color:{{project.color}}">
+          <td colspan="2">{{project.title}}</td>
+          <!-- TODO: replace this behemoth with a smarter directive -->
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[0][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[0]}}" ng-model="dailyTotals[0][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[0][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[1][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[1]}}" ng-model="dailyTotals[1][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[1][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[2][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[2]}}" ng-model="dailyTotals[2][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[2][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[3][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[3]}}" ng-model="dailyTotals[3][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[3][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[4][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[4]}}" ng-model="dailyTotals[4][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[4][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[5][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[5]}}" ng-model="dailyTotals[5][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[5][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[6][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[6]}}" ng-model="dailyTotals[6][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[6][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td style="text-align:center">{{ getProjectWeeklyTotal($index) }}</td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+      <tr>
+        <td colspan="2"></td>
+        <!-- TODO: replace this with a directive -->
+        <td class="rounded-bottom-left" style="text-align:center">{{ getDailyTotal(dailyTotals[0]) }}</td>
+        <td style="text-align:center">{{ getDailyTotal(dailyTotals[1]) }}</td>
+        <td style="text-align:center">{{ getDailyTotal(dailyTotals[2]) }}</td>
+        <td style="text-align:center">{{ getDailyTotal(dailyTotals[3]) }}</td>
+        <td style="text-align:center">{{ getDailyTotal(dailyTotals[4]) }}</td>
+        <td style="text-align:center">{{ getDailyTotal(dailyTotals[5]) }}</td>
+        <td style="text-align:center">{{ getDailyTotal(dailyTotals[6]) }}</td>
+        <td style="text-align:center">{{getWeeklyTotal()}}</td>
+      </tr>
+    </tfoot>
+    </table>
+
+  </div>
+  <div class="sticky-note">
+  <textarea class="note"></textarea>
+  </div>
 </div>

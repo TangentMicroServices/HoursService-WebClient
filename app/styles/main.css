@@ -1,4 +1,6 @@
 /* Space out content a bit */
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+
 body {
     padding-top:60px;
 }
@@ -44,4 +46,144 @@ table .submit-checkbox{
 
 .search h4{
   margin: 0 0 10px 15px;
+}
+
+#newuitable th:not(:first-child), #newuitable td:last-child, #newuitable tfoot td:not(:first-child) {
+  background-color: #eeeeed;
+}
+
+#newuitable tfoot td, #newuitable td:last-child {
+  color: #999999;
+  font-weight: bold;
+}
+
+#newuitable thead th:last-child {
+  max-width: 60px !important
+}
+
+#newuitable tbody tr{
+  border-radius: 20px;
+  background-color: pink;
+}
+
+#newuitable th:last-child{
+  width: 90px;
+  border-top-right-radius: 10px;
+}
+
+#newuitable tfoot td:last-child{
+  border-bottom-right-radius: 10px;
+  padding-bottom: 25px
+}
+
+#newuitable, #newuitable td, #newuitable tr, #newuitable th{
+  border: 0;
+}
+
+#newuitable tbody tr:nth-child(1) td:nth-child(1) {
+  border-top-left-radius: 10px !important;
+}
+
+#newuitable tbody tr:last-child td:nth-child(1) {
+  border-bottom-left-radius: 10px !important;
+}
+
+#newuitable tbody td:nth-child(1){
+  color:black;
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+#newuitable input{
+  border: 0
+}
+
+.rounded-top-left{
+  border-top-left-radius: 10px
+}
+
+.rounded-top-right{
+  border-top-right-radius: 10px
+}
+
+.rounded-bottom-left{
+  border-bottom-left-radius: 10px
+}
+
+.rounded-bottom-right{
+  border-bottom-right-radius: 10px
+}
+
+.faded{
+  opacity: 0.4
+}
+
+#newuitable input::before {
+
+}
+
+#newuitable input::-webkit-outer-spin-button,
+#newuitable input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.note {
+  position: relative;
+  color: #fafafa;
+  font-size: 16px;
+}
+
+.note input {
+  height: 32px;
+  background: #fcfcfc;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+
+.note input { text-align: center;}
+.note .fa-sticky-note {
+  position: absolute;
+  color:#68d9be;
+  top: 10px;
+  right: 10px;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Gloria+Hallelujah);
+* { box-sizing:border-box; }
+
+textarea.note  {
+	display: block;
+	padding:15px 15px 20px;
+	margin:0 auto 20px auto;
+	width:200px;
+	height:150px;
+	font:14px 'Gloria Hallelujah', cursive;
+	line-height:1.5;
+	border:0;
+  color: #000;
+	border-radius:3px;
+	background: -webkit-linear-gradient(#F9EFAF, #F7E98D);
+	background: -moz-linear-gradient(#F9EFAF, #F7E98D);
+	background: -o-linear-gradient(#F9EFAF, #F7E98D);
+	background: -ms-linear-gradient(#F9EFAF, #F7E98D);
+	background: linear-gradient(#F9EFAF, #F7E98D);
+	box-shadow:0 4px 6px rgba(0,0,0,0.1);
+	overflow:hidden;
+	transition:box-shadow 0.5s ease;
+	font-smoothing:subpixel-antialiased;
+	max-width:520px;
+	max-height:250px;
+}
+
+textarea.note:hover { box-shadow:0 5px 8px rgba(0,0,0,0.15); }
+textarea.note:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
+.sticky-note{
+  position: absolute;
+  z-index: 100;
+}
+
+.sticky-note{
+  display: none;
 }
