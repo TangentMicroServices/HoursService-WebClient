@@ -57,7 +57,7 @@ angular.module('hoursApp')
         var stickyNote = angular.element(document.querySelector('.sticky-note'))[0];
         var UITable = angular.element(document.querySelector('#newuitable'))[0];
         var stickyNoteTextarea = angular.element(document.querySelector('.sticky-note textarea'))[0];
-        var currentCell = null;
+        var currentCell = null; // contains the current active cell
 
         $scope.revealCommentBox = function(event) {
           stickyNote.style.display = "block";
@@ -93,12 +93,12 @@ angular.module('hoursApp')
           notificationService.error('Failed to add your entry.');
         };
 
-        // TODO: reduce this massive function
         UITable.onclick = function() {
           if(stickyNote.style.display){
+
             stickyNote.style.display = 'none';
 
-            // determine if an entry exists
+            // check if an entry exists
             var entryIndex = angular.element(document.querySelector('.sticky-note')).attr('data-entry-index') || null;
 
             if(entryIndex) {
@@ -111,46 +111,42 @@ angular.module('hoursApp')
               .then(entryUpdated, entryDidNotUpdate);
 
             } else {
-              // check if the hours are valid
-              var hours = angular.element(angular.element(currentCell).children()[0]).val();
-              var entry = $scope.entries[entryIndex];
+              // validate the new entry
+              var hours = Number(angular.element(angular.element(currentCell).children()[0]).val());
+              var comment = stickyNoteTextarea.value;
 
-              if(Number(hours) > 0) {
-
-                if(stickyNoteTextarea.value) {
-
-                  var project_index = angular.element(angular.element(currentCell).parent()[0]).parent()[0].rowIndex - 1 ;
-
-                  var newEntry = {
-                    id: null,
-                    user: $rootScope.CurrentUser.id,
-                    project_id: $scope.projects[project_index].pk,
-                    // TODO fix this!!!!
-                    project_task_id: $scope.projects[project_index].task_set[0].id,
-                    status: 'Open',
-                    day: $scope.days[angular.element(currentCell)[0].parentNode.cellIndex-1],
-                    start_time: '08:00:00',
-                    end_time: '17:00:00',
-                    comments: stickyNoteTextarea.value,
-                    hours: Number(hours),
-                    overtime: 0,
-                    tags: ''
-                  };
-
-                  newEntry.day = new moment(newEntry.day).format('YYYY-MM-DD');
-                  // console.log(newEntry, currentCell);
-                  entryService.Add(newEntry)
-                    .then(entryAdded, entryDidNotAdd);
-                }
+              if(hours > 0 && comment.length > 0) {
+                  var project_td = angular.element(currentCell).parent()[0];
+                  var project_tr = angular.element(project_td).parent()[0].rowIndex;
+                  var project_index = project_tr -1;
+                  createNewEntry(hours, project_index);
               }
-
-
-              // otherwise trash it
             }
           }
         };
 
+        var createNewEntry = function(hours, project_index){
+          var newEntry = {
+            id: null,
+            user: $rootScope.CurrentUser.id,
+            project_id: $scope.projects[project_index].pk,
+            // TODO fix this!!!!
+            project_task_id: $scope.projects[project_index].task_set[0].id,
+            status: 'Open',
+            day: $scope.days[angular.element(currentCell)[0].parentNode.cellIndex-1],
+            start_time: '08:00:00',
+            end_time: '17:00:00',
+            comments: stickyNoteTextarea.value,
+            hours: hours,
+            overtime: 0,
+            tags: ''
+          };
 
+          newEntry.day = new moment(newEntry.day).format('YYYY-MM-DD');
+          // console.log(newEntry, currentCell);
+          entryService.Add(newEntry)
+            .then(entryAdded, entryDidNotAdd);
+        };
 
         $scope.getPreviousWeek = function() {
           var day = moment(Date.parse($scope.days[0])).subtract(2, 'days');
@@ -165,16 +161,15 @@ angular.module('hoursApp')
         $scope.fillHours = function(dayIndex, projectIndex, entryIndex){
           var hoursCell = angular.element(document.querySelector('#newuitable tbody tr:nth-child('+ (projectIndex+1) +') td:nth-child('+ (dayIndex+2)  +') .note'));
           var hoursTextBox = angular.element(document.querySelector('#newuitable tbody tr:nth-child('+ (projectIndex+1) +') td:nth-child('+ (dayIndex+2) +') input'));
-
           hoursTextBox[0].value = $scope.entries[entryIndex].hours;
           hoursCell.attr("data-entry-index", entryIndex);
           hoursTextBox.trigger('input');
         }
 
+        // repopulate the calender when the entries or days change
         $scope.$watch('entries', function(){
           populateEntries()
         });
-
         $scope.$watch('days', function(){
           populateEntries()
         });
@@ -187,46 +182,21 @@ angular.module('hoursApp')
             angular.element(row[i]).trigger('input');
           }
 
+          // get the entries for a day
           $scope.days.forEach(function(element, dayIndex, array) {
-            // console.log($scope.entries);
             var filter_date = moment(Date.parse(element)).format("YYYY-MM-DD");
             var dayEntries = $filter('filter')($scope.entries, {day:filter_date}, true);
 
+            // fill the appropriate cell according to project
             angular.forEach(dayEntries, function(entry, key) {
-
               var project = $filter('filter')($scope.projects, {pk: entry.project_id}, true);
               var entryIndex = $scope.entries.indexOf(entry);
               var project_index = $scope.projects.indexOf(project[0]);
               $scope.fillHours(dayIndex, project_index, entryIndex);
-            })
+            });
 
           });
         }
-
-        $scope.testprojects = [
-          {
-            id: "1",
-            title: 'African Bank: Development',
-            color: '#f28888'
-          },
-
-          {
-            id: "2",
-            title: 'Tangent Microservices',
-            color: '#c0deaf'
-          },
-
-          {
-            id: "3",
-            title: "Col'Cacchio: Meetings",
-            color: '#e0e080'
-          },
-          {
-            id: "4",
-            title: 'Ceramics: Development',
-            color: '#ebb07c'
-          }
-        ];
 
         $scope.assignColor = function(title) {
 
@@ -241,7 +211,7 @@ angular.module('hoursApp')
           return assigned;
 
         };
-        $scope.loaded = true;
+
         $scope.options = {
             animate:{
                 duration:800,
