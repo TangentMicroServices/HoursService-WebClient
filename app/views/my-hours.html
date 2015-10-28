@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <table class="table table-condensed" ng-show="true">
+        <table class="table table-condensed" ng-show="false">
             <thead>
                 <tr class="active">
                     <th ng-class="{'text-center':true, 'submit-checkbox':true, select:true}">
@@ -130,7 +130,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-4 col-md-offset-4">
+  <div class="col-md-4 col-md-offset-5">
     <div class="btn-group" role="group" aria-label="...">
       <button type="button" class="btn btn-default" ng-click="getPreviousWeek()">Previous Week</button>
       <button type="button" class="btn btn-default" ng-click="days = getWeekdays()">This Week</button>
@@ -149,9 +149,8 @@
       </thead>
 
       <tbody>
-        <!-- TODO:  find a better way of assigning color -->
-        <tr ng-repeat="project in projects" style="background-color:{{project.color}}">
-          <td colspan="2">{{project.title}}</td>
+        <tr ng-repeat="project in projects" style="background-color: {{assignColor(project.title)}}">
+          <td colspan="2" style="color:#fff">{{project.title}}</td>
           <!-- TODO: replace this behemoth with a smarter directive -->
           <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[0][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[0]}}" ng-model="dailyTotals[0][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[0][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
           <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[1][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[1]}}" ng-model="dailyTotals[1][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[1][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
@@ -182,6 +181,24 @@
 
   </div>
   <div class="sticky-note">
+    <br/>
+    <div id="carousel-example-generic" class="carousel slide" data-interval="false" data-ride="carousel">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+      <div class="item" data-task-id="{{task.id}}" ng-class="{active: $index === 0}" ng-repeat="task in project_tasks">
+          {{task.title}}
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    </a>
+  </div>
   <textarea class="note"></textarea>
   </div>
 </div>

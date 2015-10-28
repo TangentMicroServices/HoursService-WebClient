@@ -187,3 +187,20 @@ textarea.note:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
 .sticky-note{
   display: none;
 }
+
+.carousel-inner .item{
+  text-align: center;
+}
+
+.carousel-control.right, .carousel-control.left{
+  background-image: none;
+}
+
+#carousel-example-generic{
+  background: -webkit-linear-gradient(#F9EFAF, #F7E98D);
+	background: -moz-linear-gradient(#F9EFAF, #F7E98D);
+	background: -o-linear-gradient(#F9EFAF, #F7E98D);
+	background: -ms-linear-gradient(#F9EFAF, #F7E98D);
+	background: linear-gradient(#F9EFAF, #F7E98D);
+  padding: 10px 0px;
+}
