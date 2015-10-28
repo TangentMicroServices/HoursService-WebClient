@@ -69,7 +69,7 @@ angular.module('hoursApp')
           var project = $scope.projects[project_index];
           var tasks = $filter('filter')($scope.tasks, {project: project.pk}, true);
           $scope.project_tasks = tasks;
-          
+
           console.log(project, tasks);
           if (entryIndex) {
             angular.element(document.querySelector('.sticky-note')).attr('data-entry-index', entryIndex);
@@ -224,36 +224,9 @@ angular.module('hoursApp')
           for (var i = 0; i < title.length; i++) {
             total += title.charCodeAt(i);
           }
-
-          var assigned = colors[total % colors.length];
-          return assigned;
-
+          var color = colors[total % colors.length];
+          return color;
         };
-
-        $scope.testprojects = [
-          {
-            id: "1",
-            title: 'African Bank: Developent',
-            color: '#f28888'
-          },
-
-          {
-            id: "2",
-            title: 'Tangent Microservices',
-            color: '#c0deaf'
-          },
-
-          {
-            id: "3",
-            title: "Col'Cacchio: Meetings",
-            color: '#e0e080'
-          },
-          {
-            id: "4",
-            title: 'Ceramics: Development',
-            color: '#ebb07c'
-          }
-        ];
 
         $scope.options = {
             animate:{
