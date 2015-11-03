@@ -172,7 +172,7 @@ angular.module('hoursApp')
         };
 
         var populateEntries = function () {
-          console.log($scope.projects)
+          // console.log($scope.projects)
           var row = angular.element(document.querySelectorAll('#newuitable input'));
 
           // clear all the inputs
@@ -191,7 +191,7 @@ angular.module('hoursApp')
               var project = $filter('filter')($scope.projects, {pk: entry.project_id}, true);
               var entryIndex = $scope.entries.indexOf(entry);
               var project_index = $scope.projects.indexOf(project[0]);
-              console.log(project_index, entryIndex);
+              // console.log(project_index, entryIndex);
               if (project_index >= 0 && entryIndex >= 0) {
                   $scope.fillHours(dayIndex, project_index, entryIndex); // fill the table cell
               }
@@ -204,7 +204,7 @@ angular.module('hoursApp')
         $scope.fillHours = function(dayIndex, projectIndex, entryIndex){
           var hoursCell = $('#newuitable > tbody > tr:eq('+ (projectIndex) +') > td:eq('+ (dayIndex +1)  +') .note');
           var hoursTextBox = $('#newuitable tbody tr:eq('+ (projectIndex) +') td:eq('+ (dayIndex+1) +') input');
-          console.log(hoursCell);
+          // console.log(hoursCell);
           if(hoursCell.length > 0 && hoursTextBox.length > 0){
             hoursTextBox[0].value = $scope.entries[entryIndex].hours;
             hoursCell.attr("data-entry-index", entryIndex);
