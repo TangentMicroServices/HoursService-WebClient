@@ -8,8 +8,8 @@
  * Controller of the hoursApp
  */
 angular.module('hoursApp')
-    .controller('EntriesCtrl', function ($scope, $filter, $rootScope, $location, notificationService, userService, entryService, projectService) {
-
+    .controller('EntriesCtrl', function ($timeout, $scope, $filter, $rootScope, $location, notificationService, userService, entryService, projectService) {
+        $scope.loaded = false;
         $scope.getWeekdays = function(day){
           day = day || moment();
           var today = day.clone();
@@ -32,6 +32,10 @@ angular.module('hoursApp')
             result += Number(array[i]) || 0;
           }
           return result;
+        };
+
+        $scope.slide = function (dir) {
+          $('#task-carousel').carousel(dir);
         };
 
         $scope.getProjectWeeklyTotal = function(project_index) {
@@ -70,7 +74,7 @@ angular.module('hoursApp')
           var tasks = $filter('filter')($scope.tasks, {project: project.pk}, true);
           $scope.project_tasks = tasks;
 
-          console.log(project, tasks);
+          // console.log(project, tasks);
           if (entryIndex) {
             angular.element(document.querySelector('.sticky-note')).attr('data-entry-index', entryIndex);
             stickyNoteTextarea.value =  $scope.entries[entryIndex].comments || "";
@@ -128,16 +132,18 @@ angular.module('hoursApp')
                   createNewEntry(hours, project_index);
               }
             }
+            $scope.project_tasks = [];
           }
         };
 
         var createNewEntry = function(hours, project_index){
+          var taskId = $("#task-carousel").find('.carousel-inner > .item.active')[0].dataset.taskId;
+
           var newEntry = {
             id: null,
             user: $rootScope.CurrentUser.id,
             project_id: $scope.projects[project_index].pk,
-            // TODO fix this!!!!
-            project_task_id: $scope.projects[project_index].task_set[0].id,
+            project_task_id: taskId,
             status: 'Open',
             day: $scope.days[angular.element(currentCell)[0].parentNode.cellIndex-1],
             start_time: '08:00:00',
@@ -165,15 +171,18 @@ angular.module('hoursApp')
           $scope.days = $scope.getWeekdays(day);
         };
 
-        // repopulate the calender when the entries or days change
-        $scope.$watch('entries', function(){
-          populateEntries()
-        });
-        $scope.$watch('days', function(){
-          populateEntries()
-        });
+        // repopulate the calender when the projects, entries or days change
+        // $scope.$watch('[entries, projects, days]', function(){
+        //   if($scope.entries.length > 0 && $scope.projects.length > 0){
+        //     populateEntries();
+        //     console.log($scope);
+        //     $scope.loaded = true;
+        //   }
+        //
+        // }, true);
 
-        function populateEntries(){
+        var populateEntries = function () {
+          console.log($scope.projects)
           var row = angular.element(document.querySelectorAll('#newuitable input'));
 
           // clear all the inputs
@@ -192,7 +201,10 @@ angular.module('hoursApp')
               var project = $filter('filter')($scope.projects, {pk: entry.project_id}, true);
               var entryIndex = $scope.entries.indexOf(entry);
               var project_index = $scope.projects.indexOf(project[0]);
-              $scope.fillHours(dayIndex, project_index, entryIndex); // fill the table cell
+              console.log(project_index, entryIndex);
+              if (project_index >= 0 && entryIndex >= 0) {
+                  $scope.fillHours(dayIndex, project_index, entryIndex); // fill the table cell
+              }
             });
 
           });
@@ -200,12 +212,14 @@ angular.module('hoursApp')
 
         // fill the calender cells with data from the hours service
         $scope.fillHours = function(dayIndex, projectIndex, entryIndex){
-          var hoursCell = angular.element(document.querySelector('#newuitable tbody tr:nth-child('+ (projectIndex+1) +') td:nth-child('+ (dayIndex+2)  +') .note'));
-          var hoursTextBox = angular.element(document.querySelector('#newuitable tbody tr:nth-child('+ (projectIndex+1) +') td:nth-child('+ (dayIndex+2) +') input'));
-          if (hoursTextBox)
+          var hoursCell = $('#newuitable > tbody > tr:eq('+ (projectIndex) +') > td:eq('+ (dayIndex +1)  +')');
+          var hoursTextBox = $('#newuitable tbody tr:eq('+ (projectIndex) +') td:eq('+ (dayIndex+1) +') input');
+          console.log(hoursCell);
+          if(hoursCell.length > 0 && hoursTextBox.length > 0){
             hoursTextBox[0].value = $scope.entries[entryIndex].hours;
             hoursCell.attr("data-entry-index", entryIndex);
             hoursTextBox.trigger('input');
+          }
         };
 
         window.onkeydown = function( event ) {
@@ -213,6 +227,7 @@ angular.module('hoursApp')
               stickyNote.style.display = 'none';
               stickyNoteTextarea.value = '';
               currentCell = null;
+              $scope.project_tasks = [];
             }
         };
 
@@ -227,6 +242,14 @@ angular.module('hoursApp')
           var color = colors[total % colors.length];
           return color;
         };
+
+        $scope.fireEvent = function() {
+          $timeout(function(){
+            $scope.$watch('[entries, projects, days]', function() {
+                populateEntries();
+            }, true);
+          }, 0);
+        }
 
         $scope.options = {
             animate:{
@@ -275,8 +298,10 @@ angular.module('hoursApp')
         };
 
         var onEntriesLoaded = function(data){
-           $scope.entries = data;
+            $scope.entries = data;
+
             $scope.loaded = true;
+
             $scope.deletingItem = false;
 
             $scope.totalOpenHours = _.reduce($scope.entries, function(sum, el) {
@@ -299,7 +324,7 @@ angular.module('hoursApp')
             $scope.tasks = response;
             // $scope.tasks.unshift({title: 'All projects - '});
             $scope.task = $scope.tasks[0];
-            console.log(response);
+            // console.log(response);
         };
 
         var taskLoadFailed = function(response){};
@@ -391,6 +416,7 @@ angular.module('hoursApp')
             {
                 loadEntries(userId);
             }
+
         };
 
         var getAllSelected = function () {
