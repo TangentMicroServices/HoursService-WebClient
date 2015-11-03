@@ -171,16 +171,6 @@ angular.module('hoursApp')
           $scope.days = $scope.getWeekdays(day);
         };
 
-        // repopulate the calender when the projects, entries or days change
-        // $scope.$watch('[entries, projects, days]', function(){
-        //   if($scope.entries.length > 0 && $scope.projects.length > 0){
-        //     populateEntries();
-        //     console.log($scope);
-        //     $scope.loaded = true;
-        //   }
-        //
-        // }, true);
-
         var populateEntries = function () {
           console.log($scope.projects)
           var row = angular.element(document.querySelectorAll('#newuitable input'));
@@ -212,7 +202,7 @@ angular.module('hoursApp')
 
         // fill the calender cells with data from the hours service
         $scope.fillHours = function(dayIndex, projectIndex, entryIndex){
-          var hoursCell = $('#newuitable > tbody > tr:eq('+ (projectIndex) +') > td:eq('+ (dayIndex +1)  +')');
+          var hoursCell = $('#newuitable > tbody > tr:eq('+ (projectIndex) +') > td:eq('+ (dayIndex +1)  +') .note');
           var hoursTextBox = $('#newuitable tbody tr:eq('+ (projectIndex) +') td:eq('+ (dayIndex+1) +') input');
           console.log(hoursCell);
           if(hoursCell.length > 0 && hoursTextBox.length > 0){
