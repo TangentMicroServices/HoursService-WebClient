@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <h3>My Hours</h3>
+        <!-- <h3>My Hours</h3> -->
         <div class="row">
             <div class="col-md-8" ng-show="false">
                 <div class="well row search">
@@ -141,7 +141,7 @@
 <div class="row">
   <div class="col-md-12">
 
-    <table id="newuitable" class="table" style="margin-top:40px; border:none">
+    <table id="newuitable" class="table" style="margin-top:40px; border:none" ng-show="loaded">
       <thead>
         <th colspan="2"></th>
         <th style="text-align:center" ng-repeat="day in days" ng-class="{'rounded-top-left': day === days[0]}" >{{day | date : "EEE"}}<br/> {{day | date :"dd MMM"}}</th>
@@ -161,6 +161,7 @@
           <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[6][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[6]}}" ng-model="dailyTotals[6][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[6][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
           <td style="text-align:center">{{ getProjectWeeklyTotal($index) }}</td>
         </tr>
+        <div ng-init="fireEvent()"></div>
       </tbody>
 
       <tfoot>
@@ -182,20 +183,20 @@
   </div>
   <div class="sticky-note">
     <br/>
-    <div id="carousel-example-generic" class="carousel slide" data-interval="false" data-ride="carousel">
+    <div id="task-carousel" class="carousel slide"  data-ride="carousel">
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
-      <div class="item" data-task-id="{{task.id}}" ng-class="{active: $index === 0}" ng-repeat="task in project_tasks">
+      <div class="item" ng-class="{active: $index===0}" data-task-id="{{task.id}}"  ng-repeat="task in project_tasks">
           {{task.title}}
       </div>
     </div>
 
     <!-- Controls -->
-    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <a class="left carousel-control" ng-click="slide('prev')" role="button">
       <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     </a>
-    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <a class="right carousel-control" ng-click="slide('next')" role="button">
       <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     </a>
   </div>

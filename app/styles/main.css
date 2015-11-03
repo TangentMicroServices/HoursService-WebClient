@@ -196,7 +196,7 @@ textarea.note:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
   background-image: none;
 }
 
-#carousel-example-generic{
+#task-carousel{
   background: -webkit-linear-gradient(#F9EFAF, #F7E98D);
 	background: -moz-linear-gradient(#F9EFAF, #F7E98D);
 	background: -o-linear-gradient(#F9EFAF, #F7E98D);
