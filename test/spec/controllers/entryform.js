@@ -79,7 +79,7 @@ describe('Controller: EntryformCtrl', function () {
     expect(scope.opened).toEqual(true);
   });
 
-  it('disable when scope.disabled has been called', function() {
+  /*it('disable when scope.disabled has been called', function() {
     expect(scope.disabled()).toEqual(false);
-  });
+  });*/
 });
