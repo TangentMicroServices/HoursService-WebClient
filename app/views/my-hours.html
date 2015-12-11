@@ -59,10 +59,10 @@
                         <input type="checkbox" ng-model="entry.Selected" ng-class="{hidden:!submit}" ng-if="entry.status === 'Open'"/>
                     </td>
                     <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
-                    <td>{{entry.project_task_id}} - {{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
+                    <td>{{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
                     <td>{{ entry.hours }}</td>
                     <td>{{ entry.overtime }}</td>
-                    <td class="hidden-xs">{{ entry.comments|limitTo: 120 }}{{entry.comments.length > 120 ? '...' : ''}}</td>
+                    <td class="hidden-xs">{{ entry.comments|limitTo: 160 }}{{entry.comments.length > 160 ? '...' : ''}}</td>
                     <td>{{ entry.status }}</td>
                     <td>
                         <a ng-disabled="entry.status === 'Submitted'" ng-click="Copy(entry)" ng-class="{'btn': true, 'btn-xs': true, 'btn-default':true, hidden: entry.status === 'Submitted'}" title="Copy entry"><i class="fa fa-copy" ></i></a>
