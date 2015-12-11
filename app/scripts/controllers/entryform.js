@@ -27,11 +27,11 @@ angular.module('hoursApp')
     // for the date picker.. need to refactor..... duplication in add and edit need to be resolved
     $scope.format = 'yyyy-MM-dd';
     $scope.minDate = new Date(2015, 1, 1);
-    $scope.maxDate =  new Date();
+    //$scope.maxDate =  new Date();
 
-    $scope.disabled = function() {
-      return false;
-    };
+    //$scope.disabled = function() {
+    //  return false;
+    //};
 
     $scope.open = function($event) {
       $event.preventDefault();
@@ -43,7 +43,7 @@ angular.module('hoursApp')
     	for(var i=1; i<24; i++){
     		$scope.hours.push({
     			hours: i,
-    			description: i + ' hours',
+    			description: i + ' hours'
     		});
     		$scope.hours.push({
     			hours: i + 0.5,
