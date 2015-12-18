@@ -1,136 +1,102 @@
 <div class="row">
-    <div class="col-md-12">
-        <!-- <h3>My Hours</h3> -->
-        <div class="row">
-            <div class="col-md-8" ng-show="false">
-                <div class="well row search">
-                    <h4>Search</h4>
-                    <div class="col-md-6">
-                        <label>Hours</label>
-                        <select  class="form-control" ng-model="dateRange" ng-change="Change()"
-                        ng-options="dateRangeType.value for dateRangeType in dateRangeTypes"></select>
-                    </div>
-                    <div class="col-md-6">
-                        <label>Project</label>
-                        <select name="task" class="form-control" ng-model="project"
-                            ng-change="Change()"
-                            ng-options="project.title for project in projects | orderBy:'title'" required></select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" ng-show="false">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="pull-right" easypiechart options="options" percent="percent"></p>
-                    </div>
-                    <div class="col-md-12 clearfix">
-                        <p class="pull-right">{{percent | number:0}}% Complete</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12" ng-show="false">
-                <p class="pull-right">
-                    <button ng-class="{btn:true, 'btn-default':true, 'btn-sm':true, hidden:submit}" ng-click="selectAllEntries()">Submit entries</button>
-                    <button ng-class="{btn:true, 'btn-default':true, 'btn-sm':true, hidden:!submit}" ng-click="clearSubmissionEntries()">Cancel</button>
-                    <button ng-class="{btn:true, 'btn-primary':true, 'btn-sm':true, hidden:!submit}" data-toggle="modal" data-target="#submitModal">Submit</button>
-                </p>
-            </div>
+  <div class="col-md-12">
+    <!-- <h3>My Hours</h3> -->
+    <div class="row">
+      <div class="col-md-8 col-md-offset-4">
+        <div class="well row search">
+          <h4>Search</h4>
+          <div class="col-md-6">
+            <label>Hours</label>
+            <select  class="form-control" ng-model="dateRange" ng-change="Change()"
+            ng-options="dateRangeType.value for dateRangeType in dateRangeTypes"></select>
+          </div>
+          <div class="col-md-6">
+            <label>Project</label>
+            <select name="task" class="form-control" ng-model="project"
+            ng-change="Change()"
+            ng-options="project.title for project in projects | orderBy:'title'" required></select>
+          </div>
         </div>
+      </div>
+      <div class="col-md-4 col-sm-12 col-xs-12">
+        <div class="row">
+          <div class="col-md-12">
+            <p class="pull-right hidden-xs hidden-sm" easypiechart options="options" percent="percent"></p>
+            <div class="progress hidden-md hidden-lg">
+              <div class="progress-bar" role="progressbar" aria-valuenow="percent" aria-valuemin="0" aria-valuemax="100" style="width: {{percent}}%;">
+                {{percent | number:0}}%
+              </div>
+            </div>
 
-        <table class="table table-condensed" ng-show="false">
-            <thead>
-                <tr class="active">
-                    <th ng-class="{'text-center':true, 'submit-checkbox':true, select:true}">
-                        <input type="checkbox" ng-model="allSelected"  ng-model-options="{getterSetter: true}" ng-class="{hidden:!submit}"/>
-                    </th>
-                    <th class="date">Date</th>
-                    <th>Project - Task</th>
-                    <th class="hours">Hours</th>
-                    <th class="overtime">Overtime</th>
-                    <th class="hidden-xs">Comments</th>
-                    <th class="hours">Status</th>
-                    <th class="buttons">
-                    </th>
-                </tr>
-            </thead>
-            <tbody ng-repeat="entry in entries">
-                <tr ng-class="{deleted: entry.deleting}" class="entry-{{entry.status.toLowerCase()}}">
-                    <td ng-class="{'text-center':true}">
-                        <input type="checkbox" ng-model="entry.Selected" ng-class="{hidden:!submit}" ng-if="entry.status === 'Open'"/>
-                    </td>
-                    <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
-                    <td>{{entry.project_task_id}} - {{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
-                    <td>{{ entry.hours }}</td>
-                    <td>{{ entry.overtime }}</td>
-                    <td class="hidden-xs">{{ entry.comments|limitTo: 120 }}{{entry.comments.length > 120 ? '...' : ''}}</td>
-                    <td>{{ entry.status }}</td>
-                    <td>
-                        <a ng-disabled="entry.status === 'Submitted'" ng-click="Copy(entry)" ng-class="{'btn': true, 'btn-xs': true, 'btn-default':true, hidden: entry.status === 'Submitted'}" title="Copy entry"><i class="fa fa-copy" ></i></a>
-                        <a ng-disabled="entry.status === 'Submitted'" ng-click="Edit(entry)" ng-class="{btn: true, 'btn-xs': true, 'btn-warning': true, hidden: entry.status === 'Submitted'}" title="Edit entry"><i class="fa fa-edit" ></i></a>
-                        <a ng-disabled="entry.status === 'Submitted'" ng-click="setSelectedEntry(entry)" data-toggle="modal" data-target="#deleteModal" ng-class="{btn: true, 'btn-xs': true, 'btn-danger': true, hidden: entry.status === 'Submitted'}" title="Delete entry"><i class="fa fa-trash"></i></a>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-            <tr class="totals">
-                <td colspan="2">
-                    <h4>Total Hours:</h4>
-                </td>
-                <td class="total-hours">
-                    <h4><span class="label label-primary">{{ entries | sum:'hours' }}</span></h4></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            </tfoot>
-        </table>
+          </div>
+          <div class="col-md-12 clearfix hidden-xs hidden-sm">
+            <p class="pull-right">{{percent | number:0}}% Complete</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <p class="pull-right hidden-xs hidden-sm">
+          <button ng-class="{btn:true, 'btn-default':true, 'btn-sm':true, hidden:submit}" ng-click="selectAllEntries()">Submit entries</button>
+          <button ng-class="{btn:true, 'btn-default':true, 'btn-sm':true, hidden:!submit}" ng-click="clearSubmissionEntries()">Cancel</button>
+          <button ng-class="{btn:true, 'btn-primary':true, 'btn-sm':true, hidden:!submit}" data-toggle="modal" data-target="#submitModal">Submit</button>
+        </p>
+
+        <p class="hidden-md hidden-lg">
+          <button ng-class="{btn:true, 'btn-default':true, 'btn-lg':true, 'btn-block':true, hidden:submit}" ng-click="selectAllEntries()">Submit entries</button>
+          <button ng-class="{btn:true, 'btn-default':true, 'btn-lg':true, 'btn-block':true, hidden:!submit}" ng-click="clearSubmissionEntries()">Cancel</button>
+          <button ng-class="{btn:true, 'btn-primary':true, 'btn-lg':true, 'btn-block':true, hidden:!submit}" data-toggle="modal" data-target="#submitModal">Submit</button>
+        </p>
+      </div>
     </div>
-    <hr />
+
+
+  </div>
+  <hr />
 </div>
 
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Are you sure you want to delete this record?</h4>
-            </div>
-            <div class="modal-body">
-                <p ng-if="selectedItem != null" class="well">{{ selectedItem.day | date:'EEE, d MMM yyyy'}},
-                    {{ GetTask(selectedItem).project_data.title}} - {{ GetTask(selectedItem).title }},
-                    {{ selectedItem.hours }} hours
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                <button ng-click="Delete()" type="button" data-dismiss="modal" class="btn btn-primary">Yes</button>
-            </div>
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Are you sure you want to delete this record?</h4>
+      </div>
+      <div class="modal-body">
+        <p ng-if="selectedItem != null" class="well">{{ selectedItem.day | date:'EEE, d MMM yyyy'}},
+          {{ GetTask(selectedItem).project_data.title}} - {{ GetTask(selectedItem).title }},
+          {{ selectedItem.hours }} hours
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button ng-click="Delete()" type="button" data-dismiss="modal" class="btn btn-primary">Yes</button>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Are you sure you want to submit selected entries?</h4>
-            </div>
-            <div class="modal-body">
-                <p class="well">
-                    You cannot edit your entries once submitted!!
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                <button ng-click="submitSelectedEntries()" type="button" data-dismiss="modal" class="btn btn-primary">Yes</button>
-            </div>
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Are you sure you want to submit selected entries?</h4>
+      </div>
+      <div class="modal-body">
+        <p class="well">
+          You cannot edit your entries once submitted!!
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button ng-click="submitSelectedEntries()" type="button" data-dismiss="modal" class="btn btn-primary">Yes</button>
+      </div>
     </div>
+  </div>
 </div>
 
-<div class="row">
-  <div class="col-md-4 col-md-offset-5">
+<div class="row hidden-xs hidden-sm">
+  <div class="col-md-4 col-md-offset-6">
     <div class="btn-group" role="group" aria-label="...">
       <button type="button" class="btn btn-default" ng-click="getPreviousWeek()">Previous Week</button>
       <button type="button" class="btn btn-default" ng-click="days = getWeekdays()">This Week</button>
@@ -138,68 +104,111 @@
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row hidden-xs hidden-sm">
   <div class="col-md-12">
 
-    <table id="newuitable" class="table" style="margin-top:40px; border:none" ng-show="loaded">
+    <table id="calendar" class="table" style="margin-top:40px; border:none" ng-show="loaded">
       <thead>
-        <th colspan="2"></th>
+        <th colspan="4"></th>
         <th style="text-align:center" ng-repeat="day in days" ng-class="{'rounded-top-left': day === days[0]}" >{{day | date : "EEE"}}<br/> {{day | date :"dd MMM"}}</th>
         <th style="text-align:center">Total</th>
       </thead>
 
       <tbody>
-        <tr ng-repeat="project in projects" style="background-color: {{assignColor(project.title)}}">
-          <td colspan="2" style="color:#fff">{{project.title}}</td>
+        <tr task-id="9" ng-repeat="(key, value) in entriesByTask track by $index" style="background:{{colors[$index]}}">
+          <td colspan="4" style="">
+            <selectize placeholder='Select a task' options='myTasks' ng-model="key" config="selectizeConfig"  ng-disabled='key != "new"' required='true'></selectize>
+
+          </td>
           <!-- TODO: replace this behemoth with a smarter directive -->
-          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[0][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[0]}}" ng-model="dailyTotals[0][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[0][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
-          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[1][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[1]}}" ng-model="dailyTotals[1][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[1][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
-          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[2][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[2]}}" ng-model="dailyTotals[2][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[2][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
-          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[3][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[3]}}" ng-model="dailyTotals[3][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[3][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
-          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[4][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[4]}}" ng-model="dailyTotals[4][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[4][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
-          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[5][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[5]}}" ng-model="dailyTotals[5][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[5][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
-          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[6][$index]}" style="text-align:center" data-task="{{project.id}}" data-day="{{days[6]}}" ng-model="dailyTotals[6][$index]" class="form-control input-sm"><span ng-hide="!dailyTotals[6][$index]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[0][key]}" style="text-align:center" ng-model="dailyTotals[0][key]" class="form-control input-sm"><span ng-hide="!dailyTotals[0][key]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[1][key]}" style="text-align:center" ng-model="dailyTotals[1][key]" class="form-control input-sm"><span ng-hide="!dailyTotals[1][key]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[2][key]}" style="text-align:center" ng-model="dailyTotals[2][key]" class="form-control input-sm"><span ng-hide="!dailyTotals[2][key]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[3][key]}" style="text-align:center" ng-model="dailyTotals[3][key]" class="form-control input-sm"><span ng-hide="!dailyTotals[3][key]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[4][key]}" style="text-align:center" ng-model="dailyTotals[4][key]" class="form-control input-sm"><span ng-hide="!dailyTotals[4][key]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[5][key]}" style="text-align:center" ng-model="dailyTotals[5][key]" class="form-control input-sm"><span ng-hide="!dailyTotals[5][key]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
+          <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[6][key]}" style="text-align:center" ng-model="dailyTotals[6][key]" class="form-control input-sm"><span ng-hide="!dailyTotals[6][key]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
           <td style="text-align:center">{{ getProjectWeeklyTotal($index) }}</td>
         </tr>
         <div ng-init="fireEvent()"></div>
       </tbody>
 
       <tfoot>
-      <tr>
-        <td colspan="2"></td>
-        <!-- TODO: replace this with a directive -->
-        <td class="rounded-bottom-left" style="text-align:center">{{ getDailyTotal(dailyTotals[0]) }}</td>
-        <td style="text-align:center">{{ getDailyTotal(dailyTotals[1]) }}</td>
-        <td style="text-align:center">{{ getDailyTotal(dailyTotals[2]) }}</td>
-        <td style="text-align:center">{{ getDailyTotal(dailyTotals[3]) }}</td>
-        <td style="text-align:center">{{ getDailyTotal(dailyTotals[4]) }}</td>
-        <td style="text-align:center">{{ getDailyTotal(dailyTotals[5]) }}</td>
-        <td style="text-align:center">{{ getDailyTotal(dailyTotals[6]) }}</td>
-        <td style="text-align:center">{{getWeeklyTotal()}}</td>
-      </tr>
-    </tfoot>
+        <tr>
+          <td class="center" colspan="4"><a class="addTaskBtn" href ng-click="addTask()">add a new task</a></td>
+          <!-- TODO: replace this with a directive -->
+          <td class="rounded-bottom-left center">{{ getDailyTotal(dailyTotals[0]) }}</td>
+          <td style="text-align:center">{{ getDailyTotal(dailyTotals[1]) }}</td>
+          <td style="text-align:center">{{ getDailyTotal(dailyTotals[2]) }}</td>
+          <td style="text-align:center">{{ getDailyTotal(dailyTotals[3]) }}</td>
+          <td style="text-align:center">{{ getDailyTotal(dailyTotals[4]) }}</td>
+          <td style="text-align:center">{{ getDailyTotal(dailyTotals[5]) }}</td>
+          <td style="text-align:center">{{ getDailyTotal(dailyTotals[6]) }}</td>
+          <td style="text-align:center">{{getWeeklyTotal()}}</td>
+        </tr>
+      </tfoot>
     </table>
 
   </div>
   <div class="sticky-note">
-    <br/>
-    <div id="task-carousel" class="carousel slide"  data-ride="carousel">
+    <span ng-click="closeNote()" class="close-btn">x</span>
+    <textarea class="note"></textarea>
+    <div ng-click="saveEntry()" class="btn save">Save</div>
+    <div ng-click="deleteEntry()" class="btn delete">Delete</div>
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-      <div class="item" ng-class="{active: $index===0}" data-task-id="{{task.id}}"  ng-repeat="task in project_tasks">
-          {{task.title}}
-      </div>
-    </div>
-
-    <!-- Controls -->
-    <a class="left carousel-control" ng-click="slide('prev')" role="button">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    </a>
-    <a class="right carousel-control" ng-click="slide('next')" role="button">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    </a>
-  </div>
-  <textarea class="note"></textarea>
   </div>
 </div>
+
+<br/><br/>
+
+<div class="row">
+  <div class="col col-md-12 col-xs-12 col-sm-12">
+    <table id="summary-table" class="table" ng-show="true">
+      <thead>
+        <tr class="active">
+          <th ng-class="{'text-center':true, 'submit-checkbox':true, select:true, 'hidden-xs':true, 'hidden-sm': true}">
+            <input type="checkbox" ng-model="allSelected"  ng-model-options="{getterSetter: true}" ng-class="{hidden:!submit}"/>
+          </th>
+          <th class="date">Date</th>
+          <th>Project - Task</th>
+          <th class="hours">Hours</th>
+          <th class="overtime hidden-xs hidden-sm">Overtime</th>
+          <th class="hidden-xs hidden-sm">Comments</th>
+          <th class="hours">Status</th>
+          <th class="buttons">
+          </th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="entry in entries">
+        <tr ng-class="{deleted: entry.deleting}" class="entry-{{entry.status.toLowerCase()}}">
+          <td ng-class="{'text-center':true, 'hidden-xs':true, 'hidden-sm': true}">
+            <input type="checkbox" ng-model="entry.Selected" ng-class="{hidden:!submit}" ng-if="entry.status === 'Open'"/>
+          </td>
+          <td>{{ entry.day | date:'EEE, d MMM yyyy'}}</td>
+          <td>{{entry.project_task_id}} - {{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
+          <td>{{ entry.hours }}</td>
+          <td class="hidden-xs hidden-sm">{{ entry.overtime }}</td>
+          <td class="hidden-xs hidden-xs hidden-sm">{{ entry.comments|limitTo: 120 }}{{entry.comments.length > 120 ? '...' : ''}}</td>
+          <td>{{ entry.status }}</td>
+          <td>
+            <a ng-disabled="entry.status === 'Submitted'" ng-click="Copy(entry)" ng-class="{'btn': true, 'btn-xs': true, 'btn-default':true, hidden: entry.status === 'Submitted'}" title="Copy entry"><i class="fa fa-copy" ></i></a>
+            <a ng-disabled="entry.status === 'Submitted'" ng-click="Edit(entry)" ng-class="{btn: true, 'btn-xs': true, 'btn-warning': true, hidden: entry.status === 'Submitted'}" title="Edit entry"><i class="fa fa-edit" ></i></a>
+            <a ng-disabled="entry.status === 'Submitted'" ng-click="setSelectedEntry(entry)" data-toggle="modal" data-target="#deleteModal" ng-class="{btn: true, 'btn-xs': true, 'btn-danger': true, hidden: entry.status === 'Submitted'}" title="Delete entry"><i class="fa fa-trash"></i></a>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr class="totals">
+          <td colspan="4">
+            <h4>Total Hours:</h4>
+          </td>
+          <td class="total-hours">
+            <h4><span class="label label-primary">{{ entries | sum:'hours' }}</span></h4></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>

@@ -17,8 +17,9 @@ angular
         'ngRoute',
         'ngSanitize',
         'ngTouch',
+        'selectize',
         'jlareau.pnotify',
-        'ui.bootstrap'
+        // 'ui.bootstrap'
     ])
     .config(function ($routeProvider, $provide, $httpProvider, notificationServiceProvider) {
 
@@ -183,4 +184,3 @@ angular
             $location.path('/login');
         }
     });
-

@@ -10,11 +10,13 @@
     <!-- build:css(.) styles/vendor.css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/selectize/dist/css/selectize.default.css ">
 
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/pnotify/pnotify.core.css" />
     <link rel="stylesheet" href="bower_components/pnotify/pnotify.buttons.css" />
     <link rel="stylesheet" href="bower_components/pnotify/pnotify.history.css" />
+    <link rel="stylesheet" href="bower_components/selectize/dist/css/selectize.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -42,6 +44,20 @@
     <![endif]-->
     <!-- endbuild -->
 
+    <!--
+    IE8 support, see AngularJS Internet Explorer Compatibility http://docs.angularjs.org/guide/ie
+    For Firefox 3.6, you will also need to include jQuery and ECMAScript 5 shim
+  -->
+  <!--[if lt IE 9]>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.2.0/es5-shim.js"></script>
+    <script>
+      document.createElement('ui-select');
+      document.createElement('ui-select-match');
+      document.createElement('ui-select-choices');
+    </script>
+  <![endif]-->
+
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -64,6 +80,10 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/sifter/sifter.js"></script>
+    <script src="bower_components/microplugin/src/microplugin.js"></script>
+    <script src="bower_components/selectize/dist/js/selectize.js"></script>
+    <script src="bower_components/angular-selectize2/dist/angular-selectize.js"></script>
     <!--   endbower -->
     <!-- endbuild -->
 
@@ -84,12 +104,12 @@
     <script src="scripts/services/userservice.js"></script>
     <script src="scripts/filters/sumofvalue.js"></script>
     <script src="scripts/filters/tasksfilter.js"></script>
+    <script src="scripts/filters/dateRange.js"></script>
     <script src="scripts/controllers/logout.js"></script>
     <script src="scripts/controllers/entryform.js"></script>
     <script src="scripts/controllers/dashboard.js"></script>
     <script src="scripts/controllers/userprofile.js"></script>
     <script src="scripts/directives/entryform.js"></script>
-
     <!-- endbuild -->
 
 </body>

@@ -48,53 +48,53 @@ table .submit-checkbox{
   margin: 0 0 10px 15px;
 }
 
-#newuitable th:not(:first-child), #newuitable td:last-child, #newuitable tfoot td:not(:first-child) {
+#calendar th:not(:first-child), #calendar td:last-child, #calendar tfoot td:not(:first-child) {
   background-color: #eeeeed;
 }
 
-#newuitable tfoot td, #newuitable td:last-child {
+#calendar tfoot td, #calendar td:last-child {
   color: #999999;
   font-weight: bold;
 }
 
-#newuitable thead th:last-child {
+#calendar thead th:last-child {
   max-width: 60px !important
 }
 
-#newuitable tbody tr{
+#calendar tbody tr{
   border-radius: 20px;
   background-color: pink;
 }
 
-#newuitable th:last-child{
+#calendar th:last-child{
   width: 90px;
   border-top-right-radius: 10px;
 }
 
-#newuitable tfoot td:last-child{
+#calendar tfoot td:last-child{
   border-bottom-right-radius: 10px;
   padding-bottom: 25px
 }
 
-#newuitable, #newuitable td, #newuitable tr, #newuitable th{
+#calendar, #calendar td, #calendar tr, #calendar th{
   border: 0;
 }
 
-#newuitable tbody tr:nth-child(1) td:nth-child(1) {
+#calendar tbody tr:nth-child(1) td:nth-child(1) {
   border-top-left-radius: 10px !important;
 }
 
-#newuitable tbody tr:last-child td:nth-child(1) {
+#calendar tbody tr:last-child td:nth-child(1) {
   border-bottom-left-radius: 10px !important;
 }
 
-#newuitable tbody td:nth-child(1){
+#calendar tbody td:nth-child(1){
   color:black;
   vertical-align: middle;
   font-weight: bold;
 }
 
-#newuitable input{
+#calendar input{
   border: 0
 }
 
@@ -118,12 +118,12 @@ table .submit-checkbox{
   opacity: 0.4
 }
 
-#newuitable input::before {
+#calendar input::before {
 
 }
 
-#newuitable input::-webkit-outer-spin-button,
-#newuitable input::-webkit-inner-spin-button {
+#calendar input::-webkit-outer-spin-button,
+#calendar input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
@@ -150,13 +150,16 @@ table .submit-checkbox{
   right: 10px;
 }
 
+.note .submitted {
+  color:#999;
+}
 @import url(http://fonts.googleapis.com/css?family=Gloria+Hallelujah);
 * { box-sizing:border-box; }
 
 textarea.note  {
 	display: block;
 	padding:15px 15px 20px;
-	margin:0 auto 20px auto;
+	margin:0 auto 0px auto;
 	width:200px;
 	height:150px;
 	font:14px 'Gloria Hallelujah', cursive;
@@ -188,12 +191,129 @@ textarea.note:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
   display: none;
 }
 
+.sticky-note .btn  {
+  width: 50%;
+  float:left;
+  padding: 5px;
+  text-align: center;
+}
+
+.sticky-note .save {
+  background: green;
+  border-right: 1px solid #000
+}
+
+.sticky-note .delete {
+  background: red;
+}
+
+.sticky-note .close-btn {
+  border-radius: 10px;
+  background-color: rgba(153,153,153,0.5);
+  border-color: blue;
+  border-width: thin;
+  cursor: pointer;
+  position: inherit;
+  right: 4%;
+  z-index: 10;
+  width: 20px;
+  color: #fff;
+  top: 4%;
+  text-align: center;
+}
+
+.center {
+  text-align: center;
+}
+
+.addTaskBtn {
+    padding: 10px;
+    background: rgb(208, 221, 43);
+    color: white;
+    text-decoration: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.addTaskBtn:hover{
+  text-decoration: none;
+}
+
+.selectize-control .selectize-input.disabled {
+  opacity: 0.9;
+}
+
 .carousel-inner .item{
   text-align: center;
 }
 
 .carousel-control.right, .carousel-control.left{
   background-image: none;
+}
+
+.opt-title{
+  font-weight: bold;
+  display: block;
+}
+
+.opt-project{
+  color: grey;
+  font-weight: lighter;
+}
+
+.selectize-control.single .selectize-input:after{
+  border-color: #fff transparent transparent transparent
+}
+
+.selectize-control.single .selectize-input, .selectize-dropdown.single{
+  border-color: #fff;
+}
+
+.selectize-control.single .selectize-input:focus {
+  color: grey;
+  background-color: #fff;
+}
+
+::-webkit-input-placeholder {
+   color: #fff;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #fff;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #fff;
+}
+
+:-ms-input-placeholder {
+   color: #fff;
+}
+
+@media (max-width: 767px) {
+  .summary-table {
+      width: 100% !important;
+  }
+
+  .summary-table thead th:nth-child(1), .summary-table tbody td:nth-child(1){
+      width: 22% !important;
+  }
+}
+
+
+.selectize-control.single .selectize-input:not(:focus) {
+   -webkit-box-shadow: none;
+   box-shadow: none;
+   background-color: rgba(255, 255, 255, 0.25);
+   color: #fff;
+   font-weight: bold;
+   background-image: -moz-linear-gradient(top, transparent, transparent);
+   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(transparent));
+   background-image: -webkit-linear-gradient(top, transparent, transparent);
+   background-image: -o-linear-gradient(top, transparent, transparent);
+   background-image: linear-gradient(to bottom, transparent, transparent);
+   background-repeat: repeat-x;
+   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffefefe', endColorstr='#fff2f2f2', GradientType=0);
 }
 
 #task-carousel{
