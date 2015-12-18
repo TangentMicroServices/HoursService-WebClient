@@ -10,6 +10,8 @@
 angular.module('hoursApp')
 .controller('EntriesCtrl', function ($timeout, $scope, $filter, $rootScope, $location, notificationService, userService, entryService, projectService) {
   $scope.loaded = false;
+  $(".app, body").css("background", "#eee");
+  
   $scope.getWeekdays = function(day){
     day = day || moment();
     var today = day.clone();

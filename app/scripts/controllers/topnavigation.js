@@ -15,6 +15,7 @@ angular.module('hoursApp')
         ];
 
         $scope.leftLoggedIn = [
+            { url: '#dashboard', title: 'Dashboard'},
             { url: '#myhours', title: 'My Hours'},
             { url: '#addEntry', title: 'Add Entry' }
         ];
