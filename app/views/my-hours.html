@@ -42,6 +42,7 @@
         </p>
 
         <p class="hidden-md hidden-lg">
+          <a class="btn btn-lg btn-primary" style="width:100%;" href="#/addEntry">Add Entry</a> <br/><br/>
           <button ng-class="{btn:true, 'btn-default':true, 'btn-lg':true, 'btn-block':true, hidden:submit}" ng-click="selectAllEntries()">Submit entries</button>
           <button ng-class="{btn:true, 'btn-default':true, 'btn-lg':true, 'btn-block':true, hidden:!submit}" ng-click="clearSubmissionEntries()">Cancel</button>
           <button ng-class="{btn:true, 'btn-primary':true, 'btn-lg':true, 'btn-block':true, hidden:!submit}" data-toggle="modal" data-target="#submitModal">Submit</button>
@@ -117,7 +118,7 @@
       <tbody>
         <tr task-id="9" ng-repeat="(key, value) in entriesByTask track by $index" style="background:{{colors[$index]}}">
           <td colspan="4" style="">
-            <selectize placeholder='Select a task' options='myTasks' ng-model="key" config="selectizeConfig"  ng-disabled='key != "new"' required='true'></selectize>
+            <selectize placeholder='Select a task' ng-model="key" config="selectizeConfig"  ng-disabled='key != "new"' required='true'></selectize>
 
           </td>
           <!-- TODO: replace this behemoth with a smarter directive -->
@@ -174,7 +175,7 @@
           <th class="hours">Hours</th>
           <th class="overtime hidden-xs hidden-sm">Overtime</th>
           <th class="hidden-xs hidden-sm">Comments</th>
-          <th class="hours">Status</th>
+          <th class="hours hidden-xs">Status</th>
           <th class="buttons">
           </th>
         </tr>
@@ -188,12 +189,12 @@
           <td>{{entry.project_task_id}} - {{ GetTask(entry).project_data.title}} - {{ GetTask(entry).title }}</td>
           <td>{{ entry.hours }}</td>
           <td class="hidden-xs hidden-sm">{{ entry.overtime }}</td>
-          <td class="hidden-xs hidden-xs hidden-sm">{{ entry.comments|limitTo: 120 }}{{entry.comments.length > 120 ? '...' : ''}}</td>
-          <td>{{ entry.status }}</td>
+          <td class="hidden-xs hidden-sm">{{ entry.comments|limitTo: 120 }}{{entry.comments.length > 120 ? '...' : ''}}</td>
+          <td class="hidden-xs">{{ entry.status }}</td>
           <td>
-            <a ng-disabled="entry.status === 'Submitted'" ng-click="Copy(entry)" ng-class="{'btn': true, 'btn-xs': true, 'btn-default':true, hidden: entry.status === 'Submitted'}" title="Copy entry"><i class="fa fa-copy" ></i></a>
-            <a ng-disabled="entry.status === 'Submitted'" ng-click="Edit(entry)" ng-class="{btn: true, 'btn-xs': true, 'btn-warning': true, hidden: entry.status === 'Submitted'}" title="Edit entry"><i class="fa fa-edit" ></i></a>
-            <a ng-disabled="entry.status === 'Submitted'" ng-click="setSelectedEntry(entry)" data-toggle="modal" data-target="#deleteModal" ng-class="{btn: true, 'btn-xs': true, 'btn-danger': true, hidden: entry.status === 'Submitted'}" title="Delete entry"><i class="fa fa-trash"></i></a>
+            <a ng-disabled="entry.status === 'Submitted'" ng-click="Copy(entry)" ng-class="{'btn': true, 'mobile-btn':true ,'btn-xs': true, 'btn-default':true, hidden: entry.status === 'Submitted'}" title="Copy entry"><i class="fa fa-copy" ></i></a>
+            <a ng-disabled="entry.status === 'Submitted'" ng-click="Edit(entry)" ng-class="{btn: true, 'mobile-btn':true ,'btn-xs': true, 'btn-warning': true, hidden: entry.status === 'Submitted'}" title="Edit entry"><i class="fa fa-edit" ></i></a>
+            <a ng-disabled="entry.status === 'Submitted'" ng-click="setSelectedEntry(entry)" data-toggle="modal" data-target="#deleteModal" ng-class="{btn: true, 'mobile-btn':true, 'btn-xs': true, 'btn-danger': true, hidden: entry.status === 'Submitted'}" title="Delete entry"><i class="fa fa-trash"></i></a>
           </td>
         </tr>
       </tbody>
