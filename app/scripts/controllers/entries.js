@@ -178,7 +178,12 @@ angular.module('hoursApp')
     },
     onChange: function(selectedIndex) {
       rename($scope.entriesByTask, "new", selectedIndex );
-      console.log($scope.entriesByTask);
+    },
+    onInitialize: function(selectize) {
+      projectService.MyTasks().then(function(data){
+
+        selectize.addOption(data)
+      }, taskLoadFailed);
     }
   };
 
