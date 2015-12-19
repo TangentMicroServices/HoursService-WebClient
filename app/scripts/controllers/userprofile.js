@@ -12,7 +12,7 @@ angular.module('hoursApp')
     $scope.currentUser = $rootScope.CurrentUser;
     $scope.accessToken = $window.localStorage.getItem('AccessToken');
     $scope.projects = [];
-
+    $(".app, body").css("background", "#414a51");
     var init = function(){
       $scope.loaded = true;
       getProjects();

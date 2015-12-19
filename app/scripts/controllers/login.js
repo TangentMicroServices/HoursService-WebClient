@@ -10,7 +10,7 @@
 angular.module('hoursApp')
   .controller('LoginCtrl', function ($scope, notificationService, $location, $rootScope, userService) {
       $scope.loginButtonText = 'Login';
-      $(".app, body").css("background", "##414a51");
+      $(".app, body").css("background", "#414a51");
 
       var currentUserLoaded = function(response){
         $rootScope.$broadcast('UserLoggedIn', {});

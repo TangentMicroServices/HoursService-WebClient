@@ -9,6 +9,7 @@
  */
  angular.module('hoursApp')
  .controller('EditentryCtrl', function ($scope, $location, projectService, entryService, notificationService) {
+   $(".app, body").css("background", "#414a51");
   var entryupdate = function() {
     notificationService.success('Your entry has been updated.');
     $location.path('/myhours');
