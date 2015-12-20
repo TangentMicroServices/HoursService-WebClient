@@ -85,6 +85,7 @@ angular.module('hoursApp')
     angular.forEach(entries, function(entry) {
       stickyNoteTextarea.value =  entry.comments;
       $(stickyNote).data('entry', entry);
+      $scope.selectedItem = entry;
       if (entry.status === "Submitted") {
           $(stickyNote).find('.btn').css("display", "None");
           $(stickyNoteTextarea).attr('disabled', true);
@@ -321,6 +322,7 @@ angular.module('hoursApp')
     var userId = $scope.selectedUser.id;
     notificationService.success('Your entry has successfully been deleted.');
     loadEntries(userId);
+    loadTasks();
   };
 
   var entryDeletionFailed = function(response){
