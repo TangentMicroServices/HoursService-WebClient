@@ -132,7 +132,7 @@
           <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[6][key]}" style="text-align:center" ng-model="dailyTotals[6][key]" class="form-control input-sm"><span ng-hide="!dailyTotals[6][key]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
           <td style="text-align:center">{{ getProjectWeeklyTotal($index) }}</td>
         </tr>
-        <div ng-init="fireEvent()"></div>
+        <!-- <div ng-init="fireEvent()"></div> -->
       </tbody>
 
       <tfoot>

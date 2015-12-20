@@ -11,7 +11,7 @@ angular.module('hoursApp')
 .controller('EntriesCtrl', function ($timeout, $scope, $filter, $rootScope, $location, notificationService, userService, entryService, projectService) {
   $scope.loaded = false;
   $(".app, body").css("background", "#eee");
-  
+
   $scope.getWeekdays = function(day){
     day = day || moment();
     var today = day.clone();
@@ -108,7 +108,9 @@ angular.module('hoursApp')
   };
 
 
-  var entryAdded = function(){
+  var entryAdded = function(response){
+    var userId = $scope.selectedUser.id;
+    loadEntries(userId);
     notificationService.success('Entry added successfully.');
   };
 
@@ -144,7 +146,8 @@ angular.module('hoursApp')
            createNewEntry(hours, comment, day, project_id, task_id);
         }
       }
-      $scope.project_tasks = [];
+
+
     }
   };
 
@@ -279,14 +282,6 @@ angular.module('hoursApp')
 
   $scope.colors = ['#D0DD2B', '#98C73D', '#00A9E0', '#67CDDC', '#3B3B3D'];
 
-  $scope.fireEvent = function() {
-    $timeout(function(){
-      $scope.$watch('[entries, projects, days, myTasks]', function() {
-        populateEntries();
-      }, true);
-    }, 0);
-  }
-
   $scope.options = {
     animate:{
       duration:800,
@@ -358,9 +353,9 @@ angular.module('hoursApp')
 
   var tasksLoaded = function(response){
     $scope.tasks = response;
-    // $scope.tasks.unshift({title: 'All projects - '});
+    $scope.tasks.unshift({title: 'All projects - '});
     $scope.task = $scope.tasks[0];
-    // console.log(response);
+    populateEntries();
   };
 
   var taskLoadFailed = function(response){};
