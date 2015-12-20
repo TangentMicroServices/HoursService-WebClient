@@ -163,7 +163,7 @@ angular
         if(hasAccessToken && !hasCurrentUser){
             userService.GetCurrentUser().then(function(){
                 notificationService.success('Logging you in...');
-                $location.path('/dashboard');
+                $location.path('/myhours');
                 $rootScope.$broadcast('UserLoggedIn', {});
             }, function(){
                 notificationService.error('Could not retrieve your details. Please login again.');
@@ -173,7 +173,7 @@ angular
             });
         }else if (hasAccessToken && hasCurrentUser){
             notificationService.success('Logging you in...');
-            $location.path('/dashboard');
+            $location.path('/myhours');
             userService.GetCurrentUser().then(function() {
                 $rootScope.$broadcast('UserLoggedIn', {});
             });

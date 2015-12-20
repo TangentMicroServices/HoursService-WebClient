@@ -16,7 +16,7 @@ angular.module('hoursApp')
         $rootScope.$broadcast('UserLoggedIn', {});
         notificationService.success('You are currently logged in as ' + response.username);
         $(".app").addClass("animated fadeOut");
-        $location.path('/dashboard');
+        $location.path('/myhours');
       };
 
       var currentUserLoadFailed = function(response){
