@@ -18,7 +18,7 @@ angular
         'ngSanitize',
         'ngTouch',
         'selectize',
-        'angular-chartist',
+        'angular.morris-chart',
         'jlareau.pnotify',
         // 'ui.bootstrap'
     ])

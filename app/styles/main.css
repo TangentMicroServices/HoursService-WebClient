@@ -461,6 +461,10 @@ textarea.note:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
   background: #df4f66 !important;
 }
 
+.tngnt-orange-bg {
+  background: #fa5c59 !important;
+}
+
 .tngnt-red-text {
   color: #df4f66
 }
@@ -486,6 +490,29 @@ textarea.note:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
 
 .stat-box-major{
   min-height: 300px;
+}
+
+.stat-box .stat {
+    color: #fff;
+    font-weight: bold;
+    font-size: 4pc;
+    position: absolute;
+    right: 23px;
+    top: 20px;
+}
+
+.stat-box .percentage {
+  right: 80px;
+}
+
+.stat-box .progress {
+  background: rgba(255, 255, 255, 0.4) !important;
+  height: 7px;
+  margin-bottom: 0px;
+}
+
+.stat-box .progress-bar {
+  background: #fff
 }
 
 nav a {

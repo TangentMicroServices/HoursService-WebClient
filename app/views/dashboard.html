@@ -1,47 +1,87 @@
-<div class="row">
-  <div class="col-md-12">
-    <h3>Dashboard</h3>
-  </div>
-</div>
 <br/>
 <div class="row">
   <div class="col-md-3">
-    <div class="stat-box">
+    <div class="stat-box tngnt-green-bg animated fadeInDown">
       <div class="row">
-        <div class="col-md-5">
-          <img style="width:100%" src="/images/icons/Worker-100.png" />
+        <div class="col-md-4">
+          <img style="width:100%" src="/images/icons/mug11.png" />
+        </div>
+        <div class="pull-right col-md-4 stat">
+          05
         </div>
       </div>
+      <div style="margin: 5px 0; color:#fff; font-weight:bold">Tasks Today</div>
       <div class="row">
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-3">
-    <div class="stat-box">
-      <div class="row">
-        <div class="col-md-5">
-          <img style="width:100%" src="/images/icons/pivotal.png" />
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-3">
-    <div class="stat-box">
-      <div class="row">
-        <div class="col-md-5">
-          <img style="width:100%" src="/images/icons/GitHub-100.png" />
+        <div class="col-md-12">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="percent" aria-valuemin="0" aria-valuemax="100" style="width: 89.5%;"></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="col-md-3">
-    <div class="stat-box">
+    <div class="stat-box tngnt-red-bg animated fadeInDown" style="-webkit-animation-duration: 1.5s;
+  -webkit-animation-delay: 0.5;">
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-4">
+          <img style="width:100%" src="/images/icons/pivotal_white.png" />
+        </div>
+        <div class="pull-right col-md-4 stat">
+          03
+        </div>
+      </div>
+      <div style="margin: 5px 0; color:#fff; font-weight:bold">Deliveries Today</div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="percent" aria-valuemin="0" aria-valuemax="100" style="width: 78.5%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="stat-box tngnt-grey-bg animated fadeInDown"  style="-webkit-animation-duration: 2.0s;
+  -webkit-animation-delay: 0.5;">
+      <div class="row">
+        <div class="col-md-4">
+          <img style="width:100%" src="/images/icons/GitHub.png" />
+        </div>
+      </div>
+      <div style="margin: 5px 0; color:#fff; font-weight:bold">Commits Today</div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="percent" aria-valuemin="0" aria-valuemax="100" style="width: 17.5%;"></div>
+          </div>
+        </div>
+        <div class="pull-right col-md-4 stat">
+          24
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="stat-box tngnt-orange-bg animated fadeInDown"  style="-webkit-animation-duration: 2.5s;
+  -webkit-animation-delay: 0.5;">
+      <div class="row">
+        <div class="col-md-4">
           <img style="width:100%" src="/images/icons/Clock-100.png" />
+        </div>
+      </div>
+      <div style="margin: 5px 0; color:#fff; font-weight:bold">Hours Logged</div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="percent" aria-valuemin="0" aria-valuemax="100" style="width: 56.5%;"></div>
+          </div>
+        </div>
+        <div class="pull-right col-md-4 stat">
+          06
         </div>
       </div>
     </div>
@@ -50,10 +90,26 @@
 <br/><br/>
 <div class="row">
   <div class="col-md-12">
-    <div class="stat-box-major">
+    <div class="">
       <div class="col-md-12">
-        <chartist class="ct-chart" chartist-data="barData" chartist-chart-options="chartOpts" chartist-chart-type="Line"></chartist>
+        <div
+        area-chart
+        area-data='[
+        { y: "mon", a: 8, b: 90 },
+        { y: "2007", a: 10,  b: 65 },
+        { y: "2008", a: 20,  b: 40 },
+        { y: "2009", a: 18,  b: 65 },
+        { y: "2010", a: 50,  b: 40 },
+        { y: "2011", a: 75,  b: 65 },
+        { y: "2012", a: 8, b: 90 }
+        ]'
+        parseTime: 'false'
+        area-xkey='y'
+        area-ykeys='["a", "b"]'
+        area-labels='["Serie A", "Serie B"]'
+        line-colors='["#31C0BE", "#c7254e"]'>
       </div>
     </div>
   </div>
+</div>
 </div>
