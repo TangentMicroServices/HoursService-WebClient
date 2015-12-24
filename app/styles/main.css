@@ -498,7 +498,7 @@ textarea.note:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
     font-size: 4pc;
     position: absolute;
     right: 23px;
-    top: 20px;
+    top: 15px;
 }
 
 .stat-box .percentage {

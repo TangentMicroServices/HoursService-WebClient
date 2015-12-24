@@ -7,17 +7,10 @@
           <img style="width:100%" src="/images/icons/mug11.png" />
         </div>
         <div class="pull-right col-md-4 stat">
-          05
+          {{usersummary.get_project_breakdown.index.length | zpad:2}}
         </div>
       </div>
-      <div style="margin: 5px 0; color:#fff; font-weight:bold">Tasks Today</div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="percent" aria-valuemin="0" aria-valuemax="100" style="width: 89.5%;"></div>
-          </div>
-        </div>
-      </div>
+      <div style="margin: 5px 0; color:#fff; font-weight:bold">Active Projects</div>
     </div>
   </div>
 
@@ -26,20 +19,13 @@
   -webkit-animation-delay: 0.5;">
       <div class="row">
         <div class="col-md-4">
-          <img style="width:100%" src="/images/icons/pivotal_white.png" />
+          <img style="width:100%" src="/images/icons/Today-100.png" />
         </div>
         <div class="pull-right col-md-4 stat">
-          03
+          {{usersummary.hours_by_day.data.length | zpad:2}}
         </div>
       </div>
-      <div style="margin: 5px 0; color:#fff; font-weight:bold">Deliveries Today</div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="percent" aria-valuemin="0" aria-valuemax="100" style="width: 78.5%;"></div>
-          </div>
-        </div>
-      </div>
+      <div style="margin: 5px 0; color:#fff; font-weight:bold">Total Entries</div>
     </div>
   </div>
 
@@ -48,18 +34,13 @@
   -webkit-animation-delay: 0.5;">
       <div class="row">
         <div class="col-md-4">
-          <img style="width:100%" src="/images/icons/GitHub.png" />
+          <img style="width:100%" src="/images/icons/So So-100.png" />
         </div>
       </div>
-      <div style="margin: 5px 0; color:#fff; font-weight:bold">Commits Today</div>
+      <div style="margin: 5px 0; color:#fff; font-weight:bold">Average Hours</div>
       <div class="row">
-        <div class="col-md-12">
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="percent" aria-valuemin="0" aria-valuemax="100" style="width: 17.5%;"></div>
-          </div>
-        </div>
         <div class="pull-right col-md-4 stat">
-          24
+          {{usersummary.overview.avg_hours | zpad:2}}
         </div>
       </div>
     </div>
@@ -70,18 +51,13 @@
   -webkit-animation-delay: 0.5;">
       <div class="row">
         <div class="col-md-4">
-          <img style="width:100%" src="/images/icons/Clock-100.png" />
+          <img style="width:100%" src="/images/icons/Sigma-100.png" />
         </div>
       </div>
-      <div style="margin: 5px 0; color:#fff; font-weight:bold">Hours Logged</div>
+      <div style="margin: 5px 0; color:#fff; font-weight:bold">Total Hours</div>
       <div class="row">
-        <div class="col-md-12">
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="percent" aria-valuemin="0" aria-valuemax="100" style="width: 56.5%;"></div>
-          </div>
-        </div>
         <div class="pull-right col-md-4 stat">
-          06
+          {{usersummary.overview.total_hours | zpad:2}}
         </div>
       </div>
     </div>
