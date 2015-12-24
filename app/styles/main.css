@@ -317,6 +317,9 @@ textarea.note:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
     border-radius: 6px;
   }
 
+  .stat-box .stat {
+      top: 25% !important;
+  }
 
 }
 
@@ -342,6 +345,10 @@ textarea.note:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
     font-size: 18px;
     line-height: 1.3333333;
     border-radius: 6px;
+  }
+
+  .stat-box .stat {
+      top: 25% !important;
   }
 }
 
@@ -498,7 +505,7 @@ textarea.note:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
     font-size: 4pc;
     position: absolute;
     right: 23px;
-    top: 15px;
+    top: 15%;
 }
 
 .stat-box .percentage {

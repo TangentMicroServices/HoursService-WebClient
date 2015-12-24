@@ -85,4 +85,5 @@ describe('Service: entryservice', function () {
 
     expect(fakeEntry).toEqual(cachedEntry);
   }));
+  
 });
