@@ -37,7 +37,7 @@ angular.module('hoursApp')
   };
 
   $scope.$watchCollection('entries', function() {
-    populateEntries()
+    populateEntries();
   })
 
   $scope.slide = function (dir) {
@@ -241,6 +241,12 @@ angular.module('hoursApp')
     var day = moment(Date.parse($scope.days[0])).add(1, 'weeks');
     $scope.days = $scope.getWeekdays(day);
     populateEntries()
+  };
+
+  // load the days of the current week
+  $scope.getCurrentWeek = function() {
+    $scope.days = $scope.getWeekdays();
+    populateEntries();
   };
 
   $scope.uiTasks = [];
