@@ -18,7 +18,7 @@ angular
         'ngSanitize',
         'ngTouch',
         'selectize',
-        'angular.morris-chart',
+        'chart.js',
         'jlareau.pnotify',
         // 'ui.bootstrap'
     ])
@@ -163,7 +163,7 @@ angular
         if(hasAccessToken && !hasCurrentUser){
             userService.GetCurrentUser().then(function(){
                 notificationService.success('Logging you in...');
-                $location.path('/myhours');
+                $location.path('/dashboard');
                 $rootScope.$broadcast('UserLoggedIn', {});
             }, function(){
                 notificationService.error('Could not retrieve your details. Please login again.');
@@ -173,7 +173,7 @@ angular
             });
         }else if (hasAccessToken && hasCurrentUser){
             notificationService.success('Logging you in...');
-            $location.path('/myhours');
+            $location.path('/dashboard');
             userService.GetCurrentUser().then(function() {
                 $rootScope.$broadcast('UserLoggedIn', {});
             });

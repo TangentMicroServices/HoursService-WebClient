@@ -93,7 +93,7 @@ describe('Controller: LoginCtrl', function () {
     expect(notificationService.success).toHaveBeenCalledWith('You are currently logged in as ' + fakeAdminUser.username);
   }));
 
-  it('When user logs in succesfully, make sure he is navigated to his entries', inject(function(userService, $location){
+  it('When user logs in succesfully, make sure he is navigated to his dashboard', inject(function(userService, $location){
     spyOn(userService, 'Login').and.callFake(fakeSuccessPromise);
     spyOn(userService, 'GetCurrentUser').and.callFake(fakeUserRetrievedPromise);
     spyOn($location, 'path');
@@ -101,7 +101,7 @@ describe('Controller: LoginCtrl', function () {
     scope.Login();
     scope.$digest();
 
-    expect($location.path).toHaveBeenCalledWith('/myhours');
+    expect($location.path).toHaveBeenCalledWith('/dashboard');
   }));
 
   it('When user login failed, make sure that the error response is set.', inject(function(userService){

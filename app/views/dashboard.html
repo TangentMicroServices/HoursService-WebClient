@@ -91,23 +91,15 @@
 <div class="row">
   <div class="col-md-12">
     <div class="">
-      <div class="col-md-12">
-        <div
-        area-chart
-        area-data='[
-        { y: "mon", a: 8, b: 90 },
-        { y: "2007", a: 10,  b: 65 },
-        { y: "2008", a: 20,  b: 40 },
-        { y: "2009", a: 18,  b: 65 },
-        { y: "2010", a: 50,  b: 40 },
-        { y: "2011", a: 75,  b: 65 },
-        { y: "2012", a: 8, b: 90 }
-        ]'
-        parseTime: 'false'
-        area-xkey='y'
-        area-ykeys='["a", "b"]'
-        area-labels='["Serie A", "Serie B"]'
-        line-colors='["#31C0BE", "#c7254e"]'>
+      <div class="col-md-6">
+        <canvas id="line" class="chart chart-line" chart-data="[usersummary.hours_by_day.data]"
+          chart-labels="usersummary.hours_by_day.index" chart-legend="true" chart-series="series" chart-colours="colors">
+        </canvas>
+      </div>
+      <div class="col-md-6">
+        <canvas id="polar-area" class="chart chart-pie" chart-legend="true" chart-colours="colors"
+          chart-data="usersummary.get_project_breakdown.data" chart-labels="usersummary.get_project_breakdown.index">
+        </canvas>
       </div>
     </div>
   </div>
