@@ -264,20 +264,27 @@ angular.module('hoursApp')
     var start_filter_date = moment(Date.parse($scope.days[0])).format("YYYY-MM-DD");
     var end_filter_date = moment(Date.parse($scope.days[6])).format("YYYY-MM-DD");
     var current_week_entries  = $filter('dateRange')($scope.entries, start_filter_date, end_filter_date, true);
-
     $scope.entriesByTask = _.groupBy(current_week_entries, 'project_task_id');
-    angular.forEach($scope.entriesByTask, function(task, task_id, context){
-      angular.forEach(_.groupBy(task, 'day'), function(dayEntries, date) {
-        var dayIndex = moment(date).day()-1;
-        $scope.dailyTotals[dayIndex][task_id] = Number(dayEntries[0].hours);
 
-        if(dayEntries[0].status === 'Submitted') {
+    if(current_week_entries.length === 0) {
+      $scope.entriesByTask['new'] = [];
+    } else {
 
-          $("#calendar tbody tr:eq("+ Object.keys(context).indexOf(task_id) +") td:eq("+ (dayIndex+1) +") .fa-sticky-note").addClass('submitted');
-        }
+      angular.forEach($scope.entriesByTask, function(task, task_id, context) {
+        angular.forEach(_.groupBy(task, 'day'), function(dayEntries, date) {
+          var dayIndex = moment(date).day()-1;
+          $scope.dailyTotals[dayIndex][task_id] = Number(dayEntries[0].hours);
 
+          if(dayEntries[0].status === 'Submitted') {
+
+            $("#calendar tbody tr:eq("+ Object.keys(context).indexOf(task_id) +") td:eq("+ (dayIndex+1) +") .fa-sticky-note").addClass('submitted');
+          }
+
+        });
       });
-    });
+
+    }
+
   };
 
   $scope.closeNote = function () {

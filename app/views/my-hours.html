@@ -30,18 +30,9 @@
             </div>
             <br/>
           </div>
-          <!-- <div class="col-md-12 clearfix hidden-xs hidden-sm">
-            <p class="pull-right">{{percent | number:0}}% Complete</p>
-          </div> -->
         </div>
       </div>
       <div class="col-md-12">
-        <!-- <p class="pull-right hidden-xs hidden-sm">
-          <button ng-class="{btn:true, 'btn-default':true, 'btn-sm':true, hidden:submit}" ng-click="selectAllEntries()">Submit entries</button>
-          <button ng-class="{btn:true, 'btn-default':true, 'btn-sm':true, hidden:!submit}" ng-click="clearSubmissionEntries()">Cancel</button>
-          <button ng-class="{btn:true, 'btn-primary':true, 'btn-sm':true, hidden:!submit}" data-toggle="modal" data-target="#submitModal">Submit</button>
-        </p> -->
-
         <p class="hidden-md hidden-lg">
           <a class="btn btn-lg btn-primary" style="width:100%;" href="#/addEntry">Add Entry</a> <br/><br/>
           <button ng-class="{btn:true, 'btn-default':true, 'btn-lg':true, 'btn-block':true, hidden:submit}" ng-click="selectAllEntries()">Submit entries</button>
@@ -120,7 +111,6 @@
         <tr task-id="9" ng-repeat="(key, value) in entriesByTask track by $index" style="background:{{colors[$index]}}">
           <td colspan="4" style="">
             <selectize placeholder='Select a task' ng-model="key" config="selectizeConfig"  ng-disabled='key != "new"' required='true'></selectize>
-
           </td>
           <!-- TODO: replace this behemoth with a smarter directive -->
           <td><div class="note"><input type="number" min="0" max="24" ng-class="{faded: !dailyTotals[0][key]}" style="text-align:center" ng-model="dailyTotals[0][key]" class="form-control input-sm"><span ng-hide="!dailyTotals[0][key]" ng-click="revealCommentBox($event)" class="fa fa-sticky-note"></span></div></td>
