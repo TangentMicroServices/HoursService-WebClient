@@ -36,6 +36,10 @@ angular.module('hoursApp')
     return result;
   };
 
+  $scope.$watchCollection('entries', function() {
+    populateEntries()
+  })
+
   $scope.slide = function (dir) {
     $('#task-carousel').carousel(dir);
   };
@@ -230,11 +234,13 @@ angular.module('hoursApp')
   $scope.getPreviousWeek = function() {
     var day = moment(Date.parse($scope.days[0])).subtract(2, 'days');
     $scope.days = $scope.getWeekdays(day);
+    populateEntries();
   };
   // load the days of the next week
   $scope.getNextWeek = function() {
     var day = moment(Date.parse($scope.days[0])).add(1, 'weeks');
     $scope.days = $scope.getWeekdays(day);
+    populateEntries()
   };
 
   $scope.uiTasks = [];
@@ -321,6 +327,7 @@ angular.module('hoursApp')
   var entryDeleted = function(response){
     var userId = $scope.selectedUser.id;
     notificationService.success('Your entry has successfully been deleted.');
+    stickyNote.style.display = "None";
     loadEntries(userId);
     loadTasks();
   };
