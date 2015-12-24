@@ -10,7 +10,7 @@
 angular.module('hoursApp')
   .controller('AddentryCtrl', function ($scope, $location, $rootScope, notificationService, entryService) {
       $scope.saveButtonText = 'Save';
-
+      $(".app, body").css("background", "#eee");
       $scope.entry = {
         id: null,
         user: $rootScope.CurrentUser.id,
@@ -39,7 +39,7 @@ angular.module('hoursApp')
       };
 
       var init = function(){
-        duplicateCopyEntryDefaults();  
+        duplicateCopyEntryDefaults();
 
         $scope.loaded = true;
         $scope.entry.day = new moment($scope.entry.day).format('YYYY-MM-DD');
@@ -50,14 +50,14 @@ angular.module('hoursApp')
         //Check if a copy flag has been set
         if(entryService.Copy()){
           var selectedEntry = entryService.GetSelectedEntry();
-          $scope.entry.comments = selectedEntry.comments;          
+          $scope.entry.comments = selectedEntry.comments;
           $scope.entry.overtime = selectedEntry.overtime;
           $scope.entry.hours = selectedEntry.hours;
           $scope.task = {
             project : selectedEntry.project_id,
             id : selectedEntry.project_task_id
           };
-        } 
+        }
       }
 
       var setEntryTask = function(task) {
@@ -76,7 +76,7 @@ angular.module('hoursApp')
           defaultTask = $scope.task;
         }else{
           var defaultTask = $scope.task = tasks[0];
-        }        
+        }
         setEntryTask(defaultTask);
         //Unset the copy flag
         entryService.SetCopy(false);

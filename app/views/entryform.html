@@ -1,5 +1,7 @@
+<br/><br/>
+
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8 col-md-offset-2">
         <form role="form"  name="entryform" ng-submit="Submit()" class="form-horizontal">
             <div ng-show="errorOccured">
                 <div class="alert alert-danger">{{ errorMessage }}</div>
@@ -59,13 +61,13 @@
             </div>
 
             <div class="form-group">
-                <div class="col-sm-12 col-xs-12">
+                <div class="col-md-10 col-md-offset-2 col-sm-12 col-xs-12">
                     <button type="submit" ng-disabled="entryform.$invalid" class="btn btn-primary mobile-btn">{{ saveButtonText }}</button>
                 </div>
             </div>
         </form>
     </div>
-    <div class="col-md-4 col-sm-12 col-xs-12">
+    <div class="col-md-4 col-sm-12 col-xs-12" ng-show="false">
         <p><a class="btn btn-primary disabled mobile-btn"><i class="fa fa-github"></i> Load from GitHub</a></p>
         <p><a class="btn btn-primary disabled mobile-btn">Load from Pivotal</a></p>
     </div>
