@@ -11,8 +11,8 @@ angular.module('hoursApp')
   .controller('UserProfileCtrl', function ($scope, $location, $rootScope, $window, projectService) {
     $scope.currentUser = $rootScope.CurrentUser;
     $scope.accessToken = $window.localStorage.getItem('AccessToken');
+    $(".app, body").css("background", "#eee");
     $scope.projects = [];
-    $(".app, body").css("background", "#414a51");
     var init = function(){
       $scope.loaded = true;
       getProjects();
