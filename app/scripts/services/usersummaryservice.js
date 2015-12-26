@@ -25,20 +25,23 @@ angular.module('hoursApp')
             }
             return deferred.promise;
             */
+            if(id){
+                return $http.get(HOURSSERVICE_BASE_URI + '/api/v1/usersummary/' + id + '/')
+                    .then(function(response) {
+                        if (typeof response.data === 'object') {
+                            return response.data;
+                        } else {
+                            // invalid response
+                            return $q.reject(response.data);
+                        }
 
-            return $http.get(HOURSSERVICE_BASE_URI + '/api/v1/usersummary/' + id + '/')
-                .then(function(response) {
-                    if (typeof response.data === 'object') {
-                        return response.data;
-                    } else {
-                        // invalid response
-                        return $q.reject(response.data);
-                    }
-
-                }, function(response) {
-                    // something went wrong
-                    return $q.reject(response.statusText + ' ' + response.status);
-                });
+                    }, function(response) {
+                        // something went wrong
+                        return $q.reject(response.statusText + ' ' + response.status);
+                    });
+            }else{
+                return $q.reject("Please provide a user id");
+            }
         };
 
         return api;
