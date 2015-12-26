@@ -43,7 +43,6 @@ module.exports = function(config) {
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/moment/moment.js',
       'bower_components/underscore/underscore.js',
-      'bower_components/jquery.easy-pie-chart/dist/angular.easypiechart.js',
       'bower_components/sifter/sifter.js',
       'bower_components/microplugin/src/microplugin.js',
       'bower_components/selectize/dist/js/selectize.js',

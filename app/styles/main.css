@@ -3,16 +3,16 @@
 
 body {
     padding-top:60px;
-    background: #414a51;
+    background: #eee;
 }
 
 .app-container{
   min-height: 300px;
-  background: url('/images/preloader.gif') center center no-repeat;
+  background: url('../images/preloader.gif') center center no-repeat;
 }
 
 .app{
-    background-color: #414a51;
+    background-color: #eee;
     min-height: 300px;
 }
 
@@ -488,6 +488,11 @@ textarea.note:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
   background: #fff;
 }
 
+.stat-box{
+    -webkit-animation-duration: 2.0s;
+    -webkit-animation-delay: 0.5;
+}
+
 .stat-box, .stat-box-major {
   background: #fff;
   padding: 20px;
@@ -520,6 +525,16 @@ textarea.note:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
 
 .stat-box .progress-bar {
   background: #fff
+}
+
+.stat-box img{
+    width:100%
+}
+
+.stat-box .heading{
+    margin: 5px 0;
+    color:#fff;
+    font-weight:bold
 }
 
 nav a {

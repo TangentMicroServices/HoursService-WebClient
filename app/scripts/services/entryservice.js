@@ -76,10 +76,6 @@ angular.module('hoursApp')
     return jsonService.Get(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {});
   };
 
-  api.GetUserSummary = function(id){
-    return jsonService.Get(HOURSSERVICE_BASE_URI, "/api/v1/usersummary/" + id + "/", {});
-  };
-
   api.Delete = function(id){
     return jsonService.Delete(HOURSSERVICE_BASE_URI, entryUrl + id + "/", {});
   };
