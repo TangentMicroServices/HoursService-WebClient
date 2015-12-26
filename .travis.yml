@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- '0.10'
+addons:
+  code_climate:
+    repo_token: d576bd8752ef8ee8594b648b92ceb664e4591af3edde9f85a72755b96b4a7168
+before_script:
+- npm install -g bower grunt-cli
+- bower install
+after_script:
+- cat coverage/**/lcov.info | codeclimate
+notifications:
+  hipchat:
+    rooms:
+      secure: cB4bMfiAc8JAqpyaZKDClkbTBmSu+0EYZanYxGBXKHzEcgEUFnqnJ9OI62rs5irJVltUSDeqXmK6fIU0tyW3LF0VD5YdMBCGH20t/z3FR1KG5eUqi8jytc0KJLDcYFjanYbkpV9u/0UCou54xSA6ddtLV9/lSOVjp/OXOSGi6+s=
