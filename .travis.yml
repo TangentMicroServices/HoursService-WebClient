@@ -3,7 +3,7 @@ node_js:
 - '0.10'
 addons:
   code_climate:
-    repo_token: d576bd8752ef8ee8594b648b92ceb664e4591af3edde9f85a72755b96b4a7168
+    repo_token: c14bc3ea81f4e512fd0cc2d729e2aa1fc71cc021
 before_script:
 - npm install -g bower grunt-cli
 - bower install
@@ -12,4 +12,7 @@ after_script:
 notifications:
   hipchat:
     rooms:
-      secure: cB4bMfiAc8JAqpyaZKDClkbTBmSu+0EYZanYxGBXKHzEcgEUFnqnJ9OI62rs5irJVltUSDeqXmK6fIU0tyW3LF0VD5YdMBCGH20t/z3FR1KG5eUqi8jytc0KJLDcYFjanYbkpV9u/0UCou54xSA6ddtLV9/lSOVjp/OXOSGi6+s=
+      - 22b439587ecbe4ca1bbce874fd88f8@873614
+    template:
+      - '%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message} (<a href="%{build_url}">Details</a>/<a href="%{compare_url}">Change view</a>)'
+    format: html
