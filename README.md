@@ -24,4 +24,3 @@ Duplicate `/app/scripts/localsettings.js.example` and rename to `localsettings.j
 1. Run Tests
 
     npm test
-
