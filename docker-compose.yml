@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+  web:
+    restart: on-failure:10
+    build: .
+    command: npm start
+    volumes:
+      - .:/code
+#    ports:
+#      - "${APP_PORT}:9001"
+  nginx:
+    image: nginx:stable
+    volumes: 
+      - ./dist:/usr/share/nginx/html
+    ports:
+      - "${APP_PORT}:80"
